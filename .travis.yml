@@ -1,0 +1,22 @@
+language: node_js
+
+node_js: "0.10"
+
+services: mongodb
+
+cache:
+    directories:
+        - ~/.meteor
+
+before_install:
+    # install meteor
+    - "curl https://install.meteor.com | /bin/sh"
+    # install velocity ci
+    - "npm install velocity-ci"
+    # setup Meteor app
+    - "cd WaiterFree"
+    # Optionally we can update all our dependencies here
+    # - "meteor update"
+script:
+    # Test
+    - "bash scripts/test.sh"
