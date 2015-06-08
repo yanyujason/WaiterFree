@@ -13,8 +13,6 @@ cache:
 before_install:
     # install meteor
     - "curl https://install.meteor.com | /bin/sh"
-    # install velocity ci
-    - "npm install velocity-ci"
 script:
     # Test
     - "bash scripts/ci-test.sh"
