@@ -17,5 +17,6 @@ script:
     # Test
     - "bash scripts/ci-test.sh"
 after_success:
-    # Deploy Staging
-    - "meteor deploy waiter-free.meteor.com"
+    # Deploy Staging.
+    # Oops, Doesn't work for now...
+    # - "meteor deploy waiter-free.meteor.com"
