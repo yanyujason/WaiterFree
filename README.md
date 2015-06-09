@@ -23,3 +23,11 @@ An Meteor based realtime web application to shorten the order process in restaur
             sudo mkdir -p /data/db
             sudo chmod 0755 /data/db
             sudo chown {userName}:staff /data/db
+
+### Run tests
+
+        meteor --test
+
+### Start app
+
+        meteor

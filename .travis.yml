@@ -16,3 +16,5 @@ before_install:
 script:
     # Test
     - "bash scripts/ci-test.sh"
+    # Deploy Staging
+    - "meteor deploy waiter-free.meteor.com"
