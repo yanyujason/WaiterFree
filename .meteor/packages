@@ -9,3 +9,4 @@ insecure
 sanjo:jasmine
 velocity:console-reporter
 less
+grigio:babel
