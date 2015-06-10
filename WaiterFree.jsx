@@ -3,7 +3,7 @@ if (Meteor.isClient) {
   Session.setDefault('counter', 0);
 
   Template.hello.helpers({
-    counter: function () {
+    counter() {
       return Session.get('counter');
     }
   });

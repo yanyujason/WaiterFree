@@ -8,3 +8,4 @@ meteor-platform
 insecure
 sanjo:jasmine
 velocity:console-reporter
+grigio:babel
