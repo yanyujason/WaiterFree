@@ -11,12 +11,17 @@ cache:
         - ~/.meteor
 
 before_install:
+    # install expect
+    - "sudo apt-get install expect"
     # install meteor
     - "curl https://install.meteor.com | /bin/sh"
+env:
+    global:
+        - "METEOR_DEPLOY_URL=waiter-free.meteor.com"
 script:
     # Test
     - "bash scripts/ci-test.sh"
 after_success:
     # Deploy Staging.
-    # Oops, Doesn't work for now...
-    # - "meteor deploy waiter-free.meteor.com"
+    - "expect scripts/deploy.exp"
+    - "sleep 5" #Sleep is to make sure meteor is done deploying
