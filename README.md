@@ -4,6 +4,20 @@
 
 An Meteor based realtime web application to shorten the order process in restaurant.
 
+##Resources
+
+* Card wall
+
+        https://trello.com/b/MhxObC2y/waiterfree
+
+* CI
+
+        https://travis-ci.org/msk86/WaiterFree
+
+* Staging
+
+        http://waiter-free.meteor.com
+
 ##Development
 
 ### Environment(Mac OSX)
@@ -31,3 +45,9 @@ An Meteor based realtime web application to shorten the order process in restaur
 ### Start app
 
         meteor
+
+### Code style
+
+* JS file should be written in ES6 format, and extension with `.jsx`. (Except test, test should only be written in ES5, `babel` didn't apply on the test files)
+
+* Stylesheets is written by LESS, extension with `.less`.
