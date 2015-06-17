@@ -18,7 +18,6 @@ if (Meteor.users.find().count() == 0) {
         tags: ['中餐', '印度菜', '西餐', '土耳其菜'],
         tel: '029-88886686',
         status: 'open',
-        orders: [],
         tables: [],
         menu: {
             dishes: []

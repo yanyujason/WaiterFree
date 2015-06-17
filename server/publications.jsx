@@ -1,3 +1,3 @@
-Meteor.publish('votes', () => {
-    return Votes.find();
+Meteor.publish('myShops', (bossId) => {
+    return Shops.find({boss: bossId});
 });

@@ -1,0 +1,15 @@
+<template name="myShop">
+    <div>This is my shop: {{shop.name}}</div>
+    <div>Address: {{shop.address}}</div>
+    <div>Desc: {{shop.desc}}</div>
+    <div>Tel: {{shop.tel}}</div>
+    <div>
+        <div>Tag:</div>
+        {{#each shop.tags}}
+            <span>{{.}}</span>
+        {{/each}}
+    </div>
+    <div>
+        <div>Menu:</div>
+    </div>
+</template>
