@@ -10,3 +10,5 @@ sanjo:jasmine
 velocity:console-reporter
 less
 grigio:babel
+accounts-password
+iron:router
