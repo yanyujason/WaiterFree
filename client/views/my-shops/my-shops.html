@@ -1,0 +1,7 @@
+<template name="myShops">
+    <ul>
+        {{#each shops}}
+            <a href="{{pathFor route='myShop' shopId=this._id}}">{{name}}</a>
+        {{/each}}
+    </ul>
+</template>
