@@ -4,5 +4,8 @@ Template.myShop.helpers({
         return _.filter(dishes, (dish) => {
             return _.contains(dish.tags, tag);
         });
+    },
+    money(price) {
+        return `￥${price.toFixed(1)}`;
     }
 });

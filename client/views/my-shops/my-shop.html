@@ -18,7 +18,19 @@
                 <div>{{this}}</div>
                 <ul>
                     {{#each dishByTag this}}
-                    <li>{{name}}</li>
+                    <li>
+                        <div>{{name}}</div>
+                        <div><img src="{{img}}" width="200" height="160"/></div>
+                        <div>{{desc}}</div>
+                        <div>{{money price}}</div>
+                        {{#if options.length}}
+                        <ul>
+                            {{#each options}}
+                            <li>{{this}}</li>
+                            {{/each}}
+                        </ul>
+                        {{/if}}
+                    </li>
                     {{/each}}
                 </ul>
             </li>
