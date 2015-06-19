@@ -1,15 +1,29 @@
 <template name="myShop">
-    <div>This is my shop: {{shop.name}}</div>
-    <div>Address: {{shop.address}}</div>
-    <div>Desc: {{shop.desc}}</div>
-    <div>Tel: {{shop.tel}}</div>
+    {{#with shop}}
+    <div>This is my shop: {{name}}</div>
+    <div>Address: {{address}}</div>
+    <div>Desc: {{desc}}</div>
+    <div>Tel: {{tel}}</div>
     <div>
         <div>Tag:</div>
-        {{#each shop.tags}}
-            <span>{{.}}</span>
+        {{#each tags}}
+            <span>{{this}}</span>
         {{/each}}
     </div>
-    <div>
+    <section>
         <div>Menu:</div>
-    </div>
+        <ul>
+            {{#each menu.tagPriority}}
+            <li>
+                <div>{{this}}</div>
+                <ul>
+                    {{#each dishByTag this}}
+                    <li>{{name}}</li>
+                    {{/each}}
+                </ul>
+            </li>
+            {{/each}}
+        </ul>
+    </section>
+    {{/with}}
 </template>

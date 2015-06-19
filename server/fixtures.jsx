@@ -33,7 +33,8 @@ if (Meteor.users.find().count() == 0) {
                 price: 68,
                 tags: ['西餐', '热菜'],
                 options: ['三分', '五分', '七分', '全熟']
-            }]
+            }],
+            tagPriority: ['中餐', '西餐', '热菜']
         },
         boss: bossId,
         clerks: []
