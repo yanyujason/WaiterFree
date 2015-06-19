@@ -28,7 +28,7 @@ if (Meteor.users.find().count() == 0) {
 
     Meteor.users.update(bossId, {
         $push: {
-            'profile.shops': Shops.findOne(shopId)
+            'profile.shops': shopId
         }
     });
 }
