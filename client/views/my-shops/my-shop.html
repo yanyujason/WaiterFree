@@ -4,51 +4,18 @@
     <div>Address: {{address}}</div>
     <div>Desc: {{desc}}</div>
     <div>Tel: {{tel}}</div>
-    <div>
+    <section>
         <div>Tag:</div>
         {{#each tags}}
-            <span>{{this}}</span>
+        <span>{{this}}</span>
         {{/each}}
-    </div>
-    <div>
+    </section>
+    <section>
         <div>Table:</div>
         {{#each tables}}
-            <span>{{this}}</span>
+        <span>{{this}}</span>
         {{/each}}
-    </div>
-    <section>
-        <div>Menu:</div>
-        <ul>
-            {{#each menu.tagPriority}}
-            <li>
-                <div>{{this}}</div>
-                <ul>
-                    {{#each dishByTag this}}
-                    <li>
-                        <div>{{name}}</div>
-                        <div><img src="{{img}}" width="200" height="160"/></div>
-                        <div>{{desc}}</div>
-                        <div>{{money price}}</div>
-                        {{#if options.length}}
-                        <ul>
-                            {{#each options}}
-                            <li>
-                                <div>{{name}}</div>
-                                <ul>
-                                    {{#each values}}
-                                    <li><span>{{name}}</span><span>{{money price}}</span></li>
-                                    {{/each}}
-                                </ul>
-                            </li>
-                            {{/each}}
-                        </ul>
-                        {{/if}}
-                    </li>
-                    {{/each}}
-                </ul>
-            </li>
-            {{/each}}
-        </ul>
     </section>
+    {{> menu }}
     {{/with}}
 </template>

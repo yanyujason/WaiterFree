@@ -1,0 +1,15 @@
+<template name="dish">
+    <li>
+        <div>{{name}}</div>
+        <div><img src="{{img}}" width="200" height="160"/></div>
+        <div>{{desc}}</div>
+        <div>{{money price}}</div>
+        {{#if options.length}}
+        <ul>
+            {{#each options}}
+            {{> dishOption }}
+            {{/each}}
+        </ul>
+        {{/if}}
+    </li>
+</template>

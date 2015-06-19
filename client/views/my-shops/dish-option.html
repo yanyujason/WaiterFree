@@ -1,0 +1,10 @@
+<template name="dishOption">
+    <li>
+        <div>{{name}}</div>
+        <ul>
+            {{#each values}}
+            <li><span>{{name}}</span><span>{{money price}}</span></li>
+            {{/each}}
+        </ul>
+    </li>
+</template>
