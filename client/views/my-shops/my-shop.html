@@ -10,6 +10,12 @@
             <span>{{this}}</span>
         {{/each}}
     </div>
+    <div>
+        <div>Table:</div>
+        {{#each tables}}
+            <span>{{this}}</span>
+        {{/each}}
+    </div>
     <section>
         <div>Menu:</div>
         <ul>
@@ -26,7 +32,14 @@
                         {{#if options.length}}
                         <ul>
                             {{#each options}}
-                            <li>{{this}}</li>
+                            <li>
+                                <div>{{name}}</div>
+                                <ul>
+                                    {{#each values}}
+                                    <li><span>{{name}}</span><span>{{money price}}</span></li>
+                                    {{/each}}
+                                </ul>
+                            </li>
                             {{/each}}
                         </ul>
                         {{/if}}

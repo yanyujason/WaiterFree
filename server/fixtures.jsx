@@ -33,7 +33,10 @@ if (Meteor.users.find().count() == 0) {
                 desc: '使用古老而神秘的西方魔法烹制而成，食用后可恢复法力150点。',
                 price: 68,
                 tags: ['西餐', '热菜'],
-                options: ['三分', '五分', '七分', '全熟']
+                options: [{
+                    name: '几分熟',
+                    values: [{name: '三分', price: 0}, {name: '五分', price: 0}, {name: '七分', price: 0}, {name: '全熟', price: 0}]
+                }]
             }],
             tagPriority: ['中餐', '西餐', '热菜']
         },

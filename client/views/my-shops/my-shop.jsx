@@ -6,6 +6,6 @@ Template.myShop.helpers({
         });
     },
     money(price) {
-        return `￥${price.toFixed(1)}`;
+        return price ? `￥${price.toFixed(1)}` : '';
     }
 });
