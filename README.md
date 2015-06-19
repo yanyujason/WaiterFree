@@ -46,6 +46,10 @@ An Meteor based realtime web application to shorten the order process in restaur
 
         meteor
 
+### Inject fixture data
+
+        meteor reset /* Reset the database so the fixture data can be injected to database */
+
 ### Code style
 
 * JS file should be written in ES6 format, and extension with `.jsx`. (Except test, test should only be written in ES5, `babel` didn't apply on the test files)
