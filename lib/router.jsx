@@ -14,11 +14,35 @@ Router.route('/my-shops', function() {
 Router.route('/my-shops/:shopId', function() {
     var shopId = this.params.shopId;
     Meteor.subscribe('myShop', shopId);
-    this.layout('layout');
+    this.layout('myShopLayout',{
+        data: {shopId: shopId}
+    });
     this.render('myShop', {
         data: {shop: Shops.findOne({_id: shopId})}
     });
 }, {name: 'myShop'});
+
+Router.route('/my-shops/:shopId/details', function() {
+    var shopId = this.params.shopId;
+    Meteor.subscribe('myShop', shopId);
+    this.layout('myShopLayout', {
+        data: {shopId: shopId}
+    });
+    this.render('updateShopDetails', {
+        data: {shop: Shops.findOne({_id: shopId})}
+    });
+}, {name: 'updateShopDetails'});
+
+Router.route('/my-shops/:shopId/menu', function() {
+    var shopId = this.params.shopId;
+    Meteor.subscribe('myShop', shopId);
+    this.layout('myShopLayout', {
+        data: {shopId: shopId}
+    });
+    this.render('updateShopMenu', {
+        data: {shop: Shops.findOne({_id: shopId})}
+    });
+}, {name: 'updateShopMenu'});
 
 
 

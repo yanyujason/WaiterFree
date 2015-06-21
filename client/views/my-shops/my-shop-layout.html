@@ -1,0 +1,14 @@
+<template name="myShopLayout">
+    <nav>
+        <a href="{{pathFor route='myShop' shopId=shopId}}">首页</a>
+        <a href="{{pathFor route='updateShopDetails' shopId=shopId}}">修改店铺信息</a>
+        <a href="{{pathFor route='updateShopMenu' shopId=shopId}}">管理菜单</a>
+        <a>管理桌台</a>
+        <a>管理店员</a>
+        <a>查看订单</a>
+    </nav>
+
+    <section>
+        {{> yield}}
+    </section>
+</template>
