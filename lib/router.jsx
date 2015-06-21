@@ -55,4 +55,10 @@ function loginFilter() {
         this.next();
     }
 }
+
+function clearErrorFilter() {
+    Errors.remove({});
+    this.next();
+}
+Router.onBeforeAction(clearErrorFilter);
 Router.onBeforeAction(loginFilter);

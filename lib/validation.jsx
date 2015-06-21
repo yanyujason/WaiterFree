@@ -7,14 +7,16 @@ Validator = (senario, validations) => {
 Validator.verify = (senario, valueSet) => {
     var validations = validators[senario];
 
-    var errors = _.compact(_.map(validations, (v, field) => {
-        return v.verify(valueSet[field]);
-    }));
+    var errors = _.filter(_.map(validations, (v, field) => {
+        return {field: field, error: v.verify(valueSet[field])};
+    }), (e) => {
+        return e.error;
+    });
 
     if(errors.length) {
         var ex = new Meteor.Error(`validation-${senario}`);
         ex.details = errors;
-        ex.reason = errors.join(', ');
+        ex.reason = _.map(errors, (e) => {return e.error;}).join(', ');
         throw ex;
     }
 };

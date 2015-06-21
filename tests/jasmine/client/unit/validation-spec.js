@@ -30,7 +30,7 @@ describe('Validation', function() {
         } catch(e) {
             expect(e.error).toEqual('validation-test-verify');
             expect(e.details.length).toEqual(1);
-            expect(e.details[0]).toEqual('FieldA不能为空');
+            expect(e.details[0]).toEqual({field: 'fieldA', error: 'FieldA不能为空'});
             expect(e.reason).toEqual('FieldA不能为空');
         }
     });
@@ -48,7 +48,7 @@ describe('Validation', function() {
         } catch(e) {
             expect(e.error).toEqual('validation-test-verify');
             expect(e.details.length).toEqual(1);
-            expect(e.details[0]).toEqual('FieldA should match ddd-dddd');
+            expect(e.details[0]).toEqual({field: 'fieldA', error: 'FieldA should match ddd-dddd'});
             expect(e.reason).toEqual('FieldA should match ddd-dddd');
         }
     });
@@ -68,13 +68,12 @@ describe('Validation', function() {
         } catch(e) {
             expect(e.error).toEqual('validation-test-verify');
             expect(e.details.length).toEqual(1);
-            expect(e.details[0]).toEqual('FieldA should contains more than 1 element');
+            expect(e.details[0]).toEqual({field: 'fieldA', error: 'FieldA should contains more than 1 element'});
             expect(e.reason).toEqual('FieldA should contains more than 1 element');
         }
     });
 
     it('throws class error for basic type', function() {
-        console.log(Rule);
         Validator('test-verify', {
             fieldA: new Validation('FieldA').attachRule(Rule.be(String))
         });
@@ -87,13 +86,12 @@ describe('Validation', function() {
         } catch(e) {
             expect(e.error).toEqual('validation-test-verify');
             expect(e.details.length).toEqual(1);
-            expect(e.details[0]).toEqual('FieldA类型错误');
+            expect(e.details[0]).toEqual({field: 'fieldA', error: 'FieldA类型错误'});
             expect(e.reason).toEqual('FieldA类型错误');
         }
     });
 
     it('throws class error for advanced type', function() {
-        console.log(Rule);
         Validator('test-verify', {
             fieldA: new Validation('FieldA').attachRule(Rule.be(Array))
         });
@@ -106,7 +104,7 @@ describe('Validation', function() {
         } catch(e) {
             expect(e.error).toEqual('validation-test-verify');
             expect(e.details.length).toEqual(1);
-            expect(e.details[0]).toEqual('FieldA类型错误');
+            expect(e.details[0]).toEqual({field: 'fieldA', error: 'FieldA类型错误'});
             expect(e.reason).toEqual('FieldA类型错误');
         }
     });
@@ -125,8 +123,8 @@ describe('Validation', function() {
         } catch(e) {
             expect(e.error).toEqual('validation-test-verify');
             expect(e.details.length).toEqual(2);
-            expect(e.details[0]).toEqual('FieldA不能为空');
-            expect(e.details[1]).toEqual('FieldB不能为空');
+            expect(e.details[0]).toEqual({field: 'fieldA', error: 'FieldA不能为空'});
+            expect(e.details[1]).toEqual({field: 'fieldB', error: 'FieldB不能为空'});
             expect(e.reason).toEqual('FieldA不能为空, FieldB不能为空');
         }
     });
