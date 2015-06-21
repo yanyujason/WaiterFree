@@ -62,7 +62,11 @@ class RuleLocal {
     }
 
     check(value) {
-        return this.regex.test(value);
+        if(this.regex instanceof RegExp) {
+            return this.regex.test(value);
+        } else if(this.regex instanceof Function) {
+            return this.regex(value);
+        }
     }
 
     errorMessage(field) {
@@ -70,6 +74,23 @@ class RuleLocal {
     }
 }
 
+var patterns = [[String, 'string'], [Number, 'number'], [Boolean, "boolean"]];
+var getPattern = (clazz) => {
+    var p = _.find(patterns, (p) => {
+        return p[0] === clazz;
+    });
+    if(p) return p[1];
+};
+RuleLocal.be = (clazz) => {
+    return new RuleLocal((v) => {
+        var pattern = getPattern(clazz);
+        if(pattern) {
+            return typeof v === pattern;
+        } else {
+            return (v instanceof clazz);
+        }
+    }, '{{field}}类型错误');
+};
 RuleLocal.notEmpty = new RuleLocal(/.+/, '{{field}}不能为空');
 RuleLocal.telephone = new RuleLocal(/^(\d{3,4}-\d{7,8})|\d{11}$/, '{{field}}格式有误');
 

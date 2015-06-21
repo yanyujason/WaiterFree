@@ -53,6 +53,64 @@ describe('Validation', function() {
         }
     });
 
+    it('throws error base on functional rule', function() {
+        Validator('test-verify', {
+            fieldA: new Validation('FieldA').attachRule(new Rule(function(v) {
+                return (v instanceof Array) && v.length > 0;
+            }, '{{field}} should contains more than 1 element'))
+        });
+
+        try {
+            Validator.verify('test-verify', {
+                fieldA: []
+            });
+            expect('error').toBe('no error');
+        } catch(e) {
+            expect(e.error).toEqual('validation-test-verify');
+            expect(e.details.length).toEqual(1);
+            expect(e.details[0]).toEqual('FieldA should contains more than 1 element');
+            expect(e.reason).toEqual('FieldA should contains more than 1 element');
+        }
+    });
+
+    it('throws class error for basic type', function() {
+        console.log(Rule);
+        Validator('test-verify', {
+            fieldA: new Validation('FieldA').attachRule(Rule.be(String))
+        });
+
+        try {
+            Validator.verify('test-verify', {
+                fieldA: []
+            });
+            expect('error').toBe('no error');
+        } catch(e) {
+            expect(e.error).toEqual('validation-test-verify');
+            expect(e.details.length).toEqual(1);
+            expect(e.details[0]).toEqual('FieldA类型错误');
+            expect(e.reason).toEqual('FieldA类型错误');
+        }
+    });
+
+    it('throws class error for advanced type', function() {
+        console.log(Rule);
+        Validator('test-verify', {
+            fieldA: new Validation('FieldA').attachRule(Rule.be(Array))
+        });
+
+        try {
+            Validator.verify('test-verify', {
+                fieldA: ''
+            });
+            expect('error').toBe('no error');
+        } catch(e) {
+            expect(e.error).toEqual('validation-test-verify');
+            expect(e.details.length).toEqual(1);
+            expect(e.details[0]).toEqual('FieldA类型错误');
+            expect(e.reason).toEqual('FieldA类型错误');
+        }
+    });
+
     it('throws error base on multiple validations', function() {
         Validator('test-verify', {
             fieldA: new Validation('FieldA').attachRule(Rule.notEmpty),
