@@ -12,7 +12,7 @@ Template.updateShopDetails.events({
         };
 
         Meteor.call('shopDetailsUpdate', currentShopId, shopDetails, function(error, result) {
-            if (error) return alert(error.reason);
+            if (error) return throwError(error);
             Router.go('myShop', {shopId: currentShopId});
         });
     },
