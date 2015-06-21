@@ -31,6 +31,7 @@ describe('Validation', function() {
             expect(e.error).toEqual('validation-test-verify');
             expect(e.details.length).toEqual(1);
             expect(e.details[0]).toEqual('FieldA不能为空');
+            expect(e.reason).toEqual('FieldA不能为空');
         }
     });
 
@@ -45,10 +46,30 @@ describe('Validation', function() {
             });
             expect('error').toBe('no error');
         } catch(e) {
-            console.log(e);
             expect(e.error).toEqual('validation-test-verify');
             expect(e.details.length).toEqual(1);
             expect(e.details[0]).toEqual('FieldA should match ddd-dddd');
+            expect(e.reason).toEqual('FieldA should match ddd-dddd');
+        }
+    });
+
+    it('throws error base on multiple validations', function() {
+        Validator('test-verify', {
+            fieldA: new Validation('FieldA').attachRule(Rule.notEmpty),
+            fieldB: new Validation('FieldB').attachRule(Rule.notEmpty)
+        });
+
+        try {
+            Validator.verify('test-verify', {
+                fieldA: '', fieldB: ''
+            });
+            expect('error').toBe('no error');
+        } catch(e) {
+            expect(e.error).toEqual('validation-test-verify');
+            expect(e.details.length).toEqual(2);
+            expect(e.details[0]).toEqual('FieldA不能为空');
+            expect(e.details[1]).toEqual('FieldB不能为空');
+            expect(e.reason).toEqual('FieldA不能为空, FieldB不能为空');
         }
     });
 });

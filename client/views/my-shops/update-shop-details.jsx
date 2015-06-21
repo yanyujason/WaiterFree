@@ -11,12 +11,9 @@ Template.updateShopDetails.events({
             tags: $(e.target).find('[name=tags]').val().split(',').map((t)=>{return t.trim();})
         };
 
-        Shops.update(currentShopId, {$set: shopDetails}, function(error) {
-            if (error) {
-                alert(error.reason);
-            } else {
-                Router.go('myShop', {shopId: currentShopId});
-            }
+        Meteor.call('shopDetailsUpdate', currentShopId, shopDetails, function(error, result) {
+            if (error) return alert(error.reason);
+            Router.go('myShop', {shopId: currentShopId});
         });
     },
 

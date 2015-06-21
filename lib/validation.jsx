@@ -14,6 +14,16 @@ Validator.verify = (senario, valueSet) => {
     if(errors.length) {
         var ex = new Meteor.Error(`validation-${senario}`);
         ex.details = errors;
+        ex.reason = errors.join(', ');
+        throw ex;
+    }
+};
+
+Validator.verifyOwner = (isOwner) => {
+    if(!isOwner()) {
+        var ex = new Meteor.Error(`validation-owner`);
+        ex.details = ['权限校验错误'];
+        ex.reason = errors.join(', ');
         throw ex;
     }
 };
@@ -61,5 +71,6 @@ class RuleLocal {
 }
 
 RuleLocal.notEmpty = new RuleLocal(/.+/, '{{field}}不能为空');
+RuleLocal.telephone = new RuleLocal(/^(\d{3,4}-\d{7,8})|\d{11}$/, '{{field}}格式有误');
 
 Rule = RuleLocal;
