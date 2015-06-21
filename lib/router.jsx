@@ -18,7 +18,7 @@ Router.route('/my-shops/:shopId', function() {
         data: {shopId: shopId}
     });
     this.render('myShop', {
-        data: {shop: Shops.findOne({_id: shopId})}
+        data: Shops.findOne({_id: shopId})
     });
 }, {name: 'myShop'});
 
@@ -29,7 +29,7 @@ Router.route('/my-shops/:shopId/details', function() {
         data: {shopId: shopId}
     });
     this.render('updateShopDetails', {
-        data: {shop: Shops.findOne({_id: shopId})}
+        data: Shops.findOne({_id: shopId})
     });
 }, {name: 'updateShopDetails'});
 
@@ -40,7 +40,7 @@ Router.route('/my-shops/:shopId/menu', function() {
         data: {shopId: shopId}
     });
     this.render('updateShopMenu', {
-        data: {shop: Shops.findOne({_id: shopId})}
+        data: Shops.findOne({_id: shopId})
     });
 }, {name: 'updateShopMenu'});
 
