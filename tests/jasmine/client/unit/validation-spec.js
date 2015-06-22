@@ -182,6 +182,19 @@ describe('Validation', function() {
             });
         });
 
+        it('throw errors for undefined', function() {
+
+            try {
+                Validator.verify('test-verify', {});
+                expect('error').toBe('no error');
+            } catch(e) {
+                expect(e.error).toEqual('validation-test-verify');
+                expect(e.details.length).toEqual(1);
+                expect(e.details[0]).toEqual({field: 'fieldA', error: 'FieldA类型错误'});
+                expect(e.reason).toEqual('FieldA类型错误');
+            }
+        });
+
         it('allows empty []', function() {
             try {
                 Validator.verify('test-verify', {

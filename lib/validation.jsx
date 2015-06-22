@@ -48,11 +48,9 @@ class ValidationLocal {
     }
 
     verify(value) {
-        if(typeof value !== 'undefined') {
-            var failedRule = _.find(this.rules, (r) => { return !r.check(value)} );
-            if(failedRule) {
-                return failedRule.errorMessage(this.field);
-            }
+        var failedRule = _.find(this.rules, (r) => { return !r.check(value)} );
+        if(failedRule) {
+            return failedRule.errorMessage(this.field);
         }
     }
 }
@@ -89,12 +87,12 @@ RuleLocal.be = (clazz) => {
     var check = (v) => {
         var pattern = getPattern(clazz);
         if(pattern) {
-            return typeof v === pattern;
+            return typeof v === pattern || typeof v === 'undefined';
         } else if(clazz instanceof Array) {
             clazz = clazz[0];
             return v instanceof Array && _.all(v, (e) => {return check(e, clazz)});
         } else {
-            return (v instanceof clazz);
+            return (v instanceof clazz) || typeof v === 'undefined';
         }
     };
 
