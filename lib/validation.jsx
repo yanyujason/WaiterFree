@@ -48,9 +48,11 @@ class ValidationLocal {
     }
 
     verify(value) {
-        var failedRule = _.find(this.rules, (r) => { return !r.check(value)} );
-        if(failedRule) {
-            return failedRule.errorMessage(this.field);
+        if(typeof value !== 'undefined') {
+            var failedRule = _.find(this.rules, (r) => { return !r.check(value)} );
+            if(failedRule) {
+                return failedRule.errorMessage(this.field);
+            }
         }
     }
 }
@@ -84,14 +86,19 @@ var getPattern = (clazz) => {
     if(p) return p[1];
 };
 RuleLocal.be = (clazz) => {
-    return new RuleLocal((v) => {
+    var check = (v) => {
         var pattern = getPattern(clazz);
         if(pattern) {
             return typeof v === pattern;
+        } else if(clazz instanceof Array) {
+            clazz = clazz[0];
+            return v instanceof Array && _.all(v, (e) => {return check(e, clazz)});
         } else {
             return (v instanceof clazz);
         }
-    }, '{{field}}类型错误');
+    };
+
+    return new RuleLocal(check, '{{field}}类型错误');
 };
 RuleLocal.notEmpty = new RuleLocal(/.+/, '{{field}}不能为空');
 RuleLocal.telephone = new RuleLocal(/^(\d{3,4}-\d{7,8})|\d{11}$/, '{{field}}格式有误');
