@@ -23,8 +23,15 @@
         <div class="container">
             <div class="flex-3-1-layout">
                 <div class="flex-3">
-                    <h2 class="section-title">菜品信息</h2>
+                    <h2 class="section-title clearfix">菜品信息<a class="new-dish" href="#">添加菜品</a></h2>
                     <div class="all-dishes">
+                        <div class="categories">
+                            <a href="" class="category active">所有</a>
+                            <a href="" class="category">中餐</a>
+                            <a href="" class="category">西餐</a>
+                            <a href="" class="category">凉菜</a>
+                            <a href="" class="category">特价菜</a>
+                        </div>
                         <ul>
                             <li class="dish-box">
                                 <div class="dish-img">
@@ -68,6 +75,7 @@
                             </li>
 
                         </ul>
+                        {{> yield}}
                     </div>
                 </div>
                 <div class="flex-1">
@@ -90,6 +98,6 @@
             </div>
         </div>
         
-        {{> yield}}
+        
     </section>
 </template>
