@@ -1,14 +1,95 @@
 <template name="myShopLayout">
-    <nav>
-        <a href="{{pathFor route='myShop' shopId=shopId}}">首页</a>
-        <a href="{{pathFor route='updateShopDetails' shopId=shopId}}">修改店铺信息</a>
-        <a href="{{pathFor route='updateShopMenu' shopId=shopId}}">管理菜单</a>
-        <a>管理桌台</a>
-        <a>管理店员</a>
-        <a>查看订单</a>
-    </nav>
+    <header>
+        <div class="container">
+            <h1><a class="logo" href="/">WaiterFree</a></h1>
+        </div>
+    </header>
+    <div class="navigation-wrapper">
+        <div class="container">
+            <a class="logo-shop" href="{{pathFor route='myShop' shopId=shopId}}">{{name}}黄闷鸡</a>
+            <nav class="nav">
+                <ul class="clearfix">
+                    <li><a href="{{pathFor route='updateShopDetails' shopId=shopId}}">修改店铺信息</a></li>
+                    <li><a href="{{pathFor route='updateShopMenu' shopId=shopId}}">管理菜单</a></li>
+                    <li><a href="">管理桌台</a></li>
+                    <li><a href="">管理店员</a></li>
+                    <li><a href="">查看订单</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
 
     <section>
+        <div class="container">
+            <div class="flex-3-1-layout">
+                <div class="flex-3">
+                    <h2 class="section-title">菜品信息</h2>
+                    <div class="all-dishes">
+                        <ul>
+                            <li class="dish-box">
+                                <div class="dish-img">
+                                    <img src="/images/cai1.jpg" alt="">
+                                    <div class="dish-desc">this is a descrption</div>
+                                </div>
+                                <div class="dish-info">
+                                    <span class="dish-name">宫保鸡丁</span>
+                                    <span class="dish-price">￥16</span>
+                                </div>
+                                <div class="actions">
+                                    <a href="">修改</a>
+                                    <a href="">删除</a>
+                                </div>
+                            </li>
+                            <li class="dish-box">
+                                <div class="dish-img">
+                                    <img src="/images/cai2.jpg" alt="">
+                                </div>
+                                <div class="dish-info">
+                                    <span class="dish-name">红烧肉</span>
+                                    <span class="dish-price">￥26</span>
+                                </div>
+                                <div class="actions">
+                                    <a href="">修改</a>
+                                    <a href="">删除</a>
+                                </div>
+                            </li>
+                            <li class="dish-box">
+                                <div class="dish-img">
+                                    <img src="/images/cai3.jpg" alt="">
+                                </div>
+                                <div class="dish-info">
+                                    <span class="dish-name">辣子鸡丁</span>
+                                    <span class="dish-price">￥24</span>
+                                </div>
+                                <div class="actions">
+                                    <a href="">修改</a>
+                                    <a href="">删除</a>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <h2 class="section-title">店铺信息</h2>
+                    <table>
+                        <tr>
+                            <td><span class="icon-phone"></span></td>
+                            <td>18777777777</td>
+                        </tr>
+                        <tr>
+                            <td><span class="icon-address-book"></span></td>
+                            <td>锦业一路软件园H座16层</td>
+                        </tr>
+                        <tr>
+                            <td><span class="icon-hammer"></span></td>
+                            <td>中餐 印度菜 西餐</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
         {{> yield}}
     </section>
 </template>

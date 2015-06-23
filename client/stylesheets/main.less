@@ -1,8 +1,71 @@
-body {
-	color: white;
-	background: url("images/12.jpg") center no-repeat;
-	h1 {
-		color: white;
-		font-size: 50px;
+.clearfix:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+.container {
+	width: 80%;
+	min-width: 768px;
+	max-width: 1500px;
+	margin: 0 auto;
+}
+.flex-3-1-layout {
+	display: flex;
+	width: 100%;
+	.section-title {
+		border-bottom: 1px solid #ccc;
+		font-size: 1.2em;
+		padding-bottom: 10px;
+		margin-bottom: 2%;
+	}
+	.flex-3 {
+		flex: 3;
+		margin-right: 3%;
+	}
+	.flex-1 {
+		flex: 1;
+	}
+}
+.dish-box {
+	float: left;
+	width: 32%;
+	margin-right: 2%;
+	&:nth-child(3n+3) {
+		margin-right: 0;
+	}
+	.dish-img {
+		position: relative;
+		overflow: hidden;
+		img {
+			width: 100%;
+		}
+		.dish-desc {
+			position: absolute;
+			width: 96%;
+			transition: all .5s ease;			
+			bottom: -44px;
+			max-height: 44px;
+			background-color: rgba(0, 0, 0, 0.7);
+			color: white;
+			padding: 6px 2%;
+			z-index: -1;
+		}
+		&:hover {
+			.dish-desc {
+				bottom: 0;
+				z-index: 1;
+			}			
+		}
+	}
+
+	.dish-info {
+		float: left;
+	}
+	.actions {
+		float: right;
+		a {
+			font-size: 0.8em;
+			color: #666;
+		}
 	}
 }

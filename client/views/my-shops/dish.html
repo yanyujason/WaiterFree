@@ -1,19 +1,28 @@
 <template name="dish">
-    <li>
-        <div>{{name}}</div>
-        <div><img src="{{img}}" width="200" height="160"/></div>
-        <div>{{desc}}</div>
-        <div>{{money price}}</div>
+    <li class="dish-box">
+        <div class="dish-img">
+            <img src="{{img}}"/>
+            <div class="dish-desc">{{desc}}</div>
+        </div>
+        
+        <div class="dish-info">
+            <div class="dish-name">{{name}}</div>
+            <div class="dish-price">{{money price}}</div>
+        </div>
+
+        <div class="actions">
+            <a class="update-dish" href="#">修改</a>
+            <a class="delete-dish" href="#">删除</a>
+        </div>  
+
         {{#if options.length}}
         <ul>
             {{#each options}}
             {{> dishOption }}
             {{/each}}
         </ul>
-        {{/if}}
-        <div>
-            <a class="update-dish" href="#">修改</a>
-            <a class="delete-dish" href="#">删除</a>
-        </div>
+
+        {{/if}}    
+
     </li>
 </template>
