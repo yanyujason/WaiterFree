@@ -1,16 +1,4 @@
 <template name="updateShopMenu">
     <section>
-        <ul>
-            {{#each menu.tagPriority}}
-            <li>
-                <div>{{this}}</div>
-                <ul>
-                    {{#each dishByTag this}}
-                    {{> dish }}
-                    {{/each}}
-                </ul>
-            </li>
-            {{/each}}
-        </ul>
     </section>
 </template>
