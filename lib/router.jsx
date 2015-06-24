@@ -1,6 +1,6 @@
-Router.plugin('loading', {loadingTemplate: 'loading'})
+Router.plugin('loading', {loadingTemplate: 'loading'});
+
 Router.route('/my-shops', function() {
-    Meteor.subscribe('myShops');
     this.layout('layout');
 
     if(Shops.find().count() === 1) {
@@ -10,44 +10,51 @@ Router.route('/my-shops', function() {
             data: {shops: Shops.find()}
         });
     }
-}, {name: 'myShops'});
+}, {
+    name: 'myShops',
+    waitOn: function() {
+        return Meteor.subscribe('myShops');
+    }
+});
 
 Router.route('/my-shops/:shopId', function() {
-    var shopId = this.params.shopId;
-    this.layout('myShopLayout',{
-        data: Shops.findOne({_id: shopId})
-    });
-    this.render('myShop', {
-        data: Shops.findOne({_id: shopId})
-    });
+    var dataContext = {
+        data: Shops.findOne({_id: this.params.shopId})
+    };
+    this.layout('myShopLayout', dataContext);
+    this.render('myShop', dataContext);
 }, {
     name: 'myShop',
-    waitOn:function() {
+    waitOn: function() {
         return Meteor.subscribe('myShop', this.params.shopId);
     }
 });
 
 Router.route('/my-shops/:shopId/details', function() {
-    var shopId = this.params.shopId;
-    Meteor.subscribe('myShop', shopId);
-    this.layout('myShopLayout', {
-        data: Shops.findOne({_id: shopId})
-    });
-    this.render('updateShopDetails', {
-        data: Shops.findOne({_id: shopId})
-    });
-}, {name: 'updateShopDetails'});
+    var dataContext = {
+        data: Shops.findOne({_id: this.params.shopId})
+    };
+    this.layout('myShopLayout', dataContext);
+    this.render('updateShopDetails', dataContext);
+}, {
+    name: 'updateShopDetails',
+    waitOn: function() {
+        return Meteor.subscribe('myShop', this.params.shopId);
+    }
+});
 
 Router.route('/my-shops/:shopId/menu', function() {
-    var shopId = this.params.shopId;
-    Meteor.subscribe('myShop', shopId);
-    this.layout('myShopLayout', {
-        data: Shops.findOne({_id: shopId})
-    });
-    this.render('updateShopMenu', {
-        data: Shops.findOne({_id: shopId})
-    });
-}, {name: 'updateShopMenu'});
+    var dataContext = {
+        data: Shops.findOne({_id: this.params.shopId})
+    };
+    this.layout('myShopLayout', dataContext);
+    this.render('updateShopMenu', dataContext);
+}, {
+    name: 'updateShopMenu',
+    waitOn: function() {
+        return Meteor.subscribe('myShop', this.params.shopId);
+    }
+});
 
 
 

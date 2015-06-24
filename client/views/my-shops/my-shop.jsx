@@ -3,21 +3,15 @@ function moneyFormatter(price) {
 }
 
 Template.myShop.helpers({
-    dishByTag(tag) {
-        var dishes = Template.instance().data.menu.dishes;
+    categoryDishes(dishes) {
+        var tag = Session.get('dishCategory');
+        if (!tag) return dishes;
         return _.filter(dishes, (dish) => {
             return _.contains(dish.tags, tag);
         });
     },
-    categoryDishes(menu) {
-    	var tag = Session.get('dishCategory');
-    	if(!tag) return menu.dishes;
-    	return _.filter(menu.dishes, (dish) => {
-            return _.contains(dish.tags, tag);
-        });
-    },
     activeCategory(tag) {
-    	return tag == Session.get('dishCategory') ? 'active' : '';
+        return tag == Session.get('dishCategory') ? 'active' : '';
     }
 });
 
@@ -30,8 +24,8 @@ Template.dishOption.helpers({
 });
 
 Template.myShop.events({
-	'click .category': function(e) {
-		var tag = $(e.target).data('category');
-		Session.set('dishCategory', tag);
-	}
+    'click .category': function (e) {
+        var tag = $(e.target).data('category');
+        Session.set('dishCategory', tag);
+    }
 });
