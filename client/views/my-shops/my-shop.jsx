@@ -10,7 +10,7 @@ Template.myShop.helpers({
             return _.contains(dish.tags, tag);
         });
     },
-    activeCategory(tag) {
+    activeCategoryClass(tag) {
         return tag == Session.get('dishCategory') ? 'active' : '';
     }
 });

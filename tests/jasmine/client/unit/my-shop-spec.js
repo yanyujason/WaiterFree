@@ -25,14 +25,14 @@ describe('myShop', function () {
             });
         });
 
-        describe('activeCategory', function () {
+        describe('activeCategoryClass', function () {
             it('returns "active" class when tag is current tag', function () {
                 Session.set('dishCategory', 'activeTag');
-                expect(callHelper(Template.myShop, 'activeCategory', {}, ['activeTag'])).toBe('active');
+                expect(callHelper(Template.myShop, 'activeCategoryClass', {}, ['activeTag'])).toBe('active');
             });
             it('returns "" class when tag is not current tag', function () {
                 Session.set('dishCategory', 'activeTag');
-                expect(callHelper(Template.myShop, 'activeCategory', {}, ['otherTag'])).toBe('');
+                expect(callHelper(Template.myShop, 'activeCategoryClass', {}, ['otherTag'])).toBe('');
             });
         });
     });
