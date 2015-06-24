@@ -9,7 +9,6 @@ if (Meteor.users.find().count() == 0) {
             type: 'boss',
             shops: []
         }
-
     });
     var shopId = Shops.insert({
         name: '美食天下',
