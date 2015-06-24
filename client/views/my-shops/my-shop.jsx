@@ -15,17 +15,17 @@ Template.myShop.helpers({
     }
 });
 
+Template.myShop.events({
+    'click .category': function (e) {
+        var tag = $(e.target).data('category');
+        Session.set('dishCategory', tag);
+    }
+});
+
 Template.dish.helpers({
     money: moneyFormatter
 });
 
 Template.dishOption.helpers({
     money: moneyFormatter
-});
-
-Template.myShop.events({
-    'click .category': function (e) {
-        var tag = $(e.target).data('category');
-        Session.set('dishCategory', tag);
-    }
 });
