@@ -22,7 +22,7 @@ if (process.env.IS_MIRROR) {
                 tables: [1, 2],
                 menu: {
                     dishes: [{
-                        name: 'Rich',
+                        name: 'Rice',
                         img: '',
                         desc: 'HP+1',
                         price: 0.5,
@@ -36,7 +36,7 @@ if (process.env.IS_MIRROR) {
                         tags: ['Chinese', 'Dish'],
                         options: []
                     }, {
-                        name: 'Meet',
+                        name: 'Meat',
                         img: '',
                         desc: 'HP+5',
                         price: 10,

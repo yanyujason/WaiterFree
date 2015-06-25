@@ -1,11 +1,10 @@
 Router.plugin('loading', {loadingTemplate: 'loading'});
 
 Router.route('/my-shops', function() {
-    this.layout('layout');
-
     if(Shops.find().count() === 1) {
         Router.go('myShop', {shopId : Shops.findOne()._id});
     } else {
+        this.layout('layout');
         this.render('myShops', {
             data: {shops: Shops.find()}
         });
