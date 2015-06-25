@@ -31,7 +31,7 @@ describe('Validation', function() {
             } catch(e) {
                 expect(e.error).toEqual('validation-test-verify');
                 expect(e.details.length).toEqual(1);
-                expect(e.details[0]).toEqual({field: 'fieldA', error: 'FieldA不能为空'});
+                expect(e.details[0]).toEqual({field: 'fieldA', value: '', error: 'FieldA不能为空'});
                 expect(e.reason).toEqual('FieldA不能为空');
             }
         });
@@ -49,7 +49,7 @@ describe('Validation', function() {
             } catch(e) {
                 expect(e.error).toEqual('validation-test-verify');
                 expect(e.details.length).toEqual(1);
-                expect(e.details[0]).toEqual({field: 'fieldA', error: 'FieldA should match ddd-dddd'});
+                expect(e.details[0]).toEqual({field: 'fieldA', value: '123-456', error: 'FieldA should match ddd-dddd'});
                 expect(e.reason).toEqual('FieldA should match ddd-dddd');
             }
         });
@@ -69,7 +69,7 @@ describe('Validation', function() {
             } catch(e) {
                 expect(e.error).toEqual('validation-test-verify');
                 expect(e.details.length).toEqual(1);
-                expect(e.details[0]).toEqual({field: 'fieldA', error: 'FieldA should contains more than 1 element'});
+                expect(e.details[0]).toEqual({field: 'fieldA', value: [], error: 'FieldA should contains more than 1 element'});
                 expect(e.reason).toEqual('FieldA should contains more than 1 element');
             }
         });
@@ -88,8 +88,8 @@ describe('Validation', function() {
             } catch(e) {
                 expect(e.error).toEqual('validation-test-verify');
                 expect(e.details.length).toEqual(2);
-                expect(e.details[0]).toEqual({field: 'fieldA', error: 'FieldA不能为空'});
-                expect(e.details[1]).toEqual({field: 'fieldB', error: 'FieldB不能为空'});
+                expect(e.details[0]).toEqual({field: 'fieldA', value: '', error: 'FieldA不能为空'});
+                expect(e.details[1]).toEqual({field: 'fieldB', value: '', error: 'FieldB不能为空'});
                 expect(e.reason).toEqual('FieldA不能为空, FieldB不能为空');
             }
         });
@@ -129,7 +129,7 @@ describe('Validation', function() {
             } catch(e) {
                 expect(e.error).toEqual('validation-test-verify');
                 expect(e.details.length).toEqual(1);
-                expect(e.details[0]).toEqual({field: 'fieldA', error: 'FieldA类型错误'});
+                expect(e.details[0]).toEqual({field: 'fieldA', value: 1, error: 'FieldA类型错误'});
                 expect(e.reason).toEqual('FieldA类型错误');
             }
         });
@@ -169,7 +169,7 @@ describe('Validation', function() {
             } catch(e) {
                 expect(e.error).toEqual('validation-test-verify');
                 expect(e.details.length).toEqual(1);
-                expect(e.details[0]).toEqual({field: 'fieldA', error: 'FieldA类型错误'});
+                expect(e.details[0]).toEqual({field: 'fieldA', value: 'not a date', error: 'FieldA类型错误'});
                 expect(e.reason).toEqual('FieldA类型错误');
             }
         });
@@ -190,7 +190,7 @@ describe('Validation', function() {
             } catch(e) {
                 expect(e.error).toEqual('validation-test-verify');
                 expect(e.details.length).toEqual(1);
-                expect(e.details[0]).toEqual({field: 'fieldA', error: 'FieldA类型错误'});
+                expect(e.details[0]).toEqual({field: 'fieldA', value: undefined, error: 'FieldA类型错误'});
                 expect(e.reason).toEqual('FieldA类型错误');
             }
         });
@@ -225,8 +225,22 @@ describe('Validation', function() {
             } catch(e) {
                 expect(e.error).toEqual('validation-test-verify');
                 expect(e.details.length).toEqual(1);
-                expect(e.details[0]).toEqual({field: 'fieldA', error: 'FieldA类型错误'});
+                expect(e.details[0]).toEqual({field: 'fieldA', value: [1], error: 'FieldA类型错误'});
                 expect(e.reason).toEqual('FieldA类型错误');
+            }
+        });
+
+
+        it('allows ["a"] and ["b"]', function() {
+            try {
+                Validator.verify('test-verify', {
+                    fieldA: ['a']
+                });
+                Validator.verify('test-verify', {
+                    fieldA: ['b']
+                });
+            } catch(e) {
+                expect('no error').toBe('error');
             }
         });
     });

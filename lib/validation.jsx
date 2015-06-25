@@ -8,7 +8,7 @@ Validator.verify = (senario, valueSet) => {
     var validations = validators[senario];
 
     var errors = _.filter(_.map(validations, (v, field) => {
-        return {field: field, error: v.verify(valueSet[field])};
+        return {field: field, value: valueSet[field], error: v.verify(valueSet[field])};
     }), (e) => {
         return e.error;
     });
@@ -84,7 +84,7 @@ var getPattern = (clazz) => {
     if(p) return p[1];
 };
 RuleLocal.be = (clazz) => {
-    var check = (v) => {
+    var check = (v, clazz) => {
         var pattern = getPattern(clazz);
         if(pattern) {
             return typeof v === pattern || typeof v === 'undefined';
@@ -96,7 +96,7 @@ RuleLocal.be = (clazz) => {
         }
     };
 
-    return new RuleLocal(check, '{{field}}类型错误');
+    return new RuleLocal((v) => {return check(v, clazz)} , '{{field}}类型错误');
 };
 RuleLocal.notEmpty = new RuleLocal(/.+/, '{{field}}不能为空');
 RuleLocal.telephone = new RuleLocal(/^(\d{3,4}-\d{7,8})|\d{11}$/, '{{field}}格式有误');
