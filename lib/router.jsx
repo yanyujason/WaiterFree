@@ -11,7 +11,7 @@ Router.route('/my-shops', function() {
     }
 }, {
     name: 'myShops',
-    waitOn: function() {
+    waitOn() {
         return Meteor.subscribe('myShops');
     }
 });
@@ -24,7 +24,7 @@ Router.route('/my-shops/:shopId', function() {
     this.render('myShop', dataContext);
 }, {
     name: 'myShop',
-    waitOn: function() {
+    waitOn() {
         return Meteor.subscribe('myShop', this.params.shopId);
     }
 });
@@ -37,7 +37,7 @@ Router.route('/my-shops/:shopId/details', function() {
     this.render('updateShopDetails', dataContext);
 }, {
     name: 'updateShopDetails',
-    waitOn: function() {
+    waitOn() {
         return Meteor.subscribe('myShop', this.params.shopId);
     }
 });
@@ -50,12 +50,23 @@ Router.route('/my-shops/:shopId/menu', function() {
     this.render('updateShopMenu', dataContext);
 }, {
     name: 'updateShopMenu',
-    waitOn: function() {
+    waitOn() {
         return Meteor.subscribe('myShop', this.params.shopId);
     }
 });
 
-
+Router.route('/my-shops/:shopId/dishes/add', function() {
+    var dataContext = {
+        data: Shops.findOne({_id: this.params.shopId})
+    };
+    this.layout('myShopLayout', dataContext);
+    this.render('newDish', dataContext);
+}, {
+    name: 'newDish',
+    waitOn() {
+        return Meteor.subscribe('myShop', this.params.shopId);
+    }
+});
 
 function loginFilter() {
     if(Meteor.userId()) {

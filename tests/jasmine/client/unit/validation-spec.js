@@ -95,6 +95,44 @@ describe('Validation', function() {
         });
     });
 
+    describe('build-in rules', function () {
+        it('verifies tel rule', function () {
+            Validator('test-verify', {
+                fieldA: new Validation('FieldA').attachRule(Rule.telephone)
+            });
+
+            try {
+                Validator.verify('test-verify', {
+                    fieldA: '123'
+                });
+                expect('error').toBe('no error');
+            } catch(e) {
+                expect(e.error).toEqual('validation-test-verify');
+                expect(e.details.length).toEqual(1);
+                expect(e.details[0]).toEqual({field: 'fieldA', value: '123', error: 'FieldA格式有误'});
+                expect(e.reason).toEqual('FieldA格式有误');
+            }
+        });
+
+        it('verifies positive number rule', function () {
+            Validator('test-verify', {
+                fieldA: new Validation('FieldA').attachRule(Rule.positiveNumber)
+            });
+
+            try {
+                Validator.verify('test-verify', {
+                    fieldA: 0
+                });
+                expect('error').toBe('no error');
+            } catch(e) {
+                expect(e.error).toEqual('validation-test-verify');
+                expect(e.details.length).toEqual(1);
+                expect(e.details[0]).toEqual({field: 'fieldA', value: 0, error: 'FieldA应为正数'});
+                expect(e.reason).toEqual('FieldA应为正数');
+            }
+        });
+    });
+
     describe('when verifying basic type(String)', function () {
         beforeEach(function () {
             Validator('test-verify', {

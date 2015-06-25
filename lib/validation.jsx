@@ -99,6 +99,7 @@ RuleLocal.be = (clazz) => {
     return new RuleLocal((v) => {return check(v, clazz)} , '{{field}}类型错误');
 };
 RuleLocal.notEmpty = new RuleLocal(/.+/, '{{field}}不能为空');
+RuleLocal.positiveNumber = new RuleLocal((v) => {return v > 0}, '{{field}}应为正数');
 RuleLocal.telephone = new RuleLocal(/^(\d{3,4}-\d{7,8})|\d{11}$/, '{{field}}格式有误');
 
 Rule = RuleLocal;

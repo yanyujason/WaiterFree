@@ -1,3 +1,6 @@
 .idea/
 .DS_Store
 **/.DS_Store
+
+tests/jasmine/server/unit/package-stubs.js
+tests/jasmine/server/unit/packageMocksSpec.js

@@ -8,17 +8,20 @@ Template.updateShopDetails.events({
             desc: $(e.target).find('[name=desc]').val(),
             address: $(e.target).find('[name=address]').val(),
             tel: $(e.target).find('[name=tel]').val(),
-            tags: $(e.target).find('[name=tags]').val().split(',').map((t)=>{return t.trim();})
+            tags: $(e.target).find('[name=tags]').val().split(',').map((t)=>{return t.trim();}).filter((t)=>{return t;})
         };
-
-        Meteor.call('shopDetailsUpdate', currentShopId, shopDetails, function(error, result) {
-            if (error) return throwError(error);
-            Router.go('myShop', {shopId: currentShopId});
-        });
+        Services.updateShopDetails(currentShopId, shopDetails);
     },
 
-    'click .cancel-update': function(e) {
+    'click .cancel': function(e) {
         e.preventDefault();
         Router.go('myShop', {shopId: this._id});
     }
 });
+
+Services.updateShopDetails = function(currentShopId, shopDetails) {
+    Meteor.call('shopDetailsUpdate', currentShopId, shopDetails, function(error, result) {
+        if (error) return throwError(error);
+        Router.go('myShop', {shopId: currentShopId});
+    });
+};
