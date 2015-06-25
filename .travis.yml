@@ -8,7 +8,7 @@ services: mongodb
 
 cache:
     directories:
-        - ~/.meteor
+        - ".meteor"
 
 before_install:
     # fire up xvfb on port :99.0
