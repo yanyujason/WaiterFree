@@ -20,6 +20,7 @@ Meteor.methods({
         Validator.verify('dish', dish);
 
         dish = _.pick(dish, 'name', 'img', 'price', 'desc', 'tags');
+        dish.tags = _.uniq(dish.tags);
         dish.createdAt = new Date();
 
         Shops.update(shopId, {
