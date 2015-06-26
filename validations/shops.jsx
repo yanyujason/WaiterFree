@@ -13,4 +13,3 @@ Validator('dish', {
     desc: new Validation('简介').attachRule(Rule.be(String)),
     tags: new Validation('类型').attachRule(Rule.be([String]))
 });
-

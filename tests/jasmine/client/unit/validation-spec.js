@@ -29,7 +29,7 @@ describe('Validation', function() {
                 });
                 expect('error').toBe('no error');
             } catch(e) {
-                expect(e.error).toEqual('validation-test-verify');
+                expect(e.error).toEqual('validation-scenario-test-verify');
                 expect(e.details.length).toEqual(1);
                 expect(e.details[0]).toEqual({field: 'fieldA', value: '', error: 'FieldA不能为空'});
                 expect(e.reason).toEqual('FieldA不能为空');
@@ -47,7 +47,7 @@ describe('Validation', function() {
                 });
                 expect('error').toBe('no error');
             } catch(e) {
-                expect(e.error).toEqual('validation-test-verify');
+                expect(e.error).toEqual('validation-scenario-test-verify');
                 expect(e.details.length).toEqual(1);
                 expect(e.details[0]).toEqual({field: 'fieldA', value: '123-456', error: 'FieldA should match ddd-dddd'});
                 expect(e.reason).toEqual('FieldA should match ddd-dddd');
@@ -67,7 +67,7 @@ describe('Validation', function() {
                 });
                 expect('error').toBe('no error');
             } catch(e) {
-                expect(e.error).toEqual('validation-test-verify');
+                expect(e.error).toEqual('validation-scenario-test-verify');
                 expect(e.details.length).toEqual(1);
                 expect(e.details[0]).toEqual({field: 'fieldA', value: [], error: 'FieldA should contains more than 1 element'});
                 expect(e.reason).toEqual('FieldA should contains more than 1 element');
@@ -86,7 +86,7 @@ describe('Validation', function() {
                 });
                 expect('error').toBe('no error');
             } catch(e) {
-                expect(e.error).toEqual('validation-test-verify');
+                expect(e.error).toEqual('validation-scenario-test-verify');
                 expect(e.details.length).toEqual(2);
                 expect(e.details[0]).toEqual({field: 'fieldA', value: '', error: 'FieldA不能为空'});
                 expect(e.details[1]).toEqual({field: 'fieldB', value: '', error: 'FieldB不能为空'});
@@ -107,7 +107,7 @@ describe('Validation', function() {
                 });
                 expect('error').toBe('no error');
             } catch(e) {
-                expect(e.error).toEqual('validation-test-verify');
+                expect(e.error).toEqual('validation-scenario-test-verify');
                 expect(e.details.length).toEqual(1);
                 expect(e.details[0]).toEqual({field: 'fieldA', value: '123', error: 'FieldA格式有误'});
                 expect(e.reason).toEqual('FieldA格式有误');
@@ -125,7 +125,7 @@ describe('Validation', function() {
                 });
                 expect('error').toBe('no error');
             } catch(e) {
-                expect(e.error).toEqual('validation-test-verify');
+                expect(e.error).toEqual('validation-scenario-test-verify');
                 expect(e.details.length).toEqual(1);
                 expect(e.details[0]).toEqual({field: 'fieldA', value: 0, error: 'FieldA应为正数'});
                 expect(e.reason).toEqual('FieldA应为正数');
@@ -165,7 +165,7 @@ describe('Validation', function() {
                 });
                 expect('error').toBe('no error');
             } catch(e) {
-                expect(e.error).toEqual('validation-test-verify');
+                expect(e.error).toEqual('validation-scenario-test-verify');
                 expect(e.details.length).toEqual(1);
                 expect(e.details[0]).toEqual({field: 'fieldA', value: 1, error: 'FieldA类型错误'});
                 expect(e.reason).toEqual('FieldA类型错误');
@@ -205,7 +205,7 @@ describe('Validation', function() {
                 });
                 expect('error').toBe('no error');
             } catch(e) {
-                expect(e.error).toEqual('validation-test-verify');
+                expect(e.error).toEqual('validation-scenario-test-verify');
                 expect(e.details.length).toEqual(1);
                 expect(e.details[0]).toEqual({field: 'fieldA', value: 'not a date', error: 'FieldA类型错误'});
                 expect(e.reason).toEqual('FieldA类型错误');
@@ -226,7 +226,7 @@ describe('Validation', function() {
                 Validator.verify('test-verify', {});
                 expect('error').toBe('no error');
             } catch(e) {
-                expect(e.error).toEqual('validation-test-verify');
+                expect(e.error).toEqual('validation-scenario-test-verify');
                 expect(e.details.length).toEqual(1);
                 expect(e.details[0]).toEqual({field: 'fieldA', value: undefined, error: 'FieldA类型错误'});
                 expect(e.reason).toEqual('FieldA类型错误');
@@ -261,7 +261,7 @@ describe('Validation', function() {
                 });
                 expect('error').toBe('no error');
             } catch(e) {
-                expect(e.error).toEqual('validation-test-verify');
+                expect(e.error).toEqual('validation-scenario-test-verify');
                 expect(e.details.length).toEqual(1);
                 expect(e.details[0]).toEqual({field: 'fieldA', value: [1], error: 'FieldA类型错误'});
                 expect(e.reason).toEqual('FieldA类型错误');
@@ -279,6 +279,40 @@ describe('Validation', function() {
                 });
             } catch(e) {
                 expect('no error').toBe('error');
+            }
+        });
+    });
+
+    describe('verifyRule', function () {
+        it('allows no error', function () {
+            try {
+                Validator.verify(new Rule(function() {return 'no error';}));
+            } catch(e) {
+                expect('no error').toBe('error');
+            }
+        });
+
+        it('deny error', function () {
+            try {
+                Validator.verify(new Rule(function() {return !'error';}));
+                expect('error').toBe('no error');
+            } catch(e) {
+                expect(e.error).toEqual('validation-rule');
+                expect(e.details.length).toEqual(1);
+                expect(e.details[0]).toEqual({error: '验证错误'});
+                expect(e.reason).toEqual('验证错误');
+            }
+        });
+
+        it('deny error with custom message', function () {
+            try {
+                Validator.verify(new Rule(function() {return !'error';}, 'Go away!'));
+                expect('error').toBe('no error');
+            } catch(e) {
+                expect(e.error).toEqual('validation-rule');
+                expect(e.details.length).toEqual(1);
+                expect(e.details[0]).toEqual({error: 'Go away!'});
+                expect(e.reason).toEqual('Go away!');
             }
         });
     });

@@ -1,11 +1,21 @@
 Shops = new Meteor.Collection('shops');
 
+function isOwner (shopId) {
+    return new Rule(() => {
+        return _.contains(Meteor.user().profile.shops, shopId);
+    }, '权限错误');
+}
+
+function isUniqDish(dishName) {
+    return new Rule(() => {
+        return !Shops.find({_id: shopId, 'menu.dishes.name': {$ne: dishName}}).count();
+    }, '菜品已存在');
+}
+
 Meteor.methods({
     shopDetailsUpdate(shopId, details) {
-        Validator.verifyOwner(() => {
-            return _.contains(Meteor.user().profile.shops, shopId);
-        });
         Validator.verify('shopDetails', details);
+        Validator.verify(isOwner(shopId));
 
         details = _.pick(details, 'name', 'desc', 'address', 'tel', 'tags');
         details.updatedAt = new Date();
@@ -14,16 +24,15 @@ Meteor.methods({
     },
 
     newDish(shopId, dish) {
-        Validator.verifyOwner(() => {
-            return _.contains(Meteor.user().profile.shops, shopId)
-        });
         Validator.verify('dish', dish);
+        Validator.verify(isOwner(shopId));
+        Validator.verify(isUniqDish(dish.name));
 
         dish = _.pick(dish, 'name', 'img', 'price', 'desc', 'tags');
         dish.tags = _.uniq(dish.tags);
         dish.createdAt = new Date();
 
-        Shops.update(shopId, {
+        Shops.update({_id: shopId, 'menu.dishes.name': {$ne: dish.name}}, {
             $push: {'menu.dishes': dish},
             $addToSet: {'menu.tagPriority': {$each: dish.tags}}
         });

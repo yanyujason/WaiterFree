@@ -1,11 +1,19 @@
 var validators = {};
 
-Validator = (senario, validations) => {
-    validators[senario] = validations;
+Validator = (scenario, validations) => {
+    validators[scenario] = validations;
 };
 
-Validator.verify = (senario, valueSet) => {
-    var validations = validators[senario];
+Validator.verify = (scenario, valueSet) => {
+    if(typeof scenario === 'string') {
+        verifyScenario(scenario, valueSet);
+    } else if(scenario instanceof RuleLocal) {
+        verifyRule(scenario);
+    }
+};
+
+function verifyScenario(scenario, valueSet) {
+    var validations = validators[scenario];
 
     var errors = _.filter(_.map(validations, (v, field) => {
         return {field: field, value: valueSet[field], error: v.verify(valueSet[field])};
@@ -14,21 +22,22 @@ Validator.verify = (senario, valueSet) => {
     });
 
     if(errors.length) {
-        var ex = new Meteor.Error(`validation-${senario}`);
+        var ex = new Meteor.Error(`validation-scenario-${scenario}`);
         ex.details = errors;
         ex.reason = _.map(errors, (e) => {return e.error;}).join(', ');
         throw ex;
     }
-};
+}
 
-Validator.verifyOwner = (isOwner) => {
-    if(!isOwner()) {
-        var ex = new Meteor.Error(`validation-owner`);
-        ex.details = ['权限校验错误'];
-        ex.reason = errors.join(', ');
+function verifyRule(rule) {
+    if(!rule.check()) {
+        var error = rule.errorMessage();
+        var ex = new Meteor.Error('validation-rule');
+        ex.details = [{error: error || '验证错误'}];
+        ex.reason = _.map(ex.details, (e) => {return e.error;}).join(', ');
         throw ex;
     }
-};
+}
 
 Validator.clear = () => {
     validators = {};
@@ -60,7 +69,7 @@ Validation = ValidationLocal;
 class RuleLocal {
     constructor(regex, errorMessageTemplate) {
         this.regex = regex;
-        this.errorMessageTemplate = errorMessageTemplate;
+        this.errorMessageTemplate = errorMessageTemplate || '';
     }
 
     check(value) {
