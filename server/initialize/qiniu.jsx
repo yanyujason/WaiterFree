@@ -8,7 +8,11 @@ var app = {
 function generateUploadToken(app) {
     var putPolicy = {
         scope: app.bucket,
-        deadline: (new Date().getTime() / 1000) + 7200
+        deadline: (new Date().getTime() / 1000) + 7200,
+        insertOnly: 1,
+        mimeLimit: 'image/*',
+        saveKey: '$(etag)',
+        persistentOps: 'imageView2/1/w/660/h/440/format/jpg/interlace/1'
     };
     var putPolicyString = JSON.stringify(putPolicy);
     var encoded = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(putPolicyString));
