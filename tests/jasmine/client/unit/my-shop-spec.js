@@ -36,4 +36,15 @@ describe('myShop', function () {
             });
         });
     });
+
+    describe('services', function () {
+        afterEach(function() {
+            Session.set('dishCategory', null);
+        });
+
+        it('change current tag when click to change dish category', function () {
+            Services.myShop.changeDishTag('new-tag');
+            expect(Session.get('dishCategory')).toBe('new-tag');
+        });
+    });
 });

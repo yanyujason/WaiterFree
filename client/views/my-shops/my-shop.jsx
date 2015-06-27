@@ -1,7 +1,3 @@
-function moneyFormatter(price) {
-    return price ? `￥${price.toFixed(1)}` : '';
-}
-
 Template.myShop.helpers({
     categoryDishes(dishes) {
         var tag = Session.get('dishCategory');
@@ -18,14 +14,20 @@ Template.myShop.helpers({
 Template.myShop.events({
     'click .category': function (e) {
         var tag = $(e.target).data('category');
-        Session.set('dishCategory', tag);
+        Services.myShop.changeDishTag(tag);
     }
 });
 
+Services.myShop = {
+    changeDishTag(tag) {
+        Session.set('dishCategory', tag);
+    }
+};
+
 Template.dish.helpers({
-    money: moneyFormatter
+    money: Formatter.money
 });
 
 Template.dishOption.helpers({
-    money: moneyFormatter
+    money: Formatter.money
 });
