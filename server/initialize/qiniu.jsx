@@ -8,7 +8,7 @@ var app = {
 function generateUploadToken(app) {
     var putPolicy = {
         scope: app.bucket,
-        deadline: (new Date().getTime() / 1000) + 86400
+        deadline: (new Date().getTime() / 1000) + 7200
     };
     var putPolicyString = JSON.stringify(putPolicy);
     var encoded = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(putPolicyString));
@@ -23,7 +23,7 @@ function autoUpdateCollection() {
     qiniu.value = generateUploadToken(app);
     Qiniu.upsert({name: 'uploadToken'}, qiniu);
 
-    Meteor.setTimeout(autoUpdateCollection, 43200 * 1000);
+    Meteor.setTimeout(autoUpdateCollection, 3600 * 1000);
 }
 
 autoUpdateCollection();
