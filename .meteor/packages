@@ -13,3 +13,6 @@ accounts-password
 iron:router
 ccan:cssreset
 velocity:html-reporter
+jparker:crypto-base64
+jparker:crypto-sha1
+jparker:crypto-hmac
