@@ -71,7 +71,6 @@ Router.route('/my-shops/:shopId/dishes/add', function() {
             Meteor.subscribe('myShop', this.params.shopId),
             Meteor.subscribe('qiniuConfig'),
             IRLibLoader.load("/javascripts/plupload.full.min.js"),
-            IRLibLoader.load("/javascripts/plupload.i18n.zh-CN.js"),
             IRLibLoader.load("/javascripts/qiniu-sdk.js")
         ];
     }
