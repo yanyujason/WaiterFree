@@ -21,7 +21,7 @@ Template.updateShopDetails.events({
             desc: $(e.target).find('[name=desc]').val(),
             address: $(e.target).find('[name=address]').val(),
             tel: $(e.target).find('[name=tel]').val(),
-            tags: $(e.target).find('[name=tags]').val().split(',').map((t)=>{return t.trim();}).filter((t)=>{return t;})
+            tags: $(e.target).find('[name=tags]').val().split(/[,\s]/).map((t)=>{return t.trim();}).filter((t)=>{return t;})
         };
         Services.updateShopDetails(currentShopId, shopDetails);
     },

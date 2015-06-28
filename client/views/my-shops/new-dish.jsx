@@ -49,7 +49,7 @@ Template.newDish.events({
             img: $(e.target).find("[name=img]").val(),
             price: +$(e.target).find("[name=price]").val(),
             desc: $(e.target).find("[name=desc]").val(),
-            tags: $(e.target).find('[name=tags]').val().split(',').map((t)=> {
+            tags: $(e.target).find('[name=tags]').val().split(/[,\s]/).map((t)=> {
                 return t.trim();
             }).filter((t)=> {
                 return t;
