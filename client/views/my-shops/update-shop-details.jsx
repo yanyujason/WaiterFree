@@ -1,3 +1,16 @@
+Template.updateShopDetails.helpers({
+    errorClass(field) {
+        return Errors.findOne({'details.field': field}) ? 'error' : '';
+    },
+    errorInfo(field) {
+        var error = Errors.findOne({'details.field': field});
+        if(!error) return '';
+        var detail = _.find(Errors.findOne({'details.field': field}).details, (d) => {
+            return d.field == field;
+        });
+        return detail ? detail.error : '';
+    }
+});
 Template.updateShopDetails.events({
     'submit form': function(e) {
         e.preventDefault();

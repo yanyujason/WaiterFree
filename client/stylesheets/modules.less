@@ -24,12 +24,17 @@
 	@label-margin-right: 10px;
 	.control-group {
 		margin: 20px 0;
+
+		.error-msg {
+			display: none;
+		}
 	}
 	.error.control-group {
 		input {
 			border-color: #E84538;
 		}
 		.error-msg {
+			display: block;
 			color: #E84538;
 			margin-bottom: 5px;
 			margin-left: @label-max-width + @label-margin-right;

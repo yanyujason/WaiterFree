@@ -1,6 +1,5 @@
 Errors = new Mongo.Collection(null);
 
 throwError = function(ex) {
-    alert(`${ex.reason}\nTODO: This alert will be removed by something, the error is already in Errors collection.`);
-    Errors.insert({reason: ex.reason, details: ex.details});
+    Errors.upsert({error: ex.error}, {error: ex.error, reason: ex.reason, details: ex.details});
 };

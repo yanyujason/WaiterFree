@@ -1,34 +1,38 @@
 <template name="updateShopDetails">
     <div class="container">
 
-        <form class="update-shop inline-form" action="" method="post">
+        <form class="update-shop inline-form">
             <h2 class="section-title">编辑店铺</h2>
-            <div class="control-group">
+            <div class="control-group {{errorClass 'name'}}">
+                <div class="error-msg">{{errorInfo 'name'}}</div>
                 <div class="flex-layout">
                     <label for="name" class="flex-1">名称</label>
                     <input id="name" class="flex-4" name="name" value="{{name}}">
                 </div>
             </div>
-            <div class="control-group">
+            <div class="control-group {{errorClass 'desc'}}">
+                <div class="error-msg">{{errorInfo 'desc'}}</div>
                 <div class="flex-layout">
                     <label for="desc" class="flex-1">描述</label>
                     <input id="desc" class="flex-4" name="desc" value="{{desc}}">
                 </div>
             </div>
-            <div class="control-group">
+            <div class="control-group {{errorClass 'address'}}">
+                <div class="error-msg">{{errorInfo 'address'}}</div>
                 <div class="flex-layout">
                     <label for="address" class="flex-1">地址</label>
                     <input id="address" class="flex-4" name="address" value="{{address}}">
                 </div>
             </div>
-            <div class="control-group error">
-                <div class="error-msg">*电话不能为空</div>
+            <div class="control-group  {{errorClass 'tel'}}">
+                <div class="error-msg">{{errorInfo 'tel'}}</div>
                 <div class="flex-layout">
                     <label for="tel" class="flex-1">电话</label>
                     <input class="flex-4" id="tel" name="tel" value="{{tel}}">
                 </div>
             </div>
-            <div class="control-group">
+            <div class="control-group {{errorClass 'tags'}}">
+                <div class="error-msg">{{errorInfo 'tags'}}</div>
                 <div class="flex-layout">
                     <label for="tags" class="flex-1">类型</label>
                     <input id="tags" name="tags" class="flex-4" value="{{tags}}">
