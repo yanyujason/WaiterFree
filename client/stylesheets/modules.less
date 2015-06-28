@@ -1,3 +1,4 @@
+@import 'flex';
 .icon {
 	color: #666;
 }
@@ -9,13 +10,13 @@
 	background-color: #E84538;
 }
 .flex-layout {
-	display: flex;
+	.display(flex);
 }
 .flex-1 {
-	flex: 1;
+	.flex(1);
 }
 .flex-4 {
-	flex: 4;
+	.flex(4);
 }
 .inline-form {
 	min-width: 250px;
@@ -96,14 +97,14 @@
 	margin-bottom: 2%;
 }
 .flex-3-1-layout {
-	display: flex;
+	.display(flex);
 	width: 100%;
 	.flex-3 {
-		flex: 3;
+		.flex(3);
 		margin-right: 3%;
 	}
 	.flex-1 {
-		flex: 1;
+		.flex(1)
 	}
 }
 .dish-box {
