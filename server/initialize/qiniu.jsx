@@ -1,8 +1,8 @@
 // qiniu test account
 var app = {
-    bucket: "qtestbucket",
-    AK: "iN7NgwM31j4-BZacMjPrOQBs34UG1maYCAQmhdCV",
-    SK: "6QTOr2Jg1gcZEWDQXKOGZh5PziC2MCV5KsntT70j"
+    bucket: Meteor.settings.qiniu.bucket || '',
+    AK: Meteor.settings.qiniu.accessKey || '',
+    SK: Meteor.settings.qiniu.secretKey || ''
 };
 
 function generateUploadToken(app) {

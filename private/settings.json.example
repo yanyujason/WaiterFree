@@ -1,0 +1,7 @@
+{
+    "qiniu": {
+        "bucket": "Your Bucket",
+        "accessKey": "Your Access Key",
+        "secretKey": "Your Secret Key"
+    }
+}

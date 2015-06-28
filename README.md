@@ -44,7 +44,7 @@ An Meteor based realtime web application to shorten the order process in restaur
 
 ### Start app
 
-        meteor
+        meteor --settings private/settings.json
 
 ### Inject fixture data
 
