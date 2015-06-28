@@ -2,6 +2,7 @@
     "qiniu": {
         "bucket": "Your Bucket",
         "accessKey": "Your Access Key",
-        "secretKey": "Your Secret Key"
+        "secretKey": "Your Secret Key",
+        "domain": "Your Qiniu Domain"
     }
 }

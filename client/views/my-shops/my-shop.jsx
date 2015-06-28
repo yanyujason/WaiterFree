@@ -25,7 +25,8 @@ Services.myShop = {
 };
 
 Template.dish.helpers({
-    money: Formatter.money
+    money: Formatter.money,
+    imgPath: Formatter.imgPath
 });
 
 Template.dishOption.helpers({

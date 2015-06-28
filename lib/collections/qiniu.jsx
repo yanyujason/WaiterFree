@@ -1,1 +1,1 @@
-Qiniu = new Meteor.Collection('qiniu');
+QiniuConfig = new Meteor.Collection('qiniu');

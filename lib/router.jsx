@@ -25,7 +25,10 @@ Router.route('/my-shops/:shopId', function() {
 }, {
     name: 'myShop',
     waitOn() {
-        return Meteor.subscribe('myShop', this.params.shopId);
+        return [
+            Meteor.subscribe('myShop', this.params.shopId),
+            Meteor.subscribe('qiniuConfig')
+        ];
     }
 });
 
@@ -64,7 +67,13 @@ Router.route('/my-shops/:shopId/dishes/add', function() {
 }, {
     name: 'newDish',
     waitOn() {
-        return Meteor.subscribe('myShop', this.params.shopId);
+        return [
+            Meteor.subscribe('myShop', this.params.shopId),
+            Meteor.subscribe('qiniuConfig'),
+            IRLibLoader.load("/javascripts/plupload.full.min.js"),
+            IRLibLoader.load("/javascripts/plupload.i18n.zh-CN.js"),
+            IRLibLoader.load("/javascripts/qiniu-sdk.js")
+        ];
     }
 });
 
