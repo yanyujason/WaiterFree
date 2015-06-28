@@ -8,7 +8,6 @@ Validator('shopDetails', {
 
 Validator('dish', {
     name: new Validation('菜品名称').attachRule(Rule.be(String)).attachRule(Rule.notEmpty),
-    img: new Validation('图片').attachRule(Rule.be(String)),
     price: new Validation('价格').attachRule(Rule.be(Number)).attachRule(Rule.positiveNumber),
     desc: new Validation('简介').attachRule(Rule.be(String)),
     tags: new Validation('类型').attachRule(Rule.be([String]))

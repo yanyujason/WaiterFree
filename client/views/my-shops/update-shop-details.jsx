@@ -6,6 +6,7 @@ Template.updateShopDetails.helpers({
         return Errors.fieldErrorInfo(field);
     }
 });
+
 Template.updateShopDetails.events({
     'submit form': function(e) {
         e.preventDefault();
