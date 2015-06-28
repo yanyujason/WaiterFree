@@ -6,9 +6,9 @@ function isOwner (shopId) {
     }, '权限错误');
 }
 
-function isUniqDish(dishName) {
+function isUniqDish(shopId, dishName) {
     return new Rule(() => {
-        return !Shops.find({_id: shopId, 'menu.dishes.name': {$ne: dishName}}).count();
+        return !Shops.find({_id: shopId, 'menu.dishes.name': dishName}).count();
     }, '菜品已存在');
 }
 
@@ -26,7 +26,7 @@ Meteor.methods({
     newDish(shopId, dish) {
         Validator.verify('dish', dish);
         Validator.verify(isOwner(shopId));
-        Validator.verify(isUniqDish(dish.name));
+        Validator.verify(isUniqDish(shopId, dish.name));
 
         dish = _.pick(dish, 'name', 'img', 'price', 'desc', 'tags');
         dish.tags = _.uniq(dish.tags);
