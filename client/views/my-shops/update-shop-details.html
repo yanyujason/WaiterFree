@@ -1,13 +1,43 @@
 <template name="updateShopDetails">
-    <form action="" method="post">
-        <div><label for="name">店铺名称</label><input id="name" name="name" value="{{name}}"></div>
-        <div><label for="desc">店铺描述</label><input id="desc" name="desc" value="{{desc}}"></div>
-        <div><label for="address">店铺地址</label><input id="address" name="address" value="{{address}}"></div>
-        <div><label for="tel">联系电话</label><input id="tel" name="tel" value="{{tel}}"></div>
-        <div><label for="tags">店铺类型</label><input id="tags" name="tags" value="{{tags}}"></div>
-        <div>
-            <input type="submit" value="修改">
-            <input type="button" class="cancel" value="取消">
-        </div>
-    </form>
+    <div class="container">
+
+        <form class="update-shop inline-form" action="" method="post">
+            <h2 class="section-title">编辑店铺</h2>
+            <div class="control-group">
+                <div class="flex-layout">
+                    <label for="name" class="flex-1">名称</label>
+                    <input id="name" class="flex-4" name="name" value="{{name}}">
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="flex-layout">
+                    <label for="desc" class="flex-1">描述</label>
+                    <input id="desc" class="flex-4" name="desc" value="{{desc}}">
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="flex-layout">
+                    <label for="address" class="flex-1">地址</label>
+                    <input id="address" class="flex-4" name="address" value="{{address}}">
+                </div>
+            </div>
+            <div class="control-group error">
+                <div class="error-msg">*电话不能为空</div>
+                <div class="flex-layout">
+                    <label for="tel" class="flex-1">电话</label>
+                    <input class="flex-4" id="tel" name="tel" value="{{tel}}">
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="flex-layout">
+                    <label for="tags" class="flex-1">类型</label>
+                    <input id="tags" name="tags" class="flex-4" value="{{tags}}">
+                </div>
+            </div>
+            <div>
+                <input type="submit" class="btn" value="修改">
+                <input type="button" class="cancel" value="取消">
+            </div>
+        </form>
+    </div>
 </template>
