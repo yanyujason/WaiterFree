@@ -27,5 +27,9 @@ describe('Formatter', function () {
             spyOn(QiniuConfig, 'findOne').and.returnValue(null);
             expect(Formatter.imgPath('a.jpg')).toBe('/images/img-404.jpg');
         });
+
+        it('formats empty string to "" if domain does not exist', function () {
+            expect(Formatter.imgPath('')).toBe('');
+        });
     });
 });

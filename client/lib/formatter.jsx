@@ -3,6 +3,7 @@ Formatter = {
         return price ? `￥${price.toFixed(1)}` : '';
     },
     imgPath(key) {
+        if(!key) return '';
         var config = QiniuConfig.findOne({name: 'qiniuConfig'});
         if(config) {
             var domain = config.domain;
