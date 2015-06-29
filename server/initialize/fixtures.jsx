@@ -1,7 +1,6 @@
 if (Meteor.users.find().count() == 0) {
     console.log('Creating fixture...');
     var bossId = Accounts.createUser({
-        username: 'USER_UUID',
         email: 'sxj@waiterfree.com',
         password: 'DEFAULT',
         profile: {

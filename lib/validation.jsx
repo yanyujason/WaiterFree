@@ -108,7 +108,11 @@ RuleLocal.be = (clazz) => {
     return new RuleLocal((v) => {return check(v, clazz)} , '{{field}}类型错误');
 };
 RuleLocal.notEmpty = new RuleLocal(/.+/, '{{field}}不能为空');
+RuleLocal.notEmptyArray = new RuleLocal((v) => {return v.length > 0;}, '{{field}}不能为空');
 RuleLocal.positiveNumber = new RuleLocal((v) => {return v > 0}, '{{field}}应为正数');
 RuleLocal.telephone = new RuleLocal(/^(\d{3,4}-\d{7,8})$|^\d{11}$/, '{{field}}格式有误');
+RuleLocal.email = new RuleLocal(/^[-a-z0-9~!$%^&*_=+}{'?]+(\.[-a-z0-9~!$%^&*_=+}{'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i, '{{field}}格式有误');
+RuleLocal.password = new RuleLocal(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/, '{{field}}至少8位，包含至少一个数字和字母');
+RuleLocal.passwordConfirm = new RuleLocal((vArray) => {return vArray[0] == vArray[1]}, '{{field}}不一致');
 
 Rule = RuleLocal;
