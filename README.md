@@ -54,19 +54,13 @@ An Meteor based realtime web application to shorten the order process in restaur
 
 * tests/jasmine/client/integration
 
-    * e2e test, route test
-
-* tests/jasmine/client/unit
-
-    * template helper test, user event test, client utils, client libs...
 
 * test/jasmine/server/integration
 
-    * meteor methods, db related code.
 
-* test/jasmine/server/unit
+* tests/jasmine/client/unit && test/jasmine/server/unit
 
-    * server utils, server libs...
+    * **UNIT TEST** is deprecated, don't write unit test for now
 
 ### Code style
 
