@@ -36,5 +36,20 @@ Meteor.methods({
             $push: {'menu.dishes': dish},
             $addToSet: {'menu.tagPriority': {$each: dish.tags}}
         });
+    },
+
+    deleteDish(shopName, dishName) {
+        Shops.update({name: shopName}, {$pull: {'menu.dishes': {'name':dishName}}});
+    },
+
+    dishDetailsUpdate(shopId, dishDetails) {
+        Validator.verify('dish', dishDetails);
+        Validator.verify(isOwner(shopId));
+        Validator.verify(isUniqDish(shopId, dishDetails.name));
+
+        dishDetails = _.pick(dishDetails, 'name', 'img', 'price', 'desc', 'tags');
+        dishDetails.updatedAt = new Date();
+
+        Shops.update(shopId,{$set: dishDetails});
     }
 });

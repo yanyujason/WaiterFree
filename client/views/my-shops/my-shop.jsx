@@ -15,12 +15,25 @@ Template.myShop.events({
     'click .category': function (e) {
         var tag = $(e.target).data('category');
         Services.myShop.changeDishTag(tag);
+    },
+
+    'click .delete-dish': function (e) {
+        var dishName = this.name,
+          shopName = Template.instance().data.name;
+
+        Services.myShop.deleteMyDish(shopName, dishName);
     }
 });
 
 Services.myShop = {
     changeDishTag(tag) {
         Session.set('dishCategory', tag);
+    },
+
+    deleteMyDish(shopName, dishName) {
+        Meteor.call('deleteDish', shopName, dishName, function(error, result) {
+            if (error) return throwError(error);
+        });
     }
 };
 
