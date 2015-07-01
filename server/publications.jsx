@@ -12,5 +12,5 @@ Meteor.publish('qiniuConfig', function () {
 
 Meteor.publish('myClerks', function (shopId) {
     return Meteor.users.find({'profile.shop': shopId, 'profile.boss': this.userId, 'profile.type': 'clerk'},
-        {fields: {'emails.address': 1, profile: 1, createdAt: 1}});
+        {fields: {_id: 1, 'emails.address': 1, profile: 1, createdAt: 1}});
 });

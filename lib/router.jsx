@@ -95,6 +95,19 @@ Router.route('/my-shops/:shopId/dishes/:dishId', function () {
     }
 });
 
+Router.route('/my-shops/:shopId/clerks', function() {
+    var dataContext = {
+        data: {clerks: Meteor.users.find({'profile.shop': this.params.shopId, 'profile.type': 'clerk'})}
+    };
+    this.layout('myShopLayout', dataContext);
+    this.render('clerkList', dataContext);
+}, {
+    name: 'clerkList',
+    waitOn() {
+        return Meteor.subscribe('myClerks', this.params.shopId)
+    }
+});
+
 function loginFilter() {
     if(Meteor.userId()) {
         this.next();

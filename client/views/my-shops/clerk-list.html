@@ -1,0 +1,16 @@
+<template name="clerkList">
+    <section>
+        <div>
+            <a class="new-clerk">增加店员</a>
+        </div>
+        <ul class="clerk-list">
+            {{#each clerks}}
+            <li>
+                <span>{{profile.name}}</span>
+                <a class="update-clerk">修改</a>
+                <a class="delete-clerk">删除</a>
+            </li>
+            {{/each}}
+        </ul>
+    </section>
+</template>
