@@ -98,11 +98,26 @@ Router.route('/my-shops/:shopId/clerks', function() {
 Router.route('/my-shops/:shopId/clerks/add', function() {
     var shopId = this.params.shopId;
     this.layout('myShopLayout', {data: Shops.findOne({_id: shopId})});
-    this.render('clerkForm', {data: {shopId: shopId, type: 'new'}});
+    this.render('clerkForm', {data: {shopId: shopId, clerk: {}}});
 }, {
     name: 'newClerk',
     waitOn() {
         return Meteor.subscribe('myShop', this.params.shopId)
+    }
+});
+
+Router.route('/my-shops/:shopId/clerks/:clerkId', function() {
+    var shopId = this.params.shopId;
+    var clerkId = this.params.clerkId;
+    this.layout('myShopLayout', {data: Shops.findOne({_id: shopId})});
+    this.render('clerkForm', {data: {shopId: shopId, clerk: Meteor.users.findOne(clerkId)}});
+}, {
+    name: 'updateClerk',
+    waitOn() {
+        return [
+            Meteor.subscribe('myShop', this.params.shopId),
+            Meteor.subscribe('myClerks', this.params.shopId)
+        ]
     }
 });
 

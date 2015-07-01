@@ -3,9 +3,14 @@ function isOwner (shopId) {
         return _.contains(Meteor.user().profile.shops, shopId);
     }, '权限错误');
 }
+function isShopClerk (shopId, clerkId) {
+    return new Rule(() => {
+        return _.contains(Shops.findOne(shopId).clerks, clerkId);
+    }, '权限错误');
+}
 
 Meteor.methods({
-    newClerk(shopId, clerkProfile) {
+    newClerk(shopId, _, clerkProfile) {
         Validator.verify('clerkProfile', clerkProfile);
         Validator.verify(isOwner(shopId));
         var profile = {
@@ -23,5 +28,20 @@ Meteor.methods({
         });
 
         Shops.update(shopId, {$push: {clerks: clerkId}});
+    },
+
+    updateClerk(shopId, clerkId, clerkProfile) {
+        Validator.verify('clerkProfile', clerkProfile);
+        Validator.verify(isOwner(shopId));
+        Validator.verify(isShopClerk(shopId, clerkId));
+
+        if(Meteor.isServer) {
+            Accounts.setPassword(clerkId, clerkProfile.password);
+        }
+
+        Meteor.users.update(clerkId, {$set: {
+            'profile.name': clerkProfile.name,
+            'emails': [{address: clerkProfile.email}]
+        }});
     }
 });
