@@ -96,6 +96,23 @@ describe('Validation', function() {
     });
 
     describe('build-in rules', function () {
+        it('verifies not empty array rule', function () {
+            Validator('test-verify', {
+                fieldA: new Validation('FieldA').attachRule(Rule.notEmptyArray)
+            });
+
+            try {
+                Validator.verify('test-verify', {
+                    fieldA: []
+                });
+                expect('error').toBe('no error');
+            } catch(e) {
+                expect(e.error).toEqual('validation-scenario-test-verify');
+                expect(e.details.length).toEqual(1);
+                expect(e.details[0]).toEqual({field: 'fieldA', value: [], error: 'FieldA不能为空'});
+                expect(e.reason).toEqual('FieldA不能为空');
+            }
+        });
         it('verifies tel rule', function () {
             Validator('test-verify', {
                 fieldA: new Validation('FieldA').attachRule(Rule.telephone)
@@ -129,6 +146,60 @@ describe('Validation', function() {
                 expect(e.details.length).toEqual(1);
                 expect(e.details[0]).toEqual({field: 'fieldA', value: 0, error: 'FieldA应为正数'});
                 expect(e.reason).toEqual('FieldA应为正数');
+            }
+        });
+
+        it('verifies email rule', function () {
+            Validator('test-verify', {
+                fieldA: new Validation('email').attachRule(Rule.email)
+            });
+
+            try {
+                Validator.verify('test-verify', {
+                    fieldA: 'xxx'
+                });
+                expect('error').toBe('no error');
+            } catch(e) {
+                expect(e.error).toEqual('validation-scenario-test-verify');
+                expect(e.details.length).toEqual(1);
+                expect(e.details[0]).toEqual({field: 'fieldA', value: 'xxx', error: 'email格式有误'});
+                expect(e.reason).toEqual('email格式有误');
+            }
+        });
+
+        it('verifies password rule', function () {
+            Validator('test-verify', {
+                fieldA: new Validation('password').attachRule(Rule.password)
+            });
+
+            try {
+                Validator.verify('test-verify', {
+                    fieldA: 'abcdefgh'
+                });
+                expect('error').toBe('no error');
+            } catch(e) {
+                expect(e.error).toEqual('validation-scenario-test-verify');
+                expect(e.details.length).toEqual(1);
+                expect(e.details[0]).toEqual({field: 'fieldA', value: 'abcdefgh', error: 'password至少8位，包含至少一个数字和字母'});
+                expect(e.reason).toEqual('password至少8位，包含至少一个数字和字母');
+            }
+        });
+
+        it('verifies password confirm rule', function () {
+            Validator('test-verify', {
+                fieldA: new Validation('passwordConfirm').attachRule(Rule.passwordConfirm)
+            });
+
+            try {
+                Validator.verify('test-verify', {
+                    fieldA: ['abcdefgh1', 'abcdefgh2']
+                });
+                expect('error').toBe('no error');
+            } catch(e) {
+                expect(e.error).toEqual('validation-scenario-test-verify');
+                expect(e.details.length).toEqual(1);
+                expect(e.details[0]).toEqual({field: 'fieldA', value: ['abcdefgh1', 'abcdefgh2'], error: 'passwordConfirm不一致'});
+                expect(e.reason).toEqual('passwordConfirm不一致');
             }
         });
     });

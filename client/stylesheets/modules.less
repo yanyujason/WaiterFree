@@ -1,3 +1,82 @@
+@import 'flex';
+.icon {
+	color: #666;
+}
+.btn {
+	padding: 0 20px;
+	border: none;
+	border-radius: 3px;
+	color: white;
+	background-color: #E84538;
+}
+.flex-layout {
+	.display(flex);
+}
+.flex-1 {
+	.flex(1);
+}
+.flex-4 {
+	.flex(4);
+}
+.inline-form {
+	min-width: 250px;
+	max-width: 400px;
+	@label-max-width: 80px;
+	@label-margin-right: 10px;
+	.control-group {
+		margin: 20px 0;
+
+		.error-msg {
+			display: none;
+		}
+	}
+	.error.control-group {
+		input {
+			border-color: #E84538;
+		}
+		.error-msg {
+			display: block;
+			color: #E84538;
+			margin-bottom: 5px;
+			margin-left: @label-max-width + @label-margin-right;
+		}
+
+	}
+	label {
+		display: inline-block;
+		margin-right: @label-margin-right;
+		max-width: @label-max-width;
+		line-height: 36px;
+	}
+	input {
+		font-size: 1em;
+		padding: 8px;
+		border: 1px solid #ccc;
+  	border-radius: 3px;
+	}
+	input[type='submit'] {
+		padding: 9px 50px;
+		margin-left: @label-max-width + @label-margin-right;
+		margin-right: 10px;
+		border: none;
+	}
+	.cancel {
+		background-color: white;
+		padding: 8px 20px;
+	}
+}
+// input::-webkit-input-placeholder {
+// 	color: red !important; 
+// }
+// input:-moz-placeholder {
+// 	color: red !important; 
+// }
+// input::-moz-placeholder {
+// 	color: red !important;
+// }
+// input:-ms-input-placeholder {
+// 	color: red !important; 
+// }
 .clearfix:after {
 	content: '';
 	display: block;
@@ -9,23 +88,23 @@
 	max-width: 1500px;
 	margin: 0 auto;
 }
+.section-title {
+	height: 30px;
+	line-height: 30px;
+	border-bottom: 1px solid #ccc;
+	font-size: 1.2em;
+	padding-bottom: 10px;
+	margin-bottom: 2%;
+}
 .flex-3-1-layout {
-	display: flex;
+	.display(flex);
 	width: 100%;
-	.section-title {
-		height: 30px;
-		line-height: 30px;
-		border-bottom: 1px solid #ccc;
-		font-size: 1.2em;
-		padding-bottom: 10px;
-		margin-bottom: 2%;
-	}
 	.flex-3 {
-		flex: 3;
+		.flex(3);
 		margin-right: 3%;
 	}
 	.flex-1 {
-		flex: 1;
+		.flex(1)
 	}
 }
 .dish-box {
@@ -39,6 +118,7 @@
 	.dish-img {
 		position: relative;
 		overflow: hidden;
+		margin-bottom: 10px;
 		img {
 			width: 100%;
 		}

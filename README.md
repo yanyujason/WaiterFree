@@ -50,6 +50,18 @@ An Meteor based realtime web application to shorten the order process in restaur
 
         meteor reset /* Reset the database so the fixture data can be injected to database */
 
+### Test directories
+
+* tests/jasmine/client/integration
+
+
+* test/jasmine/server/integration
+
+
+* tests/jasmine/client/unit && test/jasmine/server/unit
+
+    * **UNIT TEST** is deprecated, don't write unit test for now
+
 ### Code style
 
 * JS file should be written in ES6 format, and extension with `.jsx`. (Except test, test should only be written in ES5, `babel` didn't apply on the test files)

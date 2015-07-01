@@ -1,19 +1,46 @@
 <template name="newDish">
-    <form>
-        <div id="uploaderContainer">
-            <div id="imgUploader">
-                <div>点击图片上传</div>
-                <img class="dish-img" src="/images/emptyImg.png" width="330" height="220">
+    <div class="container">
+        <form class="inline-form new-dish-form">
+            <h2 class="section-title">添加新菜品</h2>
+            <div class="control-group {{errorClass 'name'}}">
+                <div class="error-msg">{{errorInfo 'name'}}</div>
+                <div class="flex-layout">
+                    <label class="flex-1" for="name">菜品名称</label>
+                    <input class="flex-4" id="name" name="name">
+                </div>
             </div>
-        </div>
-        <div><label for="name">菜品名称</label><input id="name" name="name"></div>
-        <div><input id="img" name="img" type="hidden"></div>
-        <div><label for="price">价格</label><input id="price" name="price"></div>
-        <div><label for="desc">简介</label><input id="desc" name="desc"></div>
-        <div><label for="tags">类型</label><input id="tags" name="tags"></div>
-        <div>
-            <input type="submit" value="添加">
-            <input type="button" class="cancel" value="取消">
-        </div>
-    </form>
+            <div class="control-group {{errorClass 'price'}}">
+                <div class="error-msg">{{errorInfo 'price'}}</div>
+                <div class="flex-layout">
+                    <label class="flex-1" for="price">价格</label>
+                    <input class="flex-4" id="price" name="price">
+                </div>
+            </div>
+            <div class="control-group {{errorClass 'desc'}}">
+                <div class="error-msg">{{errorInfo 'desc'}}</div>
+                <div class="flex-layout">
+                    <label class="flex-1" for="desc">简介</label>
+                    <input class="flex-4" id="desc" name="desc">
+                </div>
+            </div>
+            <div class="control-group {{errorClass 'tags'}}">
+                <div class="error-msg">{{errorInfo 'tags'}}</div>
+                <div class="flex-layout">
+                    <label class="flex-1" for="tags">类型</label>
+                    <input class="flex-4" id="tags" name="tags">
+                </div>
+            </div>
+            <div class="control-group" id="uploaderContainer">
+                <div class="flex-layout" id="imgUploader">
+                    <label class="flex-1">上传图片</label>
+                    <img class="dish-img flex-4" src="/images/emptyImg.png" width="330" height="220">
+                    <input id="img" name="img" type="hidden">
+                </div>
+            </div> 
+            <div class="control-group">
+                <input type="submit" class="submit btn" value="添加">
+                <input type="button" class="cancel" value="取消">
+            </div>
+        </form>
+    </div>
 </template>

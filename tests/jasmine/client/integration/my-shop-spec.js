@@ -37,14 +37,19 @@ describe('myShop', function () {
         });
     });
 
-    describe('services', function () {
-        afterEach(function() {
-            Session.set('dishCategory', null);
+    describe('events', function () {
+        beforeEach(function() {
+            renderTemplate(Template.myShop, {menu: {dishes: [], tagPriority: ['a', 'b']}});
         });
 
-        it('change current tag when click to change dish category', function () {
-            Services.myShop.changeDishTag('new-tag');
-            expect(Session.get('dishCategory')).toBe('new-tag');
+        it('changes active category when click on category', function (done) {
+            $('.category[data-category=b]').click();
+
+            Tracker.afterFlush(function() {
+                expect(Session.get('dishCategory')).toBe('b');
+                expect($('.category[data-category=b]')).toHaveClass('active');
+                done();
+            });
         });
     });
 });

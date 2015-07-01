@@ -35,6 +35,15 @@ Template.newDish.onRendered(function () {
     });
 });
 
+Template.newDish.helpers({
+    errorClass(field) {
+        return Errors.isFieldError(field) ? 'error' : '';
+    },
+    errorInfo(field) {
+        return Errors.fieldErrorInfo(field);
+    }
+});
+
 Template.newDish.events({
     'click .cancel': function (e) {
         e.preventDefault();
@@ -49,7 +58,7 @@ Template.newDish.events({
             img: $(e.target).find("[name=img]").val(),
             price: +$(e.target).find("[name=price]").val(),
             desc: $(e.target).find("[name=desc]").val(),
-            tags: $(e.target).find('[name=tags]').val().split(',').map((t)=> {
+            tags: $(e.target).find('[name=tags]').val().split(/[,\s]/).map((t)=> {
                 return t.trim();
             }).filter((t)=> {
                 return t;
