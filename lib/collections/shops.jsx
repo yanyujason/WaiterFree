@@ -30,6 +30,7 @@ Meteor.methods({
 
         dish = _.pick(dish, 'name', 'img', 'price', 'desc', 'tags');
         dish.tags = _.uniq(dish.tags);
+        dish.dishId = Meteor.uuid();
         dish.createdAt = new Date();
 
         Shops.update({_id: shopId, 'menu.dishes.name': {$ne: dish.name}}, {
@@ -47,9 +48,9 @@ Meteor.methods({
         Validator.verify(isOwner(shopId));
         Validator.verify(isUniqDish(shopId, dishDetails.name));
 
-        dishDetails = _.pick(dishDetails, 'name', 'img', 'price', 'desc', 'tags');
+        dishDetails = _.pick(dishDetails, 'name', 'img', 'price', 'desc', 'tags', 'dishId');
         dishDetails.updatedAt = new Date();
 
-        Shops.update(shopId,{$set: dishDetails});
+        Shops.update({_id: shopId, 'menu.dishes.dishId': dishDetails.dishId}, {$set: {'menu.dishes.$': dishDetails}});
     }
 });

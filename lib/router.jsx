@@ -76,12 +76,13 @@ Router.route('/my-shops/:shopId/dishes/add', function() {
     }
 });
 
-Router.route('/my-shops/:shopId/dishes/:dishName/details', function () {
-    console.log(this.params);
+Router.route('/my-shops/:shopId/dishes/:dishId', function () {
     var dataContext = {
-        data: Shops.findOne({_id: this.params.shopId, 'menu.dishes.name': this.params.dishName})
+        data: {
+            shopId: this.params.shopId,
+            dish: _.find(Shops.findOne({_id: this.params.shopId, 'menu.dishes.dishId': this.params.dishId}).menu.dishes, (d) => {return d.dishId == this.params.dishId;})}
     };
-    this.layout('updateDishDetails', dataContext);
+    this.layout('myShopLayout', Shops.findOne({_id: this.params.shopId}));
     this.render('updateDishDetails', dataContext);
 }, {
     name: 'updateDishDetails',

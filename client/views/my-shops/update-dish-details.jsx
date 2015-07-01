@@ -1,18 +1,29 @@
+Template.updateDishDetails.helpers({
+  errorClass(field) {
+    return Errors.isFieldError(field) ? 'error' : '';
+  },
+  errorInfo(field) {
+    return Errors.fieldErrorInfo(field);
+  }
+});
+
+
 Template.updateDishDetails.events({
   'submit form': function(e) {
     e.preventDefault();
 
-    var currentShopId = this._id;
+    var currentShopId = this.shopId;
     var dishDetails = {
       name: $(e.target).find('[name=name]').val(),
-      img: $(e.target).find("[name=img]").val(),
-      price: $(e.target).find('[name=price]').val(),
+      price: parseFloat($(e.target).find('[name=price]').val()),
       desc: $(e.target).find('[name=desc]').val(),
       tags: $(e.target).find('[name=tags]').val().split(',').map((t)=> {
         return t.trim();
       }).filter((t)=> {
         return t;
-      })
+      }),
+      dishId: this.dish.dishId,
+      img: this.dish.img
     };
     Services.updateDishDetails(currentShopId, dishDetails);
   },
