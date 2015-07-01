@@ -45,19 +45,6 @@ Router.route('/my-shops/:shopId/details', function() {
     }
 });
 
-Router.route('/my-shops/:shopId/menu', function() {
-    var dataContext = {
-        data: Shops.findOne({_id: this.params.shopId})
-    };
-    this.layout('myShopLayout', dataContext);
-    this.render('updateShopMenu', dataContext);
-}, {
-    name: 'updateShopMenu',
-    waitOn() {
-        return Meteor.subscribe('myShop', this.params.shopId);
-    }
-});
-
 Router.route('/my-shops/:shopId/dishes/add', function() {
     var dataContext = {
         data: Shops.findOne({_id: this.params.shopId})
