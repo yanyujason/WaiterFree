@@ -14,15 +14,9 @@ Template.myShop.helpers({
 Template.myShop.events({
     'click .category': function (e) {
         var tag = $(e.target).data('category');
-        Services.myShop.changeDishTag(tag);
-    }
-});
-
-Services.myShop = {
-    changeDishTag(tag) {
         Session.set('dishCategory', tag);
     }
-};
+});
 
 Template.dish.helpers({
     money: Formatter.money,
