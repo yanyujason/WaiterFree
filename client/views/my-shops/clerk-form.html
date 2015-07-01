@@ -1,0 +1,37 @@
+<template name="clerkForm">
+    <form class="clerk-form inline-form">
+        <h2 class="section-title">{{title}}</h2>
+        <div class="control-group {{errorClass 'name'}}">
+            <div class="error-msg">{{errorInfo 'name'}}</div>
+            <div class="flex-layout">
+                <label for="name" class="flex-1">姓名</label>
+                <input id="name" class="flex-4" name="name" value="{{clerk.profile.name}}">
+            </div>
+        </div>
+        <div class="control-group {{errorClass 'email'}}">
+            <div class="error-msg">{{errorInfo 'email'}}</div>
+            <div class="flex-layout">
+                <label for="email" class="flex-1">邮箱</label>
+                <input id="email" class="flex-4" name="email" value="{{clerk.profile.email}}">
+            </div>
+        </div>
+        <div class="control-group {{errorClass 'password'}}">
+            <div class="error-msg">{{errorInfo 'password'}}</div>
+            <div class="flex-layout">
+                <label for="password" class="flex-1">密码</label>
+                <input id="password" class="flex-4" type="password" name="password">
+            </div>
+        </div>
+        <div class="control-group {{errorClass 'passwordConfirm'}}">
+            <div class="error-msg">{{errorInfo 'passwordConfirm'}}</div>
+            <div class="flex-layout">
+                <label for="password2" class="flex-1">密码</label>
+                <input id="password2" class="flex-4" type="password" name="password2">
+            </div>
+        </div>
+        <div>
+            <input type="submit" class="btn" value="{{submit}}">
+            <input type="button" class="cancel" value="取消">
+        </div>
+    </form>
+</template>

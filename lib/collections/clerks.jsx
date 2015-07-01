@@ -10,6 +10,7 @@ Meteor.methods({
         Validator.verify(isOwner(shopId));
         var profile = {
             name: clerkProfile.name,
+            email: clerkProfile.email,
             type: 'clerk',
             shop: shopId,
             boss: Meteor.userId()
