@@ -30,7 +30,7 @@ Template.updateDishDetails.events({
 
   'click .cancel': function(e) {
     e.preventDefault();
-    Router.go('myShop', {shopId: this._id});
+    Router.go('myShop', {shopId: this.shopId});
   }
 });
 

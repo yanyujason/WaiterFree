@@ -46,7 +46,6 @@ Meteor.methods({
     dishDetailsUpdate(shopId, dishDetails) {
         Validator.verify('dish', dishDetails);
         Validator.verify(isOwner(shopId));
-        Validator.verify(isUniqDish(shopId, dishDetails.name));
 
         dishDetails = _.pick(dishDetails, 'name', 'img', 'price', 'desc', 'tags', 'dishId');
         dishDetails.updatedAt = new Date();
