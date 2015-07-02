@@ -18,10 +18,10 @@ Template.myShop.events({
     },
 
     'click .delete-dish': function (e) {
-        var dishName = this.name,
+        var dishId = this.dishId,
           shopName = Template.instance().data.name;
 
-        Services.myShop.deleteMyDish(shopName, dishName);
+        Services.myShop.deleteMyDish(shopName, dishId);
     }
 });
 

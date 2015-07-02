@@ -71,8 +71,9 @@ Template.dishForm.events({
             })
         };
 
-        var newOrUpdate = isNewDish(this.dish.dishId) ? 'newDish' : 'dishDetailsUpdate';
-        if(newOrUpdate === 'dishDetailsUpdate') {
+        var newDish = isNewDish(this.dish.dishId);
+        var newOrUpdate = newDish ? 'newDish' : 'dishDetailsUpdate';
+        if (!newDish) {
             dish.dishId = this.dish.dishId;
         }
 
