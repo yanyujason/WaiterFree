@@ -9,20 +9,24 @@ function isShopClerk (shopId, clerkId) {
     }, '权限错误');
 }
 
+function clerkEmail(shopId, number) {
+    return `${number}@${shopId}.com`;
+}
+
 Meteor.methods({
     newClerk(shopId, _, clerkProfile) {
         Validator.verify('clerkProfile', clerkProfile);
         Validator.verify(isOwner(shopId));
         var profile = {
             name: clerkProfile.name,
-            email: clerkProfile.email,
+            number: clerkProfile.number,
             type: 'clerk',
             shop: shopId,
             boss: Meteor.userId()
         };
 
         var clerkId = Accounts.createUser({
-            email: clerkProfile.email,
+            email: clerkEmail(shopId, clerkProfile.number),
             password: clerkProfile.password,
             profile: profile
         });
@@ -41,7 +45,8 @@ Meteor.methods({
 
         Meteor.users.update(clerkId, {$set: {
             'profile.name': clerkProfile.name,
-            'emails': [{address: clerkProfile.email}]
+            'profile.number': clerkProfile.number,
+            'emails': [{address: clerkEmail(shopId, clerkProfile.number)}]
         }});
     }
 });

@@ -59,13 +59,13 @@ describe('clerkForm', function () {
                 spyOn(Meteor, 'call');
 
                 $('.clerk-form input[name=name]').val('Name');
-                $('.clerk-form input[name=email]').val('Email@wf.com');
+                $('.clerk-form input[name=number]').val('Number');
                 $('.clerk-form input[name=password]').val('Password1');
                 $('.clerk-form input[name=password2]').val('Password1');
                 $('.clerk-form').submit();
 
                 expect(Meteor.call).toHaveBeenCalledWith('newClerk', 'shopId', undefined, {
-                    name: 'Name', email: 'Email@wf.com', password: 'Password1', passwordConfirm: ['Password1', 'Password1']
+                    name: 'Name', number: 'Number', password: 'Password1', passwordConfirm: ['Password1', 'Password1']
                 }, jasmine.any(Function));
             });
 
@@ -89,13 +89,13 @@ describe('clerkForm', function () {
                 spyOn(Meteor, 'call');
 
                 $('.clerk-form input[name=name]').val('Name');
-                $('.clerk-form input[name=email]').val('Email@wf.com');
+                $('.clerk-form input[name=number]').val('Number');
                 $('.clerk-form input[name=password]').val('Password1');
                 $('.clerk-form input[name=password2]').val('Password1');
                 $('.clerk-form').submit();
 
                 expect(Meteor.call).toHaveBeenCalledWith('updateClerk', 'shopId', "1", {
-                    name: 'Name', email: 'Email@wf.com', password: 'Password1', passwordConfirm: ['Password1', 'Password1']
+                    name: 'Name', number: 'Number', password: 'Password1', passwordConfirm: ['Password1', 'Password1']
                 }, jasmine.any(Function));
             });
 
