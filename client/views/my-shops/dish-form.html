@@ -1,7 +1,7 @@
 <template name="dishForm">
     <form class="dish-form inline-form">
         <h2 class="section-title">{{title}}</h2>
-
+        <div class="error-msg">{{generalError}}</div>
         <div class="control-group {{errorClass 'name'}}">
             <div class="error-msg">{{errorInfo 'name'}}</div>
             <div class="flex-layout">
