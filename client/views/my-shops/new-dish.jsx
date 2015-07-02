@@ -35,15 +35,6 @@ Template.newDish.onRendered(function () {
     });
 });
 
-Template.newDish.helpers({
-    errorClass(field) {
-        return Errors.isFieldError(field) ? 'error' : '';
-    },
-    errorInfo(field) {
-        return Errors.fieldErrorInfo(field);
-    }
-});
-
 Template.newDish.events({
     'click .cancel': function (e) {
         e.preventDefault();

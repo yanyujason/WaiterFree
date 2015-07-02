@@ -1,16 +1,3 @@
-Template.updateDishDetails.helpers({
-  errorClass(field) {
-    return Errors.isFieldError(field) ? 'error' : '';
-  },
-  errorInfo(field) {
-    return Errors.fieldErrorInfo(field);
-  },
-  generalError() {
-    return Errors.generalErrorInfo();
-  }
-});
-
-
 Template.updateDishDetails.events({
   'submit form': function(e) {
     e.preventDefault();

@@ -1,10 +1,15 @@
 callHelper = function(template, helperName, context, args) {
     context = context || {};
     args = args || [];
-    return template.__helpers[' ' + helperName].apply(context, args);
+    if(template === Template) {
+        return Blaze._globalHelpers[helperName].apply(context, args);
+    } else {
+        return template.__helpers[' ' + helperName].apply(context, args);
+    }
 };
 
 renderTemplate = function(template, data) {
+    data = data || {};
     Blaze.renderWithData(template, data, $('.integration-fixture')[0]);
 };
 

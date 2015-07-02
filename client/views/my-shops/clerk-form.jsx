@@ -3,15 +3,6 @@ function isNewClerk(clerkId) {
 }
 
 Template.clerkForm.helpers({
-    errorClass(field) {
-        return Errors.isFieldError(field) ? 'error' : '';
-    },
-    errorInfo(field) {
-        return Errors.fieldErrorInfo(field);
-    },
-    generalError() {
-        return Errors.generalErrorInfo();
-    },
     title() {
         return isNewClerk(this.clerk._id) ? '添加店员' : '修改店员';
     },

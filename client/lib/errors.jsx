@@ -4,19 +4,31 @@ throwError = function(ex) {
     Errors.upsert({}, {error: ex.error, reason: ex.reason, details: ex.details});
 };
 
-Errors.isFieldError = (field) => {
+function isFieldError(field) {
     return !!Errors.findOne({'details.field': field});
-};
+}
 
-Errors.fieldErrorInfo = (field) => {
-    if(!Errors.isFieldError(field)) return '';
+function fieldErrorInfo(field) {
+    if(!isFieldError(field)) return '';
     var detail = _.find(Errors.findOne({'details.field': field}).details, (d) => {
         return d.field == field;
     });
     return detail ? detail.error : '';
-};
+}
 
-Errors.generalErrorInfo = () => {
+function generalErrorInfo() {
     var error = Errors.findOne({'details.field': {$exists: false}});
     return error ? error.reason : '';
-};
+}
+
+Template.registerHelper('errorClass', (field) => {
+    return isFieldError(field) ? 'error' : '';
+});
+
+Template.registerHelper('errorInfo', (field) => {
+    return fieldErrorInfo(field);
+});
+
+Template.registerHelper('generalError', () => {
+    return generalErrorInfo();
+});
