@@ -1,7 +1,7 @@
 Errors = new Mongo.Collection(null);
 
 throwError = function(ex) {
-    Errors.upsert({error: ex.error}, {error: ex.error, reason: ex.reason, details: ex.details});
+    Errors.upsert({}, {error: ex.error, reason: ex.reason, details: ex.details});
 };
 
 Errors.isFieldError = (field) => {
@@ -14,4 +14,9 @@ Errors.fieldErrorInfo = (field) => {
         return d.field == field;
     });
     return detail ? detail.error : '';
+};
+
+Errors.generalErrorInfo = () => {
+    var error = Errors.findOne({'details.field': {$exists: false}});
+    return error ? error.reason : '';
 };

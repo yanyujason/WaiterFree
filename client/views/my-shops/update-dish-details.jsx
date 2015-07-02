@@ -4,6 +4,9 @@ Template.updateDishDetails.helpers({
   },
   errorInfo(field) {
     return Errors.fieldErrorInfo(field);
+  },
+  generalError() {
+    return Errors.generalErrorInfo();
   }
 });
 
