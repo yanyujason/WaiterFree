@@ -1,14 +1,5 @@
-Template.updateShopDetails.helpers({
-    errorClass(field) {
-        return Errors.isFieldError(field) ? 'error' : '';
-    },
-    errorInfo(field) {
-        return Errors.fieldErrorInfo(field);
-    }
-});
-
 Template.updateShopDetails.events({
-    'submit form': function(e) {
+    'submit form.update-shop': function(e) {
         e.preventDefault();
 
         var currentShopId = this._id;
@@ -19,7 +10,11 @@ Template.updateShopDetails.events({
             tel: $(e.target).find('[name=tel]').val(),
             tags: $(e.target).find('[name=tags]').val().split(/[,\s]/).map((t)=>{return t.trim();}).filter((t)=>{return t;})
         };
-        Services.updateShopDetails(currentShopId, shopDetails);
+
+        Meteor.call('shopDetailsUpdate', currentShopId, shopDetails, function(error, result) {
+            if (error) return throwError(error);
+            Router.go('myShop', {shopId: currentShopId});
+        });
     },
 
     'click .cancel': function(e) {
@@ -27,10 +22,3 @@ Template.updateShopDetails.events({
         Router.go('myShop', {shopId: this._id});
     }
 });
-
-Services.updateShopDetails = function(currentShopId, shopDetails) {
-    Meteor.call('shopDetailsUpdate', currentShopId, shopDetails, function(error, result) {
-        if (error) return throwError(error);
-        Router.go('myShop', {shopId: currentShopId});
-    });
-};

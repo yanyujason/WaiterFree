@@ -1,8 +1,8 @@
 <template name="updateShopDetails">
     <div class="container">
-
         <form class="update-shop inline-form">
             <h2 class="section-title">编辑店铺</h2>
+            <div class="error-msg">{{generalError}}</div>
             <div class="control-group {{errorClass 'name'}}">
                 <div class="error-msg">{{errorInfo 'name'}}</div>
                 <div class="flex-layout">

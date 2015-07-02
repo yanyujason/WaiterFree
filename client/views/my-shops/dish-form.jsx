@@ -87,6 +87,5 @@ Template.dishForm.events({
             Router.go('myShop', {shopId: shopId});
         });
     }
-
 });
 
