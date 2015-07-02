@@ -40,12 +40,6 @@ Template.dishForm.onRendered(function () {
 });
 
 Template.dishForm.helpers({
-    errorClass(field) {
-        return Errors.isFieldError(field) ? 'error' : '';
-    },
-    errorInfo(field) {
-        return Errors.fieldErrorInfo(field);
-    },
     title() {
         return isNewDish(this.dish.dishId) ? '添加菜品' : '修改菜品';
     },

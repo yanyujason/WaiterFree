@@ -39,6 +39,23 @@ describe('clerks collection methods', function () {
             });
         });
 
+        it('get error when clerk number exist', function (done) {
+            spyOn(Meteor.users, 'find').and.returnValue({count: function() {return 1;}});
+
+            var profile = {
+                name: 'Y.MM',
+                number: '001',
+                password: 'a1b2c3d4',
+                passwordConfirm: ['a1b2c3d4', 'a1b2c3d4']
+            };
+
+            var notMyShopId = 'notMyShopId';
+            Meteor.call('newClerk', notMyShopId, null, profile, function(err) {
+                expect(err.error).toBe('validation-rule');
+                done();
+            });
+        });
+
         it('create new clerk for the shop', function (done) {
             var profile = {
                 name: 'Y.MM',

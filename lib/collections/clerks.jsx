@@ -9,6 +9,12 @@ function isShopClerk (shopId, clerkId) {
     }, '权限错误');
 }
 
+function checkUniq (shopId, clerkNumber) {
+    return new Rule(() => {
+        return !Meteor.users.find({'profile.shop': shopId, 'profile.number': clerkNumber}).count();
+    }, '店员已存在');
+}
+
 function clerkEmail(shopId, number) {
     return `${number}@${shopId}.com`;
 }
@@ -17,6 +23,7 @@ Meteor.methods({
     newClerk(shopId, _, clerkProfile) {
         Validator.verify('clerkProfile', clerkProfile);
         Validator.verify(isOwner(shopId));
+        Validator.verify(checkUniq(shopId, clerkProfile.number));
         var profile = {
             name: clerkProfile.name,
             number: clerkProfile.number,
