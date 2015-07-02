@@ -45,43 +45,6 @@ Router.route('/my-shops/:shopId/details', function() {
     }
 });
 
-Router.route('/my-shops/:shopId/dishes/add', function() {
-    var dataContext = {
-        data: Shops.findOne({_id: this.params.shopId})
-    };
-    this.layout('myShopLayout', dataContext);
-    this.render('newDish', dataContext);
-}, {
-    name: 'newDish',
-    waitOn() {
-        return [
-            Meteor.subscribe('myShop', this.params.shopId),
-            Meteor.subscribe('qiniuConfig'),
-            IRLibLoader.load("/javascripts/plupload.full.min.js"),
-            IRLibLoader.load("/javascripts/qiniu-sdk.js")
-        ];
-    }
-});
-
-Router.route('/my-shops/:shopId/dishes/:dishId', function () {
-    var dataContext = {
-        data: {
-            shopId: this.params.shopId,
-            dish: _.find(Shops.findOne({_id: this.params.shopId, 'menu.dishes.dishId': this.params.dishId}).menu.dishes, (d) => {return d.dishId == this.params.dishId;})}
-    };
-    this.layout('myShopLayout', Shops.findOne({_id: this.params.shopId}));
-    this.render('updateDishDetails', dataContext);
-}, {
-    name: 'updateDishDetails',
-    waitOn() {
-        return [Meteor.subscribe('myShop', this.params.shopId),
-            Meteor.subscribe('qiniuConfig'),
-            IRLibLoader.load("/javascripts/plupload.full.min.js"),
-            IRLibLoader.load("/javascripts/qiniu-sdk.js")
-        ]
-    }
-});
-
 Router.route('/my-shops/:shopId/clerks', function() {
     this.layout('myShopLayout', {data: Shops.findOne({_id: this.params.shopId})});
     this.render('clerkList', {data: {clerks: Meteor.users.find({'profile.shop': this.params.shopId, 'profile.type': 'clerk'})}});
@@ -117,6 +80,41 @@ Router.route('/my-shops/:shopId/clerks/:clerkId', function() {
         return [
             Meteor.subscribe('myShop', this.params.shopId),
             Meteor.subscribe('myClerks', this.params.shopId)
+        ]
+    }
+});
+
+Router.route('/my-shops/:shopId/dishes/add', function() {
+    var shopId = this.params.shopId;
+    this.layout('myShopLayout', {data: Shops.findOne({_id: shopId})});
+    this.render('dishForm', {data: {shopId: shopId, dish: {}}});
+}, {
+    name: 'newDish',
+    waitOn() {
+        return [
+            Meteor.subscribe('myShop', this.params.shopId),
+            Meteor.subscribe('qiniuConfig'),
+            IRLibLoader.load("/javascripts/plupload.full.min.js"),
+            IRLibLoader.load("/javascripts/qiniu-sdk.js")
+        ];
+    }
+});
+
+Router.route('/my-shops/:shopId/dishes/:dishId', function () {
+    var dataContext = {
+        data: {
+            shopId: this.params.shopId,
+            dish: _.find(Shops.findOne({_id: this.params.shopId, 'menu.dishes.dishId': this.params.dishId}).menu.dishes, (d) => {return d.dishId == this.params.dishId;})}
+    };
+    this.layout('myShopLayout', Shops.findOne({_id: this.params.shopId}));
+    this.render('dishForm', dataContext);
+}, {
+    name: 'updateDishDetails',
+    waitOn() {
+        return [Meteor.subscribe('myShop', this.params.shopId),
+            Meteor.subscribe('qiniuConfig'),
+            IRLibLoader.load("/javascripts/plupload.full.min.js"),
+            IRLibLoader.load("/javascripts/qiniu-sdk.js")
         ]
     }
 });

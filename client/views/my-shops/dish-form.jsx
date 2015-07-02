@@ -1,4 +1,8 @@
-Template.newDish.onRendered(function () {
+function isNewDish(dishId) {
+    return !dishId;
+}
+
+Template.dishForm.onRendered(function () {
     var qiniuConfig = QiniuConfig.findOne({name: 'qiniuConfig'});
     Qiniu.uploader({
         runtimes: 'html5,flash,html4',
@@ -35,24 +39,32 @@ Template.newDish.onRendered(function () {
     });
 });
 
-Template.newDish.helpers({
+Template.dishForm.helpers({
     errorClass(field) {
         return Errors.isFieldError(field) ? 'error' : '';
     },
     errorInfo(field) {
         return Errors.fieldErrorInfo(field);
-    }
+    },
+    title() {
+        return isNewDish(this.dish.dishId) ? '添加菜品' : '修改菜品';
+    },
+    submit() {
+        return isNewDish(this.dish.dishId) ? '添加' : '修改';
+    },
+    imgPath: Formatter.imgPath
 });
 
-Template.newDish.events({
+Template.dishForm.events({
     'click .cancel': function (e) {
         e.preventDefault();
-        Router.go('myShop', {shopId: this._id});
+        Router.go('myShop', {shopId: this.shopId});
     },
 
-    'submit form': function (e) {
+    'submit .dish-form': function (e) {
         e.preventDefault();
 
+        var shopId = this.shopId;
         var dish = {
             name: $(e.target).find("[name=name]").val(),
             img: $(e.target).find("[name=img]").val(),
@@ -64,13 +76,17 @@ Template.newDish.events({
                 return t;
             })
         };
-        Services.newDish(this._id, dish);
+
+        var newOrUpdate = isNewDish(this.dish.dishId) ? 'newDish' : 'dishDetailsUpdate';
+        if(newOrUpdate === 'dishDetailsUpdate') {
+            dish.dishId = this.dish.dishId;
+        }
+
+        Meteor.call(newOrUpdate, shopId, dish, function(error, result) {
+            if (error) return throwError(error);
+            Router.go('myShop', {shopId: shopId});
+        });
     }
+
 });
 
-Services.newDish = function (shopId, dish) {
-    Meteor.call('newDish', shopId, dish, function (error, result) {
-        if (error) return throwError(error);
-        Router.go('myShop', {shopId: shopId});
-    });
-};
