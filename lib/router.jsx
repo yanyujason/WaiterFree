@@ -1,4 +1,4 @@
-var sub = _.contains(['production', 'staging'], Meteor.settings.public.appEnv) ? new SubsManager() : Meteor;
+var sub = _.contains(['production', 'staging'], (Meteor.settings.public || {}).appEnv) ? new SubsManager() : Meteor;
 
 Router.configure({loadingTemplate: 'loading'});
 
