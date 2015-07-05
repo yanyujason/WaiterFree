@@ -8,3 +8,26 @@
         </section>
     </aside>
 </template>
+
+<template name="alertPopup">
+    <div class="alert-popup">
+        {{#if message}}
+        <p>{{message}}</p>
+        {{/if}}
+        <div class="controls">
+            <button class="btn-confirm">{{buttonText}}</button>
+        </div>
+    </div>
+</template>
+
+<template name="confirmPopup">
+    <div class="confirm-popup">
+        {{#if message}}
+        <p>{{message}}</p>
+        {{/if}}
+        <div class="controls">
+            <button class="btn-confirm">{{buttonText}}</button>
+            <button class="btn-cancel">{{cancelButtonText}}</button>
+        </div>
+    </div>
+</template>
