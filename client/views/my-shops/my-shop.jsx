@@ -14,28 +14,26 @@ Template.myShop.helpers({
 Template.myShop.events({
     'click .category': function (e) {
         var tag = $(e.target).data('category');
-        Services.myShop.changeDishTag(tag);
+        Session.set('dishCategory', tag);
     },
 
     'click .delete-dish': function (e, template) {
         var dishId = this.dishId,
-          shopName = template.data.name;
+          shopId = template.data._id;
 
-        Services.myShop.deleteMyDish(shopName, dishId);
-    }
-});
-
-Services.myShop = {
-    changeDishTag(tag) {
-        Session.set('dishCategory', tag);
-    },
-
-    deleteMyDish(shopName, dishName) {
-        Meteor.call('deleteDish', shopName, dishName, function(error, result) {
-            if (error) return throwError(error);
+        Popups.confirm({
+            message: `确定要删除${this.name}吗？`,
+            buttonText: '删除',
+            cancelButtonText: '取消'
+        }, (isDelete) => {
+            if(isDelete) {
+                Meteor.call('deleteDish', shopId, dishId, function(error, result) {
+                    if (error) return throwError(error);
+                });
+            }
         });
     }
-};
+});
 
 Template.dish.helpers({
     money: Formatter.money,

@@ -39,8 +39,8 @@ Meteor.methods({
         });
     },
 
-    deleteDish(shopName, dishId) {
-        Shops.update({name: shopName}, {$pull: {'menu.dishes': {'dishId': dishId}}});
+    deleteDish(shopId, dishId) {
+        Shops.update(shopId, {$pull: {'menu.dishes': {'dishId': dishId}}});
     },
 
     dishDetailsUpdate(shopId, dishDetails) {
