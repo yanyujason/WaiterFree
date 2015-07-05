@@ -1,0 +1,10 @@
+<template name="popup">
+    <aside class="popup-overlay">
+        <section class="popup-container">
+            {{#if options.closeIcon}}
+            <span class="popup-close icon icon-fire"></span>
+            {{/if}}
+            {{> Template.dynamic template=popupTemplateName data=data}}
+        </section>
+    </aside>
+</template>
