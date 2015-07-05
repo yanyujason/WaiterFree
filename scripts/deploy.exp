@@ -4,7 +4,10 @@ set timeout 1000
 set email "$env(METEOR_STAGING_EMAIL)"
 set password "$env(METEOR_STAGING_PASSWORD)"
 
-spawn METEOR_SETTINGS="{\"public\":{\"a\":1}}" meteor deploy $env(METEOR_DEPLOY_URL)
+# Write settings.json
+echo $SETTINGS_JSON > private/settings.json
+
+spawn meteor deploy $env(METEOR_DEPLOY_URL) --settings private/settings.json
 
 #puts $command
 expect -- "*Email:"

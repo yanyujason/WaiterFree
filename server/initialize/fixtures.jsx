@@ -4,6 +4,8 @@ if(Meteor.settings.appEnv !== 'production') {
             if(!reset) return;
             Meteor.users.remove({});
             Shops.remove({});
+            QiniuConfig.remove({});
+
             return 'All fixture removed!';
         },
         _createFixture: function(options) {
