@@ -4,9 +4,6 @@ set timeout 1000
 set email "$env(METEOR_STAGING_EMAIL)"
 set password "$env(METEOR_STAGING_PASSWORD)"
 
-# Write settings.json
-echo $env(SETTINGS_JSON) > private/settings.json
-
 spawn meteor deploy $env(METEOR_DEPLOY_URL) --settings private/settings.json
 
 #puts $command
