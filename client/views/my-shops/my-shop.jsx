@@ -17,9 +17,9 @@ Template.myShop.events({
         Services.myShop.changeDishTag(tag);
     },
 
-    'click .delete-dish': function (e) {
+    'click .delete-dish': function (e, template) {
         var dishId = this.dishId,
-          shopName = Template.instance().data.name;
+          shopName = template.data.name;
 
         Services.myShop.deleteMyDish(shopName, dishId);
     }

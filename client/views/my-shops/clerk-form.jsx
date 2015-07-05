@@ -17,8 +17,8 @@ Template.clerkForm.events({
 
         var shopId = this.shopId;
         var clerkProfile = {
-            name: $(e.target).find('[name=name]').val(),
             number: $(e.target).find('[name=number]').val(),
+            name: $(e.target).find('[name=name]').val(),
             password: $(e.target).find('[name=password]').val(),
             passwordConfirm: [$(e.target).find('[name=password]').val(), $(e.target).find('[name=password2]').val()]
         };

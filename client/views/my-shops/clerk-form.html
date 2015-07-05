@@ -3,18 +3,18 @@
         <form class="clerk-form inline-form">
             <h2 class="section-title">{{title}}</h2>
             <div class="error-msg">{{generalError}}</div>
-            <div class="control-group {{errorClass 'name'}}">
-                <div class="error-msg">{{errorInfo 'name'}}</div>
-                <div class="flex-layout">
-                    <label for="name" class="flex-1">姓名</label>
-                    <input id="name" class="flex-4" name="name" value="{{clerk.profile.name}}">
-                </div>
-            </div>
             <div class="control-group {{errorClass 'number'}}">
                 <div class="error-msg">{{errorInfo 'number'}}</div>
                 <div class="flex-layout">
                     <label for="email" class="flex-1">编号</label>
                     <input id="email" class="flex-4" name="number" value="{{clerk.profile.number}}">
+                </div>
+            </div>
+            <div class="control-group {{errorClass 'name'}}">
+                <div class="error-msg">{{errorInfo 'name'}}</div>
+                <div class="flex-layout">
+                    <label for="name" class="flex-1">姓名</label>
+                    <input id="name" class="flex-4" name="name" value="{{clerk.profile.name}}">
                 </div>
             </div>
             <div class="control-group {{errorClass 'password'}}">
