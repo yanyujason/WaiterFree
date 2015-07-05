@@ -1,4 +1,4 @@
-Router.plugin('loading', {loadingTemplate: 'loading'});
+Router.configure({loadingTemplate: 'loading'});
 
 Router.route('/sign-in', function() {
     if(!Meteor.userId()) {
@@ -21,6 +21,7 @@ Router.route('/my-shops', function() {
     }
 }, {
     name: 'myShops',
+    fastRender: true,
     waitOn() {
         return Meteor.subscribe('myShops');
     }
@@ -34,6 +35,7 @@ Router.route('/my-shops/:shopId', function() {
     this.render('myShop', dataContext);
 }, {
     name: 'myShop',
+    fastRender: true,
     waitOn() {
         return [
             Meteor.subscribe('myShop', this.params.shopId),
@@ -50,6 +52,7 @@ Router.route('/my-shops/:shopId/details', function() {
     this.render('updateShopDetails', dataContext);
 }, {
     name: 'updateShopDetails',
+    fastRender: true,
     waitOn() {
         return Meteor.subscribe('myShop', this.params.shopId);
     }
@@ -61,6 +64,7 @@ Router.route('/my-shops/:shopId/clerks', function() {
     this.render('clerkList', {data: {shopId: shopId, clerks: Meteor.users.find({'profile.shop': shopId, 'profile.type': 'clerk'})}});
 }, {
     name: 'clerkList',
+    fastRender: true,
     waitOn() {
         return [
             Meteor.subscribe('myShop', this.params.shopId),
@@ -75,6 +79,7 @@ Router.route('/my-shops/:shopId/clerks/add', function() {
     this.render('clerkForm', {data: {shopId: shopId, clerk: {}}});
 }, {
     name: 'newClerk',
+    fastRender: true,
     waitOn() {
         return Meteor.subscribe('myShop', this.params.shopId)
     }
@@ -87,6 +92,7 @@ Router.route('/my-shops/:shopId/clerks/:clerkId', function() {
     this.render('clerkForm', {data: {shopId: shopId, clerk: Meteor.users.findOne(clerkId)}});
 }, {
     name: 'updateClerk',
+    fastRender: true,
     waitOn() {
         return [
             Meteor.subscribe('myShop', this.params.shopId),
@@ -101,13 +107,15 @@ Router.route('/my-shops/:shopId/dishes/add', function() {
     this.render('dishForm', {data: {shopId: shopId, dish: {}}});
 }, {
     name: 'newDish',
+    fastRender: true,
     waitOn() {
-        return [
-            Meteor.subscribe('myShop', this.params.shopId),
-            Meteor.subscribe('qiniuConfig'),
-            IRLibLoader.load("/javascripts/plupload.full.min.js"),
-            IRLibLoader.load("/javascripts/qiniu-sdk.js")
-        ];
+        var waitFor = [Meteor.subscribe('myShop', this.params.shopId),
+            Meteor.subscribe('qiniuConfig')];
+        if(Meteor.isClient) {
+            waitFor.push(IRLibLoader.load("/javascripts/plupload.full.min.js"),
+                IRLibLoader.load("/javascripts/qiniu-sdk.js"));
+        }
+        return waitFor;
     }
 });
 
@@ -121,12 +129,15 @@ Router.route('/my-shops/:shopId/dishes/:dishId', function () {
     this.render('dishForm', dataContext);
 }, {
     name: 'updateDishDetails',
+    fastRender: true,
     waitOn() {
-        return [Meteor.subscribe('myShop', this.params.shopId),
-            Meteor.subscribe('qiniuConfig'),
-            IRLibLoader.load("/javascripts/plupload.full.min.js"),
-            IRLibLoader.load("/javascripts/qiniu-sdk.js")
-        ]
+        var waitFor = [Meteor.subscribe('myShop', this.params.shopId),
+            Meteor.subscribe('qiniuConfig')];
+        if(Meteor.isClient) {
+            waitFor.push(IRLibLoader.load("/javascripts/plupload.full.min.js"),
+                IRLibLoader.load("/javascripts/qiniu-sdk.js"));
+        }
+        return waitFor;
     }
 });
 
