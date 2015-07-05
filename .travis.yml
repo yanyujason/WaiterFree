@@ -30,7 +30,7 @@ script:
     - "bash scripts/ci-test.sh"
 after_success:
     # Write settings.json
-    - "echo $SETTINGS_JSON > private/settings.json"
+    - 'echo "{\"public\":{\"appEnv\":\"$APP_ENV\"},\"qiniu\":{\"bucket\":\"$QINIU_BUCKET\",\"accessKey\":\"$QINIU_AK\",\"secretKey\":\"$QINIU_SK\",\"domain\":\"$QINIU_DOMAIN\"}}" > private/settings.json'
     # Deploy Staging.
     - "expect scripts/deploy.exp"
     - "sleep 5" #Sleep is to make sure meteor is done deploying
