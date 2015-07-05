@@ -7,7 +7,7 @@ describe('clerks collection methods', function () {
     });
 
     describe('newClerk', function () {
-        it('get error when profile invalid', function (done) {
+        it('gets error when profile invalid', function (done) {
             var profile = {
                 name: '',
                 number: '...',
@@ -24,7 +24,7 @@ describe('clerks collection methods', function () {
             });
         });
 
-        it('get error when user is not owner', function (done) {
+        it('gets error when user is not owner', function (done) {
             var profile = {
                 name: 'Y.MM',
                 number: '001',
@@ -39,7 +39,7 @@ describe('clerks collection methods', function () {
             });
         });
 
-        it('get error when clerk number exist', function (done) {
+        it('gets error when clerk number exist', function (done) {
             spyOn(Meteor.users, 'find').and.returnValue({count: function() {return 1;}});
 
             var profile = {
@@ -56,7 +56,7 @@ describe('clerks collection methods', function () {
             });
         });
 
-        it('create new clerk for the shop', function (done) {
+        it('creates new clerk for the shop', function (done) {
             var profile = {
                 name: 'Y.MM',
                 number: '001',
@@ -91,7 +91,7 @@ describe('clerks collection methods', function () {
             clerkId = Meteor.users.findOne({'emails.address': '001@' + myShopId + '.com'})._id;
         });
 
-        it('get error when profile invalid', function (done) {
+        it('gets error when profile invalid', function (done) {
             var profile = {
                 name: '',
                 number: '...',
@@ -108,7 +108,7 @@ describe('clerks collection methods', function () {
             });
         });
 
-        it('get error when user is not owner', function (done) {
+        it('gets error when user is not owner', function (done) {
             var profile = {
                 name: 'Y.MMM',
                 number: '002',
@@ -123,7 +123,7 @@ describe('clerks collection methods', function () {
             });
         });
 
-        it('get error when clerk is not in shop', function (done) {
+        it('gets error when clerk is not in shop', function (done) {
             var profile = {
                 name: 'Y.MMM',
                 number: '002',
@@ -138,7 +138,7 @@ describe('clerks collection methods', function () {
             });
         });
 
-        it('update clerk for the shop', function (done) {
+        it('updates clerk for the shop', function (done) {
             spyOn(Accounts, 'setPassword');
             var profile = {
                 name: 'Y.MMM',
@@ -156,6 +156,45 @@ describe('clerks collection methods', function () {
                 expect(clerk.profile.boss).toBe('bossId');
                 expect(Accounts.setPassword).toHaveBeenCalledWith(clerkId, 'z0x9c8v7');
                 expect(Shops.findOne(myShopId).clerks).toEqual([clerk._id]);
+                done();
+            });
+        });
+    });
+
+    describe('deleteClerk', function () {
+        var clerkId;
+        beforeEach(function() {
+            Meteor.call('newClerk', myShopId, null, {
+                name: 'Y.MM',
+                number: '001',
+                password: 'a1b2c3d4',
+                passwordConfirm: ['a1b2c3d4', 'a1b2c3d4']
+            });
+            clerkId = Meteor.users.findOne({'emails.address': '001@' + myShopId + '.com'})._id;
+        });
+
+        it('gets error when user is not owner', function (done) {
+            var notMyShopId = 'notMyShopId';
+            Meteor.call('deleteClerk', notMyShopId, clerkId, function(err) {
+                expect(err.error).toBe('validation-rule');
+                done();
+            });
+        });
+
+        it('gets error when clerk is not in shop', function (done) {
+            var clerkNotInShopId = 'notInShopId';
+            Meteor.call('deleteClerk', clerkNotInShopId, clerkId, function(err) {
+                expect(err.error).toBe('validation-rule');
+                done();
+            });
+        });
+
+        it('deletes new clerk for the shop', function (done) {
+            Meteor.call('deleteClerk', myShopId, clerkId, function() {
+                var clerk = Meteor.users.findOne({'emails.address': '001@' + myShopId + '.com'});
+
+                expect(clerk).toBeUndefined();
+                expect(Shops.findOne(myShopId).clerks).toEqual([]);
                 done();
             });
         });

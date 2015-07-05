@@ -55,5 +55,14 @@ Meteor.methods({
             'profile.number': clerkProfile.number,
             'emails': [{address: clerkEmail(shopId, clerkProfile.number)}]
         }});
+    },
+
+    deleteClerk(shopId, clerkId) {
+        Validator.verify(isOwner(shopId));
+        Validator.verify(isShopClerk(shopId, clerkId));
+
+        Meteor.users.remove(clerkId);
+        Shops.update(shopId, {$pull: {clerks: clerkId}});
     }
+
 });
