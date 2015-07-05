@@ -1,5 +1,15 @@
 Router.plugin('loading', {loadingTemplate: 'loading'});
 
+Router.route('/sign-in', function() {
+    if(!Meteor.userId()) {
+        this.render('bossSignIn');
+    } else {
+        Router.go('myShops');
+    }
+}, {
+    name: 'bossSignIn'
+});
+
 Router.route('/my-shops', function() {
     if(Shops.find().count() === 1) {
         Router.go('myShop', {shopId : Shops.findOne()._id});

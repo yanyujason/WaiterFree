@@ -27,7 +27,6 @@ describe('clerkList', function () {
             spyOn(Popups, 'confirm');
             spyOn(Meteor, 'call');
             $('.clerk-list li:last-child .delete-clerk').click();
-            console.log(Popups.confirm.calls.mostRecent());
             Popups.confirm.calls.mostRecent().args[1](true);
 
             expect(Meteor.call).toHaveBeenCalledWith('deleteClerk', 'shop', '2', jasmine.any(Function));
