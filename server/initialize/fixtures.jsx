@@ -1,4 +1,4 @@
-if(Meteor.settings.appEnv !== 'production') {
+if(Meteor.settings.public.appEnv !== 'production') {
     Meteor.methods({
         _removeAllFixture: function(reset) {
             if(!reset) return;
