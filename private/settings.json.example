@@ -1,4 +1,5 @@
 {
+    "appEnv": "development",
     "qiniu": {
         "bucket": "Your Bucket",
         "accessKey": "Your Access Key",
