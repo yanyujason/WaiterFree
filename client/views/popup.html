@@ -11,23 +11,27 @@
 
 <template name="alertPopup">
     <div class="alert-popup">
-        {{#if message}}
-        <p>{{message}}</p>
-        {{/if}}
-        <div class="controls">
-            <button class="btn-confirm">{{buttonText}}</button>
-        </div>
+        <form action="" class="inline-form">
+            {{#if message}}
+            <p>{{message}}</p>
+            {{/if}}
+            <div class="control-group">
+                <input type="submit" class="btn-confirm btn" value="{{buttonText}}">
+            </div>
+        </form>
     </div>
 </template>
 
 <template name="confirmPopup">
     <div class="confirm-popup">
+        <form action="" class="inline-form">
         {{#if message}}
         <p>{{message}}</p>
         {{/if}}
-        <div class="controls">
-            <button class="btn-confirm">{{buttonText}}</button>
-            <button class="btn-cancel">{{cancelButtonText}}</button>
+        <div class="control-group">
+            <input type="submit" class="btn-confirm btn" value="{{buttonText}}">
+            <input type="button" class="btn-cancel cancel" value="{{cancelButtonText}}">
         </div>
+        </form>
     </div>
 </template>

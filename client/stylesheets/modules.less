@@ -1,13 +1,21 @@
 @import 'flex';
+@theme-second-red: #e84538;
 .icon {
 	color: #666;
+}
+.pull-right {
+	float: right;
 }
 .btn {
 	padding: 0 20px;
 	border: none;
 	border-radius: 3px;
 	color: white;
-	background-color: #E84538;
+	background-color: @theme-second-red;
+}
+.central-box {
+	width: 50%;
+  margin: 0 auto;
 }
 .flex-layout {
 	.display(flex);
@@ -32,13 +40,13 @@
 	}
 	.error.control-group {
 		input {
-			border-color: #E84538;
+			border-color: @theme-second-red;
 		}
 		.error-msg {
 			display: block;
-			color: #E84538;
+			color: @theme-second-red;
 			margin-bottom: 5px;
-			margin-left: @label-max-width + @label-margin-right;
+			margin-left: @label-max-width + @label-margin-right - 6px;
 		}
 
 	}
@@ -60,23 +68,11 @@
 		margin-right: 10px;
 		border: none;
 	}
-	.cancel {
+	.btn-cancel {
 		background-color: white;
 		padding: 8px 20px;
 	}
 }
-// input::-webkit-input-placeholder {
-// 	color: red !important; 
-// }
-// input:-moz-placeholder {
-// 	color: red !important; 
-// }
-// input::-moz-placeholder {
-// 	color: red !important;
-// }
-// input:-ms-input-placeholder {
-// 	color: red !important; 
-// }
 .clearfix:after {
 	content: '';
 	display: block;
@@ -88,14 +84,6 @@
 	max-width: 1500px;
 	margin: 0 auto;
 }
-.section-title {
-	height: 30px;
-	line-height: 30px;
-	border-bottom: 1px solid #ccc;
-	font-size: 1.2em;
-	padding-bottom: 10px;
-	margin-bottom: 2%;
-}
 .flex-3-1-layout {
 	.display(flex);
 	width: 100%;
@@ -105,6 +93,29 @@
 	}
 	.flex-1 {
 		.flex(1)
+	}
+}
+.info-box {
+	margin-bottom: 30px;
+	.info-box-title {
+		height: 30px;
+		line-height: 30px;
+		border-bottom: 1px solid #ccc;
+		font-size: 1.2em;
+		margin-bottom: 2%;
+		padding-bottom: 8px;
+	}
+	.info-box-action {
+		text-decoration: none;
+		font-size: 0.7em;
+		float: right;
+	}
+	.info-box-item-actions {
+		float: right;
+		a {
+			font-size: 0.8em;
+			color: #666;
+		}
 	}
 }
 .dish-box {
@@ -145,12 +156,5 @@
 
 	.dish-info {
 		float: left;
-	}
-	.actions {
-		float: right;
-		a {
-			font-size: 0.8em;
-			color: #666;
-		}
 	}
 }

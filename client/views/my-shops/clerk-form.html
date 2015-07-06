@@ -1,7 +1,7 @@
 <template name="clerkForm">
     <div class="container">
-        <form class="clerk-form inline-form">
-            <h2 class="section-title">{{title}}</h2>
+        <form class="clerk-form info-box central-box inline-form">
+            <h2 class="info-box-title">{{title}}</h2>
             <div class="error-msg">{{generalError}}</div>
             <div class="control-group {{errorClass 'number'}}">
                 <div class="error-msg">{{errorInfo 'number'}}</div>
@@ -33,7 +33,7 @@
             </div>
             <div>
                 <input type="submit" class="btn" value="{{submit}}">
-                <input type="button" class="cancel" value="取消">
+                <input type="button" class="btn-cancel" value="取消">
             </div>
         </form>
     </div>

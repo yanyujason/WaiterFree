@@ -17,7 +17,7 @@ Template.updateShopDetails.events({
         });
     },
 
-    'click .cancel': function(e) {
+    'click .btn-cancel': function(e) {
         e.preventDefault();
         Router.go('myShop', {shopId: this._id});
     }

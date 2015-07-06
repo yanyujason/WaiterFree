@@ -113,7 +113,7 @@ describe('clerkForm', function () {
         it('goes back to clerkList when click .cancel', function () {
             renderTemplate(Template.clerkForm, {clerk: {}, shopId: 'shopId'});
             spyOn(Router, 'go');
-            $('.cancel').click();
+            $('.btn-cancel').click();
             expect(Router.go).toHaveBeenCalledWith('clerkList', {shopId: 'shopId'});
         });
     });

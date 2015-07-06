@@ -1,7 +1,7 @@
 <template name="updateShopDetails">
     <div class="container">
-        <form class="update-shop inline-form">
-            <h2 class="section-title">编辑店铺</h2>
+        <form class="update-shop info-box central-box inline-form">
+            <h2 class="info-box-title">编辑店铺</h2>
             <div class="error-msg">{{generalError}}</div>
             <div class="control-group {{errorClass 'name'}}">
                 <div class="error-msg">{{errorInfo 'name'}}</div>
@@ -40,7 +40,7 @@
             </div>
             <div>
                 <input type="submit" class="btn" value="修改">
-                <input type="button" class="cancel" value="取消">
+                <input type="button" class="btn-cancel" value="取消">
             </div>
         </form>
     </div>

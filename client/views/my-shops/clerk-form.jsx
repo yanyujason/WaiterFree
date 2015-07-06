@@ -31,7 +31,7 @@ Template.clerkForm.events({
         });
     },
 
-    'click .cancel': function(e) {
+    'click .btn-cancel': function(e) {
         e.preventDefault();
 
         Router.go('clerkList', {shopId: this.shopId});

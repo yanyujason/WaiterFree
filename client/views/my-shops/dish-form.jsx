@@ -50,7 +50,7 @@ Template.dishForm.helpers({
 });
 
 Template.dishForm.events({
-    'click .cancel': function (e) {
+    'click .btn-cancel': function (e) {
         e.preventDefault();
         Router.go('myShop', {shopId: this.shopId});
     },

@@ -1,4 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Dosis);
+@theme-red: #bd2400;
+@theme-second-red: #e84538;
 body {
 	font-family: 'Dosis', helvetica, arial, sans-serif;
 }
@@ -17,10 +19,12 @@ body {
 	line-height: 50px;
 	color: white;
 }
-
+.clerk-list li{
+	margin: 8px 0;
+}
 .navigation-wrapper {
 	height: 50px;
-	background-color: #bd2400;
+	background-color: @theme-red;
 	margin-bottom: 3%;
 	.nav {
 		float: right;
@@ -53,7 +57,7 @@ body {
 	.category {
 		display: inline-block;
 		text-decoration: none;
-		border: 1px solid #E84538;
+		border: 1px solid @theme-second-red;
 		padding: 6px 12px;
 		color: black;
 		margin: 10px 5px;
@@ -61,17 +65,18 @@ body {
 			margin-left: 0;
 		}
 		&:hover {
-			background-color: #E84538;
+			background-color: @theme-second-red;
 			color: white;			
 		}
 		&.active {
-			background-color: #E84538;
+			background-color: @theme-second-red;
 			color: white;
 		}
 	}
 }
-.edit-shop {
-	text-decoration: none;
-	font-size: 0.7em;
-	float: right;
+
+.popup-container {
+	.inline-form input[type='submit'] {
+		margin-left: 0;
+	}
 }

@@ -4,9 +4,9 @@ describe('update-shop-details', function () {
             renderTemplate(Template.updateShopDetails, {_id: 'shop'});
         });
 
-        it('goes to myShop when click .cancel', function () {
+        it('goes to myShop when click .btn-cancel', function () {
             spyOn(Router, 'go');
-            $('.cancel').click();
+            $('.btn-cancel').click();
             expect(Router.go).toHaveBeenCalledWith('myShop', {shopId: 'shop'});
         });
 
