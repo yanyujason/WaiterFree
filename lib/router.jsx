@@ -134,9 +134,7 @@ function loginFilter() {
     if(Meteor.userId()) {
         this.next();
     } else {
-        // TODO
-        console.log('TODO Should redirect to 404');
-        this.next();
+        this.redirect('bossSignIn');
     }
 }
 
@@ -145,4 +143,4 @@ function clearErrorFilter() {
     this.next();
 }
 Router.onBeforeAction(clearErrorFilter);
-Router.onBeforeAction(loginFilter);
+Router.onBeforeAction(loginFilter, {except: 'bossSignIn'});

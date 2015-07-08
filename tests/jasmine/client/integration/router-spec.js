@@ -40,4 +40,16 @@ describe('/my-shops', function () {
             expect(Router.current().url).toEqual('/my-shops/' + shopId)
         });
     });
+
+    describe('for the boss not sign in', function () {
+        beforeEach(function (done) {
+            Router.go('/my-shops');
+            Tracker.afterFlush(done);
+        });
+        beforeEach(waitForRouter);
+
+        it('redirects to "/sign-in"', function () {
+            expect(Router.current().url).toEqual('/sign-in')
+        });
+    });
 });
