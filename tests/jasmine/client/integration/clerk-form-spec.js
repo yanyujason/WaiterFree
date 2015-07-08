@@ -76,7 +76,7 @@ describe('clerkForm', function () {
                 $('.clerk-form').submit();
                 Meteor.call.calls.mostRecent().args[4]();
 
-                expect(Router.go).toHaveBeenCalledWith('clerkList', {shopId: 'shopId'});
+                expect(Router.go).toHaveBeenCalledWith('myShop', {shopId: 'shopId'});
             });
         });
 
@@ -106,7 +106,7 @@ describe('clerkForm', function () {
                 $('.clerk-form').submit();
                 Meteor.call.calls.mostRecent().args[4]();
 
-                expect(Router.go).toHaveBeenCalledWith('clerkList', {shopId: 'shopId'});
+                expect(Router.go).toHaveBeenCalledWith('myShop', {shopId: 'shopId'});
             });
         });
 
@@ -114,7 +114,7 @@ describe('clerkForm', function () {
             renderTemplate(Template.clerkForm, {clerk: {}, shopId: 'shopId'});
             spyOn(Router, 'go');
             $('.btn-cancel').click();
-            expect(Router.go).toHaveBeenCalledWith('clerkList', {shopId: 'shopId'});
+            expect(Router.go).toHaveBeenCalledWith('myShop', {shopId: 'shopId'});
         });
     });
 });

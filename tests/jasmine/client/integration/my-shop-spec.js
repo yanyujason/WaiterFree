@@ -39,7 +39,7 @@ describe('myShop', function () {
 
     describe('events', function () {
         beforeEach(function() {
-            renderTemplate(Template.myShop, {menu: {dishes: [], tagPriority: ['a', 'b']}});
+            renderTemplate(Template.myShop, {shop: {menu: {dishes: [], tagPriority: ['a', 'b']}}});
         });
 
         it('changes active category when click on category', function (done) {

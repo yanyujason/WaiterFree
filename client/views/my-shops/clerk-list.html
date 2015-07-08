@@ -1,14 +1,18 @@
 <template name="clerkList">
-    <section>
-        <div>
-            <a class="new-clerk" href="{{pathFor route='newClerk' shopId=shopId}}">增加店员</a>
-        </div>
+    <section class="info-box">
+        <h2 class="info-box-title">店员信息
+            <a class="new-clerk info-box-action" href="{{pathFor route='newClerk' shopId=shop._id}}">
+                <span class="icon icon-pencil">添加</span>
+            </a>
+        </h2>
         <ul class="clerk-list">
             {{#each clerks}}
             <li>
-                <span>{{profile.name}}</span>
-                <a class="update-clerk" href="{{pathFor route='updateClerk' shopId=../shopId clerkId=_id}}">修改</a>
-                <a class="delete-clerk" href="">删除</a>
+                {{profile.name}}
+                <div class="info-box-item-actions">
+                    <a class="update-clerk" href="{{pathFor route='updateClerk' shopId=../shop._id clerkId=_id}}">修改</a>
+                    <a class="delete-clerk" href="">删除</a>
+                </div>
             </li>
             {{/each}}
         </ul>

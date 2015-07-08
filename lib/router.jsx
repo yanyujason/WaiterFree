@@ -29,16 +29,21 @@ Router.route('/my-shops', function() {
 });
 
 Router.route('/my-shops/:shopId', function() {
+    var shopId = this.params.shopId;
     var dataContext = {
-        data: Shops.findOne(this.params.shopId)
+        data: {
+            shop: Shops.findOne(shopId),
+            clerks: Meteor.users.find({'profile.shop': shopId, 'profile.type': 'clerk'})
+        }
     };
-    this.layout('myShopLayout', dataContext);
+    this.layout('myShopLayout', {data: Shops.findOne(shopId)});
     this.render('myShop', dataContext);
 }, {
     name: 'myShop',
     waitOn() {
         return [
             sub.subscribe('myShop', this.params.shopId),
+            sub.subscribe('myClerks', this.params.shopId),
             sub.subscribe('qiniuConfig')
         ];
     }

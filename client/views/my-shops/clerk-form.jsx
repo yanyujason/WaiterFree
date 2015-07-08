@@ -27,13 +27,13 @@ Template.clerkForm.events({
 
         Meteor.call(method, shopId, this.clerk._id, clerkProfile, function(error, result) {
             if (error) return throwError(error);
-            Router.go('clerkList', {shopId: shopId});
+            Router.go('myShop', {shopId: shopId});
         });
     },
 
     'click .btn-cancel': function(e) {
         e.preventDefault();
 
-        Router.go('clerkList', {shopId: this.shopId});
+        Router.go('myShop', {shopId: this.shopId});
     }
 });
