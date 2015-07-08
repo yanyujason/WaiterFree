@@ -1,0 +1,23 @@
+<template name="shopDetails">
+    <section class="info-box">
+        <h2 class="info-box-title">店铺信息
+            <a class="edit-shop info-box-action" href="{{pathFor route='updateShopDetails' shopId=shop._id}}">
+                <span class="icon icon-pencil">编辑</span>
+            </a>
+        </h2>
+        <table class="shop-info">
+            <tr>
+                <td><span class="icon icon-phone"></span></td>
+                <td>{{shop.tel}}</td>
+            </tr>
+            <tr>
+                <td><span class="icon icon-address-book"></span></td>
+                <td>{{shop.address}}</td>
+            </tr>
+            <tr>
+                <td><span class="icon icon-tags"></span></td>
+                <td>{{#each shop.tags}}<span>{{this}}</span> {{/each}}</td>
+            </tr>
+        </table>
+    </section>
+</template>

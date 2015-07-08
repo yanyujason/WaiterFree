@@ -1,4 +1,4 @@
-Template.myShop.helpers({
+Template.dishList.helpers({
     categoryDishes(dishes) {
         var tag = Session.get('dishCategory');
         if (!tag) return dishes;
@@ -11,7 +11,7 @@ Template.myShop.helpers({
     }
 });
 
-Template.myShop.events({
+Template.dishList.events({
     'click .category': function (e) {
         var tag = $(e.target).data('category');
         Session.set('dishCategory', tag);
@@ -19,7 +19,7 @@ Template.myShop.events({
 
     'click .delete-dish': function (e, template) {
         var dishId = this.dishId,
-          shopId = template.data._id;
+            shopId = template.data._id;
 
         Popups.confirm({
             message: `确定要删除${this.name}吗？`,

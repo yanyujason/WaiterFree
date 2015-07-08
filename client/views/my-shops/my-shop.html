@@ -2,45 +2,10 @@
     <div class="container">
             <div class="flex-3-1-layout">
                 <div class="flex-3">
-                    <div class="info-box">
-                        <h2 class="info-box-title clearfix">菜品信息<a class="new-dish btn" href="{{pathFor route='newDish' shopId=shop._id}}">添加菜品</a></h2>
-                        <div class="all-dishes">
-                            <div class="categories">
-                                <a href="" class="category {{activeCategoryClass}}">所有</a>
-                                {{#each shop.menu.tagPriority}}
-                                    <a href="" class="category {{activeCategoryClass this}}" data-category="{{this}}">{{this}}</a>
-                                {{/each}}
-                            </div>
-                            <ul>
-                                {{#each categoryDishes shop.menu.dishes}}
-                                {{> dish }}
-                                {{/each}}
-                            </ul>
-                        </div>
-                    </div>
+                    {{> dishList }}
                 </div>
                 <div class="flex-1">
-                    <div class="info-box">
-                        <h2 class="info-box-title">店铺信息
-                            <a class="edit-shop info-box-action" href="{{pathFor route='updateShopDetails' shopId=shop._id}}">
-                                <span class="icon icon-pencil">编辑</span>
-                            </a>
-                        </h2>
-                        <table class="shop-info">
-                            <tr>
-                                <td><span class="icon icon-phone"></span></td>
-                                <td>{{shop.tel}}</td>
-                            </tr>
-                            <tr>
-                                <td><span class="icon icon-address-book"></span></td>
-                                <td>{{shop.address}}</td>
-                            </tr>
-                            <tr>
-                                <td><span class="icon icon-tags"></span></td>
-                                <td>{{#each shop.tags}}<span>{{this}}</span> {{/each}}</td>
-                            </tr>
-                        </table>
-                    </div>
+                    {{> shopDetails }}
                     {{> clerkList }}
                 </div>
             </div>

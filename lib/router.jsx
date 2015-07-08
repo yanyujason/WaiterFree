@@ -62,20 +62,6 @@ Router.route('/my-shops/:shopId/details', function() {
     }
 });
 
-Router.route('/my-shops/:shopId/clerks', function() {
-    var shopId = this.params.shopId;
-    this.layout('myShopLayout', {data: Shops.findOne(shopId)});
-    this.render('clerkList', {data: {shopId: shopId, clerks: Meteor.users.find({'profile.shop': shopId, 'profile.type': 'clerk'})}});
-}, {
-    name: 'clerkList',
-    waitOn() {
-        return [
-            sub.subscribe('myShop', this.params.shopId),
-            sub.subscribe('myClerks', this.params.shopId)
-        ]
-    }
-});
-
 Router.route('/my-shops/:shopId/clerks/add', function() {
     var shopId = this.params.shopId;
     this.layout('myShopLayout', {data: Shops.findOne(shopId)});
