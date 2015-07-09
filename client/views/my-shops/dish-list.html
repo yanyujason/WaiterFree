@@ -1,5 +1,5 @@
 <template name="dishList">
-    <div class="info-box">
+    <div class="info-box clearfix">
         <h2 class="info-box-title clearfix">菜品信息<a class="new-dish btn" href="{{pathFor route='newDish' shopId=shop._id}}">添加菜品</a></h2>
         <div class="all-dishes">
             <div class="categories">
@@ -12,6 +12,42 @@
                 {{#each categoryDishes shop.menu.dishes}}
                 {{> dish }}
                 {{/each}}
+            </ul>
+        </div>
+    </div>
+
+    <div class="info-box clearfix">
+        <h2 class="info-box-title clearfix">桌台信息<a class="new-dish btn" href="{{pathFor route='newDish' shopId=shop._id}}">添加桌台</a></h2>
+        <div class="all-dishes">
+            <ul>
+                <li class="table-box">
+                    <p class="table-name">苍山</p>
+                    <img src="/images/qrcode.png" width="150"/>
+                    <a href="#" class="delete-table">-</a>
+                </li>
+                <li class="table-box">
+                    <p class="table-name">洱海</p>
+                    <img src="/images/qrcode.png" width="150"/>
+                    <a href="#" class="delete-table">-</a>
+                </li>
+
+                <li class="table-box">
+                    <p class="table-name">风花</p>
+                    <img src="/images/qrcode.png" width="150"/>
+                    <a href="#" class="delete-table">-</a>
+                </li>
+
+                <li class="table-box">
+                    <p class="table-name">雪月</p>
+                    <img src="/images/qrcode.png" width="150"/>
+                    <a href="#" class="delete-table">-</a>
+                </li>
+
+                <li class="table-box">
+                    <p class="table-name">大理</p>
+                    <img src="/images/qrcode.png" width="150"/>
+                    <a href="#" class="delete-table">-</a>
+                </li>
             </ul>
         </div>
     </div>
