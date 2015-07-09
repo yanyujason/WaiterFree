@@ -128,6 +128,12 @@ Router.route('/my-shops/:shopId/dishes/:dishId', function () {
     }
 });
 
+
+Router.route('/orders/:shopId/:tableId', function() {
+    this.layout('orderLayout');
+    this.render('newOrder');
+});
+
 function bossLoginFilter() {
     if(Meteor.userId()) {
         this.next();
