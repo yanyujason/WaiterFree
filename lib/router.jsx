@@ -23,6 +23,7 @@ Router.route('/my-shops', function() {
     }
 }, {
     name: 'myShops',
+    onBeforeAction: bossLoginFilter,
     waitOn() {
         return sub.subscribe('myShops');
     }
@@ -40,6 +41,7 @@ Router.route('/my-shops/:shopId', function() {
     this.render('myShop', dataContext);
 }, {
     name: 'myShop',
+    onBeforeAction: bossLoginFilter,
     waitOn() {
         return [
             sub.subscribe('myShop', this.params.shopId),
@@ -57,6 +59,7 @@ Router.route('/my-shops/:shopId/details', function() {
     this.render('updateShopDetails', dataContext);
 }, {
     name: 'updateShopDetails',
+    onBeforeAction: bossLoginFilter,
     waitOn() {
         return sub.subscribe('myShop', this.params.shopId);
     }
@@ -68,6 +71,7 @@ Router.route('/my-shops/:shopId/clerks/add', function() {
     this.render('clerkForm', {data: {shopId: shopId, clerk: {}}});
 }, {
     name: 'newClerk',
+    onBeforeAction: bossLoginFilter,
     waitOn() {
         return sub.subscribe('myShop', this.params.shopId)
     }
@@ -80,6 +84,7 @@ Router.route('/my-shops/:shopId/clerks/:clerkId', function() {
     this.render('clerkForm', {data: {shopId: shopId, clerk: Meteor.users.findOne(clerkId)}});
 }, {
     name: 'updateClerk',
+    onBeforeAction: bossLoginFilter,
     waitOn() {
         return [
             sub.subscribe('myShop', this.params.shopId),
@@ -94,6 +99,7 @@ Router.route('/my-shops/:shopId/dishes/add', function() {
     this.render('dishForm', {data: {shopId: shopId, dish: {}}});
 }, {
     name: 'newDish',
+    onBeforeAction: bossLoginFilter,
     waitOn() {
         return [sub.subscribe('myShop', this.params.shopId),
             sub.subscribe('qiniuConfig'),
@@ -113,6 +119,7 @@ Router.route('/my-shops/:shopId/dishes/:dishId', function () {
     this.render('dishForm', dataContext);
 }, {
     name: 'updateDishDetails',
+    onBeforeAction: bossLoginFilter,
     waitOn() {
         return [sub.subscribe('myShop', this.params.shopId),
             sub.subscribe('qiniuConfig'),
@@ -121,7 +128,7 @@ Router.route('/my-shops/:shopId/dishes/:dishId', function () {
     }
 });
 
-function loginFilter() {
+function bossLoginFilter() {
     if(Meteor.userId()) {
         this.next();
     } else {
@@ -134,4 +141,3 @@ function clearErrorFilter() {
     this.next();
 }
 Router.onBeforeAction(clearErrorFilter);
-Router.onBeforeAction(loginFilter, {except: 'bossSignIn'});
