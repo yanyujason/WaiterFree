@@ -18,3 +18,4 @@ jparker:crypto-sha1
 jparker:crypto-hmac
 manuelschoebel:wait-on-lib
 arunoda:subs-manager
+steeve:jquery-qrcode
