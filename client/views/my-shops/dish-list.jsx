@@ -13,7 +13,7 @@ Template.dishList.helpers({
         var all = originPriority;
 
         _.each(dishes, (dish) => {
-            all.push(dish.tags)
+            all.push(dish.tags);
         });
 
         return _.uniq(_.flatten(all));

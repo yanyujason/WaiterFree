@@ -35,6 +35,15 @@ describe('dishList', function () {
                 expect(callHelper(Template.dishList, 'activeCategoryClass', {}, ['otherTag'])).toBe('');
             });
         });
+
+        describe('getAllDishTags', function () {
+            it('returns all tags of the dishes with priority', function () {
+                var dishes = [{name:'A', tags:['A']}, {name:'B', tags:['B']}, {name:'AB', tags:['A','B']}],
+                  originOrder = ['Tag1', 'B'];
+
+                expect(callHelper(Template.dishList, 'getAllDishTags', {}, [dishes, originOrder])).toEqual(['Tag1', 'B', 'A']);
+            });
+        })
     });
 
     describe('events', function () {
