@@ -4,7 +4,7 @@
         <div class="all-dishes">
             <div class="categories">
                 <a href="" class="category {{activeCategoryClass}}">所有</a>
-                {{#each shop.menu.tagPriority}}
+                {{#each getAllDishTags shop.menu.dishes shop.menu.tagPriority}}
                 <a href="" class="category {{activeCategoryClass this}}" data-category="{{this}}">{{this}}</a>
                 {{/each}}
             </div>

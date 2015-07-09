@@ -8,6 +8,15 @@ Template.dishList.helpers({
     },
     activeCategoryClass(tag) {
         return tag == Session.get('dishCategory') ? 'active' : '';
+    },
+    getAllDishTags(dishes, originPriority) {
+        var all = originPriority;
+
+        _.each(dishes, (dish) => {
+            all.push(dish.tags)
+        });
+
+        return _.uniq(_.flatten(all));
     }
 });
 

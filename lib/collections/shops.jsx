@@ -34,8 +34,7 @@ Meteor.methods({
         dish.createdAt = new Date();
 
         Shops.update({_id: shopId, 'menu.dishes.name': {$ne: dish.name}}, {
-            $push: {'menu.dishes': dish},
-            $addToSet: {'menu.tagPriority': {$each: dish.tags}}
+            $push: {'menu.dishes': dish}
         });
     },
 
