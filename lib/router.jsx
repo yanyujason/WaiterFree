@@ -93,6 +93,34 @@ Router.route('/my-shops/:shopId/dishes/:dishId', function () {
     }
 });
 
+Router.route('/my-shops/:shopId/tables', function () {
+    var dataContext = {
+        data: Shops.findOne(this.params.shopId)
+    };
+    this.layout('myShopLayout', dataContext);
+    this.render('myTables', dataContext);
+  }, {
+        name: 'myTables',
+        onBeforeAction: bossLoginFilter,
+        waitOn() {
+            return [sub.subscribe('myShop', this.params.shopId)];
+        }
+});
+
+Router.route('/my-shops/:shopId/tables/new', function () {
+    var dataContext = {
+        data: Shops.findOne(this.params.shopId)
+    };
+    this.layout('myShopLayout', dataContext);
+    this.render('newTable', dataContext);
+}, {
+    name: 'newTable',
+    onBeforeAction: bossLoginFilter,
+    waitOn() {
+        return sub.subscribe('myShop', this.params.shopId);
+    }
+});
+
 
 Router.route('/orders/:shopId/:tableId', function() {
     this.layout('orderLayout');
