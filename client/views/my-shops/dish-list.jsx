@@ -38,7 +38,7 @@ Template.dishList.events({
 
     'click .delete-dish': function (e, template) {
         var dishId = this.dishId,
-            shopId = template.data._id;
+            shopId = template.data.shopId;
 
         Popups.confirm({
             message: `确定要删除${this.name}吗？`,
