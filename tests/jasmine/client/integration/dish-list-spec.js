@@ -48,7 +48,8 @@ describe('dishList', function () {
 
     describe('events', function () {
         beforeEach(function() {
-            renderTemplate(Template.dishList, {shop: {menu: {dishes: [], tagPriority: ['a', 'b']}}});
+            spyOn(Shops, 'findOne').and.returnValue({menu: {dishes: [], tagPriority: ['a', 'b']}});
+            renderTemplate(Template.dishList);
         });
 
         it('changes active category when click on category', function (done) {

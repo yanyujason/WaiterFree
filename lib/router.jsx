@@ -25,30 +25,18 @@ Router.route('/my-shops', function() {
     name: 'myShops',
     onBeforeAction: bossLoginFilter,
     waitOn() {
-        return sub.subscribe('myShops');
+        return Sub.subscribe('myShops');
     }
 });
 
 Router.route('/my-shops/:shopId', function() {
     var shopId = this.params.shopId;
-    var dataContext = {
-        data: {
-            shop: Shops.findOne(shopId),
-            clerks: Meteor.users.find({'profile.shop': shopId, 'profile.type': 'clerk'})
-        }
-    };
-    this.layout('myShopLayout', {data: Shops.findOne(shopId)});
+    var dataContext = {data: {shopId: shopId}};
+    this.layout('myShopLayout', dataContext);
     this.render('myShop', dataContext);
 }, {
     name: 'myShop',
-    onBeforeAction: bossLoginFilter,
-    waitOn() {
-        return [
-            sub.subscribe('myShop', this.params.shopId),
-            sub.subscribe('myClerks', this.params.shopId),
-            sub.subscribe('qiniuConfig')
-        ];
-    }
+    onBeforeAction: bossLoginFilter
 });
 
 Router.route('/my-shops/:shopId/details', function() {

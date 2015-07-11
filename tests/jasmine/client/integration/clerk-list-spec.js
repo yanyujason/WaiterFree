@@ -1,7 +1,8 @@
 describe('clerkList', function () {
     describe('html', function () {
         beforeEach(function() {
-            renderTemplate(Template.clerkList, {clerks: [{profile: {name: 'Jennifer Lawrence'}}, {profile: {name: 'Tom Cruise'}}]});
+            spyOn(Meteor.users, 'find').and.returnValue([{profile: {name: 'Jennifer Lawrence'}}, {profile: {name: 'Tom Cruise'}}]);
+            renderTemplate(Template.clerkList);
         });
 
         it('lists all clerks', function () {
@@ -13,7 +14,8 @@ describe('clerkList', function () {
 
     describe('events', function () {
         beforeEach(function() {
-            renderTemplate(Template.clerkList, {shopId: 'shop', clerks: [{_id:'1', profile: {name: 'Jennifer Lawrence'}}, {_id:'2', profile: {name: 'Tom Cruise'}}]});
+            spyOn(Meteor.users, 'find').and.returnValue([{_id:'1', profile: {name: 'Jennifer Lawrence'}}, {_id:'2', profile: {name: 'Tom Cruise'}}]);
+            renderTemplate(Template.clerkList, {shopId: 'shop'});
         });
 
         it('shows delete clerk popup when click .delete-clerk', function () {

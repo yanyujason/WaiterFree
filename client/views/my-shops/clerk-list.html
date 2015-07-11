@@ -1,7 +1,7 @@
 <template name="clerkList">
     <section class="info-box">
         <h2 class="info-box-title">店员信息
-            <a class="new-clerk info-box-action" href="{{pathFor route='newClerk' shopId=shop._id}}">
+            <a class="new-clerk info-box-action" href="{{pathFor route='newClerk' shopId=shopId}}">
                 <span class="icon icon-pencil">添加</span>
             </a>
         </h2>
@@ -10,7 +10,7 @@
             <li>
                 {{profile.name}}
                 <div class="info-box-item-actions">
-                    <a class="update-clerk" href="{{pathFor route='updateClerk' shopId=../shop._id clerkId=_id}}">修改</a>
+                    <a class="update-clerk" href="{{pathFor route='updateClerk' shopId=../shopId clerkId=_id}}">修改</a>
                     <a class="delete-clerk" href="">删除</a>
                 </div>
             </li>

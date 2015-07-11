@@ -1,3 +1,13 @@
+Template.dishList.onCreated(function() {
+    Sub.subscribe('myShop', this.data.shopId);
+});
+
+Template.dishList.helpers({
+    shop() {
+        return Shops.findOne(this.shopId);
+    }
+});
+
 Template.dishList.helpers({
     categoryDishes(dishes) {
         var tag = Session.get('dishCategory');

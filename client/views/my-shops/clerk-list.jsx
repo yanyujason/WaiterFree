@@ -1,3 +1,13 @@
+Template.clerkList.onCreated(function() {
+    Sub.subscribe('myClerks', this.data.shopId);
+});
+
+Template.clerkList.helpers({
+    clerks() {
+        return Meteor.users.find({'profile.shop': this.shopId, 'profile.type': 'clerk'})
+    }
+});
+
 Template.clerkList.events({
     'click .delete-clerk': function(e, template) {
         var clerkId = this._id,
