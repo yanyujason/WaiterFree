@@ -94,8 +94,9 @@ Router.route('/my-shops/:shopId/dishes/:dishId', function () {
 });
 
 Router.route('/my-shops/:shopId/tables', function () {
-    var dataContext = {
-        data: Shops.findOne(this.params.shopId)
+    var shopId = this.params.shopId,
+      dataContext = {
+        data: {shopId: shopId, tables: Shops.findOne(shopId).tables}
     };
     this.layout('myShopLayout', dataContext);
     this.render('myTables', dataContext);
@@ -103,13 +104,13 @@ Router.route('/my-shops/:shopId/tables', function () {
         name: 'myTables',
         onBeforeAction: bossLoginFilter,
         waitOn() {
-            return [sub.subscribe('myShop', this.params.shopId)];
+            return [Sub.subscribe('myShop', this.params.shopId)];
         }
 });
 
 Router.route('/my-shops/:shopId/tables/new', function () {
     var dataContext = {
-        data: Shops.findOne(this.params.shopId)
+        data: {shopId: this.params.shopId}
     };
     this.layout('myShopLayout', dataContext);
     this.render('newTable', dataContext);
@@ -117,7 +118,7 @@ Router.route('/my-shops/:shopId/tables/new', function () {
     name: 'newTable',
     onBeforeAction: bossLoginFilter,
     waitOn() {
-        return sub.subscribe('myShop', this.params.shopId);
+        return Sub.subscribe('myShop', this.params.shopId);
     }
 });
 

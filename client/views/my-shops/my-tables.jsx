@@ -12,14 +12,14 @@ Template.myTables.onRendered(function(){
 Template.myTables.events({
   'click .back_to_main': function (e) {
     e.preventDefault();
-    Router.go('myShop', {shopId: this._id});
+    Router.go('myShop', {shopId: this.shopId});
   },
 
   'click .delete-table': function (e, template) {
     e.preventDefault();
 
     var table = this.table,
-      shopId = template.data._id;
+      shopId = template.data.shopId;
 
     Popups.confirm({
       message: `确定要删除${this.table}吗？`,
