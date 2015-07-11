@@ -1,8 +1,18 @@
+Template.updateShopDetails.onCreated(function() {
+    Sub.subscribe('myShop', this.data.shopId);
+});
+
+Template.updateShopDetails.helpers({
+    shop() {
+        return Shops.findOne(this.shopId);
+    }
+});
+
 Template.updateShopDetails.events({
     'submit form.update-shop': function(e) {
         e.preventDefault();
 
-        var currentShopId = this._id;
+        var currentShopId = this.shopId;
         var shopDetails = {
             name: $(e.target).find('[name=name]').val(),
             desc: $(e.target).find('[name=desc]').val(),
@@ -19,6 +29,6 @@ Template.updateShopDetails.events({
 
     'click .btn-cancel': function(e) {
         e.preventDefault();
-        Router.go('myShop', {shopId: this._id});
+        Router.go('myShop', {shopId: this.shopId});
     }
 });

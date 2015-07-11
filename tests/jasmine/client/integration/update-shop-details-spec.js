@@ -1,7 +1,7 @@
 describe('update-shop-details', function () {
     describe('events', function () {
         beforeEach(function() {
-            renderTemplate(Template.updateShopDetails, {_id: 'shop'});
+            renderTemplate(Template.updateShopDetails, {shopId: 'shop'});
         });
 
         it('goes to myShop when click .btn-cancel', function () {

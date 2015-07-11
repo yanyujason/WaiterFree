@@ -30,8 +30,7 @@ Router.route('/my-shops', function() {
 });
 
 Router.route('/my-shops/:shopId', function() {
-    var shopId = this.params.shopId;
-    var dataContext = {data: {shopId: shopId}};
+    var dataContext = {data: {shopId: this.params.shopId}};
     this.layout('myShopLayout', dataContext);
     this.render('myShop', dataContext);
 }, {
@@ -40,17 +39,12 @@ Router.route('/my-shops/:shopId', function() {
 });
 
 Router.route('/my-shops/:shopId/details', function() {
-    var dataContext = {
-        data: Shops.findOne(this.params.shopId)
-    };
+    var dataContext = {data: {shopId: this.params.shopId}};
     this.layout('myShopLayout', dataContext);
     this.render('updateShopDetails', dataContext);
 }, {
     name: 'updateShopDetails',
-    onBeforeAction: bossLoginFilter,
-    waitOn() {
-        return sub.subscribe('myShop', this.params.shopId);
-    }
+    onBeforeAction: bossLoginFilter
 });
 
 Router.route('/my-shops/:shopId/clerks/add', function() {
