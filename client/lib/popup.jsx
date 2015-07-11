@@ -48,21 +48,24 @@ Template.popup.events({
 });
 
 Template.alertPopup.events({
-    'click .alert-popup .btn-confirm': function() {
+    'click .alert-popup .btn-confirm': function(e) {
+        e.preventDefault();
         Popups.remove();
         this.callback();
     }
 });
 
 Template.confirmPopup.events({
-    'click .confirm-popup .btn-confirm': function() {
+    'click .confirm-popup .btn-confirm': function(e) {
+        e.preventDefault();
         Popups.remove();
         this.callback(true);
     }
 });
 
 Template.confirmPopup.events({
-    'click .confirm-popup .btn-cancel': function() {
+    'click .confirm-popup .btn-cancel': function(e) {
+        e.preventDefault();
         Popups.remove();
         this.callback(false);
     }
