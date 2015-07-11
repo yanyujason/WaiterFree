@@ -2,7 +2,20 @@ function isNewDish(dishId) {
     return !dishId;
 }
 
+Template.dishForm.onCreated(function() {
+    Sub.subscribe('myShop', this.data.shopId);
+});
+
+Template.dishForm.helpers({
+    dish() {
+        if(Shops.findOne(this.shopId)) {
+            return _.find(Shops.findOne(this.shopId).menu.dishes, (d) => {return d.dishId == this.dishId;});
+        }
+    }
+});
+
 Template.dishForm.onRendered(function () {
+    // TODO it's a time waste to wait on Qiniu subscription when make sure the qiniuConfig is available here
     var qiniuConfig = QiniuConfig.findOne({name: 'qiniuConfig'});
     Qiniu.uploader({
         runtimes: 'html5,flash,html4',
@@ -41,10 +54,10 @@ Template.dishForm.onRendered(function () {
 
 Template.dishForm.helpers({
     title() {
-        return isNewDish(this.dish.dishId) ? '添加菜品' : '修改菜品';
+        return isNewDish(this.dishId) ? '添加菜品' : '修改菜品';
     },
     submit() {
-        return isNewDish(this.dish.dishId) ? '添加' : '修改';
+        return isNewDish(this.dishId) ? '添加' : '修改';
     },
     imgPath: Formatter.imgPath
 });
@@ -71,10 +84,10 @@ Template.dishForm.events({
             })
         };
 
-        var newDish = isNewDish(this.dish.dishId);
+        var newDish = isNewDish(this.dishId);
         var newOrUpdate = newDish ? 'newDish' : 'dishDetailsUpdate';
         if (!newDish) {
-            dish.dishId = this.dish.dishId;
+            dish.dishId = this.dishId;
         }
 
         Meteor.call(newOrUpdate, shopId, dish, function(error, result) {

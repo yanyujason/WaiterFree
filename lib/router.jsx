@@ -1,5 +1,3 @@
-var sub = new SubsManager();
-
 Router.configure({loadingTemplate: 'loading'});
 
 Router.route('/sign-in', function() {
@@ -66,35 +64,30 @@ Router.route('/my-shops/:shopId/clerks/:clerkId', function() {
 });
 
 Router.route('/my-shops/:shopId/dishes/add', function() {
-    var shopId = this.params.shopId;
-    this.layout('myShopLayout', {data: Shops.findOne(shopId)});
-    this.render('dishForm', {data: {shopId: shopId, dish: {}}});
+    var dataContext = {data: {shopId: this.params.shopId}};
+    this.layout('myShopLayout', dataContext);
+    this.render('dishForm', dataContext);
 }, {
     name: 'newDish',
     onBeforeAction: bossLoginFilter,
     waitOn() {
-        return [sub.subscribe('myShop', this.params.shopId),
-            sub.subscribe('qiniuConfig'),
+        return [
+            Sub.subscribe('qiniuConfig'),
             IRLibLoader.load("/javascripts/plupload.full.min.js"),
             IRLibLoader.load("/javascripts/qiniu-sdk.js")];
     }
 });
 
 Router.route('/my-shops/:shopId/dishes/:dishId', function () {
-    var dataContext = {
-        data: {
-            shopId: this.params.shopId,
-            dish: _.find(Shops.findOne(this.params.shopId).menu.dishes, (d) => {return d.dishId == this.params.dishId;})
-        }
-    };
-    this.layout('myShopLayout', {data: Shops.findOne(this.params.shopId)});
+    var dataContext = {data: {shopId: this.params.shopId, dishId: this.params.dishId}};
+    this.layout('myShopLayout', dataContext);
     this.render('dishForm', dataContext);
 }, {
     name: 'updateDishDetails',
     onBeforeAction: bossLoginFilter,
     waitOn() {
-        return [sub.subscribe('myShop', this.params.shopId),
-            sub.subscribe('qiniuConfig'),
+        return [
+            Sub.subscribe('qiniuConfig'),
             IRLibLoader.load("/javascripts/plupload.full.min.js"),
             IRLibLoader.load("/javascripts/qiniu-sdk.js")];
     }
