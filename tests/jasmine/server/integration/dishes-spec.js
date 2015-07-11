@@ -58,8 +58,7 @@ describe('dishes collection methods', function () {
         options: []
       };
 
-      var notMyShopId = 'notMyShopId';
-      Meteor.call('newDish', notMyShopId, dish, function (err) {
+      Meteor.call('newDish', myShopId, dish, function (err) {
         expect(err.error).toBe('validation-rule');
         done();
       });

@@ -59,10 +59,8 @@ Meteor.methods({
     },
 
     newTable(shopId, table) {
-        Validator.verify(isUniqTable(shopId, table));
         Validator.verify(isOwner(shopId));
-
-        table.updateAt = new Date();
+        Validator.verify(isUniqTable(shopId, table));
 
         Shops.update({_id: shopId, 'tables': {$ne: table}}, {
             $push: {'tables': table}
