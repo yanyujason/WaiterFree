@@ -2,12 +2,22 @@ function isNewClerk(clerkId) {
     return !clerkId;
 }
 
+Template.clerkForm.onCreated(function() {
+    Sub.subscribe('myClerks', this.data.shopId);
+});
+
+Template.clerkForm.helpers({
+    clerk() {
+        return Meteor.users.findOne(this.clerkId);
+    }
+});
+
 Template.clerkForm.helpers({
     title() {
-        return isNewClerk(this.clerk._id) ? '添加店员' : '修改店员';
+        return isNewClerk(this.clerkId) ? '添加店员' : '修改店员';
     },
     submit() {
-        return isNewClerk(this.clerk._id) ? '添加' : '修改';
+        return isNewClerk(this.clerkId) ? '添加' : '修改';
     }
 });
 
@@ -23,9 +33,9 @@ Template.clerkForm.events({
             passwordConfirm: [$(e.target).find('[name=password]').val(), $(e.target).find('[name=password2]').val()]
         };
 
-        var method = isNewClerk(this.clerk._id) ? 'newClerk' : 'updateClerk';
+        var method = isNewClerk(this.clerkId) ? 'newClerk' : 'updateClerk';
 
-        Meteor.call(method, shopId, this.clerk._id, clerkProfile, function(error, result) {
+        Meteor.call(method, shopId, this.clerkId, clerkProfile, function(error, result) {
             if (error) return throwError(error);
             Router.go('myShop', {shopId: shopId});
         });

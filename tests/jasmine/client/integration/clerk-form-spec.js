@@ -2,7 +2,7 @@ describe('clerkForm', function () {
     describe('html', function () {
         describe('newClerk form', function () {
             beforeEach(function() {
-                renderTemplate(Template.clerkForm, {clerk: {}});
+                renderTemplate(Template.clerkForm);
             });
 
             it('renders newClerks title text for newClerk', function () {
@@ -16,7 +16,7 @@ describe('clerkForm', function () {
 
         describe('updateClerk form', function () {
             beforeEach(function() {
-                renderTemplate(Template.clerkForm, {clerk: {_id: '1'}});
+                renderTemplate(Template.clerkForm, {clerkId: '1'});
             });
 
             it('renders updateClerk title text for updateClerk', function () {
@@ -32,19 +32,19 @@ describe('clerkForm', function () {
     describe('helpers', function () {
         describe('newClerk form', function () {
             it('returns newClerks for newClerk', function () {
-                expect(callHelper(Template.clerkForm, 'title', {clerk: {}})).toBe('添加店员');
+                expect(callHelper(Template.clerkForm, 'title')).toBe('添加店员');
             });
             it('returns new for newClerk', function () {
-                expect(callHelper(Template.clerkForm, 'submit', {clerk: {}})).toBe('添加');
+                expect(callHelper(Template.clerkForm, 'submit')).toBe('添加');
             });
         });
 
         describe('updateClerk form', function () {
             it('returns updateClerks for updateClerk', function () {
-                expect(callHelper(Template.clerkForm, 'title', {clerk: {_id: '1'}})).toBe('修改店员');
+                expect(callHelper(Template.clerkForm, 'title', {clerkId: '1'})).toBe('修改店员');
             });
             it('returns update for updateClerk', function () {
-                expect(callHelper(Template.clerkForm, 'submit', {clerk: {_id: '1'}})).toBe('修改');
+                expect(callHelper(Template.clerkForm, 'submit', {clerkId: '1'})).toBe('修改');
             });
         });
     });
@@ -52,7 +52,7 @@ describe('clerkForm', function () {
     describe('events', function () {
         describe('newClerk form', function () {
             beforeEach(function() {
-                renderTemplate(Template.clerkForm, {clerk: {}, shopId: 'shopId'});
+                renderTemplate(Template.clerkForm, {shopId: 'shopId'});
             });
 
             it('creates new clerk when submit form', function () {
@@ -82,7 +82,7 @@ describe('clerkForm', function () {
 
         describe('updateClerk form', function () {
             beforeEach(function() {
-                renderTemplate(Template.clerkForm, {clerk: {_id: '1'}, shopId: 'shopId'});
+                renderTemplate(Template.clerkForm, {shopId: 'shopId', clerkId: '1'});
             });
 
             it('updates clerk when submit form', function () {
@@ -111,7 +111,7 @@ describe('clerkForm', function () {
         });
 
         it('goes back to clerkList when click .cancel', function () {
-            renderTemplate(Template.clerkForm, {clerk: {}, shopId: 'shopId'});
+            renderTemplate(Template.clerkForm, {shopId: 'shopId'});
             spyOn(Router, 'go');
             $('.btn-cancel').click();
             expect(Router.go).toHaveBeenCalledWith('myShop', {shopId: 'shopId'});

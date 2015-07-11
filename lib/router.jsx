@@ -54,31 +54,21 @@ Router.route('/my-shops/:shopId/details', function() {
 });
 
 Router.route('/my-shops/:shopId/clerks/add', function() {
-    var shopId = this.params.shopId;
-    this.layout('myShopLayout', {data: Shops.findOne(shopId)});
-    this.render('clerkForm', {data: {shopId: shopId, clerk: {}}});
+    var dataContext = {data: {shopId: this.params.shopId}};
+    this.layout('myShopLayout', dataContext);
+    this.render('clerkForm', dataContext);
 }, {
     name: 'newClerk',
-    onBeforeAction: bossLoginFilter,
-    waitOn() {
-        return sub.subscribe('myShop', this.params.shopId)
-    }
+    onBeforeAction: bossLoginFilter
 });
 
 Router.route('/my-shops/:shopId/clerks/:clerkId', function() {
-    var shopId = this.params.shopId;
-    var clerkId = this.params.clerkId;
-    this.layout('myShopLayout', {data: Shops.findOne(shopId)});
-    this.render('clerkForm', {data: {shopId: shopId, clerk: Meteor.users.findOne(clerkId)}});
+    var dataContext = {data: {shopId: this.params.shopId, clerkId: this.params.clerkId}};
+    this.layout('myShopLayout', dataContext);
+    this.render('clerkForm', dataContext);
 }, {
     name: 'updateClerk',
-    onBeforeAction: bossLoginFilter,
-    waitOn() {
-        return [
-            sub.subscribe('myShop', this.params.shopId),
-            sub.subscribe('myClerks', this.params.shopId)
-        ]
-    }
+    onBeforeAction: bossLoginFilter
 });
 
 Router.route('/my-shops/:shopId/dishes/add', function() {
