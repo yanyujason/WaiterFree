@@ -19,7 +19,10 @@ if (process.env.IS_MIRROR) {
                 tags: ['Chinese', 'Japanese'],
                 tel: '888-88888888',
                 status: 'open',
-                tables: [1, 2, 3, 4, 5, 6],
+                tables: [
+                    {tableId: '1', name: '1'}, {tableId: '2', name: '2'},{tableId: '3', name: '6'},
+                    {tableId: '4', name: '4'},{tableId: '5', name: '5'}, {tableId: '6', name: '6'}
+                ],
                 menu: {
                     dishes: [{
                         name: 'Dragon heart',
@@ -49,7 +52,7 @@ if (process.env.IS_MIRROR) {
                 tags: ['Chinese'],
                 tel: '209-88888888',
                 status: 'open',
-                tables: ['T', 'W'],
+                tables: [{tableId: 'T', name: 'T'}, {tableId: 'W', name: 'W'}],
                 menu: {
                     dishes: [{
                         name: 'Pairing Program',

@@ -8,12 +8,12 @@ if((Meteor.settings.public || {}).appEnv !== 'production') {
 
             return 'All fixture removed!';
         },
-        _createFixture: function(options) {
+        _createFixture: function(email, bossName) {
             var bossId = Accounts.createUser({
-                email: options.email,
+                email: email,
                 password: 'DEFAULT',
                 profile: {
-                    name: options.name,
+                    name: bossName,
                     type: 'boss',
                     shops: []
                 }
@@ -25,7 +25,12 @@ if((Meteor.settings.public || {}).appEnv !== 'production') {
                 tags: ['中餐', '印度菜', '西餐', '土耳其菜'],
                 tel: '029-88886686',
                 status: 'open',
-                tables: ['故宫', '泰姬陵', '大本钟', '托普卡普'],
+                tables: [
+                    {tableId: Meteor.uuid(), name: '故宫'},
+                    {tableId: Meteor.uuid(), name: '泰姬陵'},
+                    {tableId: Meteor.uuid(), name: '大本钟'},
+                    {tableId: Meteor.uuid(), name: '托普卡普'}
+                ],
                 menu: {
                     dishes: [{
                         dishId: Meteor.uuid(),

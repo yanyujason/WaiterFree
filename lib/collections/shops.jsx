@@ -12,9 +12,9 @@ function isUniqDish(shopId, dishName) {
     }, '菜品已存在');
 }
 
-function isUniqTable(shopId, table) {
+function isUniqTable(shopId, tableName) {
     return new Rule(() => {
-        return !_.contains(Shops.findOne({_id: shopId}).tables, table);
+        return !_.contains(Shops.findOne({_id: shopId}).tables.map((t)=> {return t.name}), tableName);
     }, '桌台已存在');
 }
 
@@ -60,16 +60,18 @@ Meteor.methods({
 
     newTable(shopId, table) {
         Validator.verify(isOwner(shopId));
-        Validator.verify(isUniqTable(shopId, table));
+        Validator.verify(isUniqTable(shopId, table.name));
 
-        Shops.update({_id: shopId, 'tables': {$ne: table}}, {
+        table.tableId = Meteor.uuid();
+
+        Shops.update({_id: shopId, 'tables.name': {$ne: table.name}}, {
             $push: {'tables': table}
         })
     },
 
-    deleteTable(shopId, table) {
+    deleteTable(shopId, tableId) {
         Validator.verify(isOwner(shopId));
 
-        Shops.update(shopId, {$pop: {'tables': table}});
+        Shops.update(shopId, {$pull: {'tables': {tableId: tableId}}});
     }
 });

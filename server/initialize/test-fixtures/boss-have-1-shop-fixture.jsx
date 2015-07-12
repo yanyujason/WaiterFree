@@ -19,7 +19,7 @@ if (process.env.IS_MIRROR) {
                 tags: ['Chinese', 'Chuan'],
                 tel: '029-44444444',
                 status: 'open',
-                tables: [1, 2],
+                tables: [{tableId: '1', name: '1'}, {tableId: '2', name: '2'}],
                 menu: {
                     dishes: [{
                         name: 'Rice',

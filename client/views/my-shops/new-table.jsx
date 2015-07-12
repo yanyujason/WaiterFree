@@ -8,7 +8,9 @@ Template.newTable.events({
     e.preventDefault();
 
     var shopId = this.shopId,
-      table =  $(e.target).find("[name=name]").val().replace(/\s+/g,"");
+      table = {
+        name: $(e.target).find("[name=name]").val().replace(/\s+/g, "")
+      };
 
     Meteor.call('newTable', shopId, table, function(error, result) {
       if (error) return throwError(error);
