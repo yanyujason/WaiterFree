@@ -69,12 +69,7 @@ Router.route('/my-shops/:shopId/dishes/add', function() {
     this.render('dishForm', dataContext);
 }, {
     name: 'newDish',
-    onBeforeAction: bossLoginFilter,
-    waitOn() {
-        return [
-            IRLibLoader.load("/javascripts/plupload.full.min.js"),
-            IRLibLoader.load("/javascripts/qiniu-sdk.js")];
-    }
+    onBeforeAction: bossLoginFilter
 });
 
 Router.route('/my-shops/:shopId/dishes/:dishId', function () {
@@ -83,12 +78,7 @@ Router.route('/my-shops/:shopId/dishes/:dishId', function () {
     this.render('dishForm', dataContext);
 }, {
     name: 'updateDishDetails',
-    onBeforeAction: bossLoginFilter,
-    waitOn() {
-        return [
-            IRLibLoader.load("/javascripts/plupload.full.min.js"),
-            IRLibLoader.load("/javascripts/qiniu-sdk.js")];
-    }
+    onBeforeAction: bossLoginFilter
 });
 
 Router.route('/my-shops/:shopId/tables', function () {

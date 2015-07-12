@@ -44,9 +44,12 @@ Template.dishForm.onCreated(function() {
 });
 
 Template.dishForm.onRendered(function() {
+    Sub.scripts(['/javascripts/plupload.full.min.js', '/javascripts/qiniu-sdk.js']);
+
     Tracker.autorun(() => {
         Sub.dep.depend();
-        if(Sub.ready) {
+        Sub.scriptDep.depend();
+        if(Sub.ready && Sub.scriptReady) {
             var qiniuConfig = QiniuConfig.findOne({name: 'qiniuConfig'});
             initQiniuUploader(qiniuConfig);
         }
