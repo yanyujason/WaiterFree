@@ -1,10 +1,14 @@
 Template.dishList.onCreated(function() {
     Sub.subscribe('myShop', this.data.shopId);
+    Sub.subscribe('qiniuConfig');
 });
 
 Template.dishList.helpers({
-    shop() {
-        return Shops.findOne(this.shopId);
+    menu() {
+        var shop = Shops.findOne(this.shopId);
+        if(shop) {
+            return shop.menu;
+        }
     }
 });
 
@@ -52,13 +56,4 @@ Template.dishList.events({
             }
         });
     }
-});
-
-Template.dish.helpers({
-    money: Formatter.money,
-    imgPath: Formatter.imgPath
-});
-
-Template.dishOption.helpers({
-    money: Formatter.money
 });

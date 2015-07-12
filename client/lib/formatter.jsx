@@ -13,3 +13,6 @@ Formatter = {
         }
     }
 };
+
+Template.registerHelper('money', Formatter.money);
+Template.registerHelper('imgPath', Formatter.imgPath);

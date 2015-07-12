@@ -19,7 +19,7 @@ if (!Meteor.settings.qiniu) {
         var encoded = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(putPolicyString));
         var hash = CryptoJS.HmacSHA1(encoded, app.SK);
         var encodedSigned = hash.toString(CryptoJS.enc.Base64);
-        return `${app.AK}:${encodedSigned.replace(/\+/g, "-").replace(/\//g, "_")}:${encoded}`;
+        return `${app.AK}:${encodedSigned.replace(/\+/g, '-').replace(/\//g, '_')}:${encoded}`;
     }
 
     function autoUpdateConfig() {

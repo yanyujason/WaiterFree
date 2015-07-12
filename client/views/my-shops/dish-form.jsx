@@ -2,21 +2,7 @@ function isNewDish(dishId) {
     return !dishId;
 }
 
-Template.dishForm.onCreated(function() {
-    Sub.subscribe('myShop', this.data.shopId);
-});
-
-Template.dishForm.helpers({
-    dish() {
-        if(Shops.findOne(this.shopId)) {
-            return _.find(Shops.findOne(this.shopId).menu.dishes, (d) => {return d.dishId == this.dishId;});
-        }
-    }
-});
-
-Template.dishForm.onRendered(function () {
-    // TODO it's a time waste to wait on Qiniu subscription when make sure the qiniuConfig is available here
-    var qiniuConfig = QiniuConfig.findOne({name: 'qiniuConfig'});
+function initQiniuUploader(qiniuConfig) {
     Qiniu.uploader({
         runtimes: 'html5,flash,html4',
         browse_button: 'imgUploader',
@@ -32,24 +18,48 @@ Template.dishForm.onRendered(function () {
         chunk_size: '4mb',
         auto_start: true,
         init: {
-            'FilesAdded': function (up, files) {
+            FilesAdded: function (up, files) {
             },
-            'BeforeUpload': function (up, file) {
+            BeforeUpload: function (up, file) {
             },
-            'UploadProgress': function (up, file) {
+            UploadProgress: function (up, file) {
             },
-            'FileUploaded': function (up, file, info) {
+            FileUploaded: function (up, file, info) {
                 info = JSON.parse(info);
                 $('.dish-img').attr('src', Formatter.imgPath(info.key));
                 $('[name=img]').val(info.key);
             },
-            'Error': function (up, err, errTip) {
+            Error: function (up, err, errTip) {
                 console.log('error', err, errTip);
             },
-            'UploadComplete': function () {
+            UploadComplete: function () {
             }
         }
     });
+}
+
+Template.dishForm.onCreated(function() {
+    Sub.subscribe('myShop', this.data.shopId);
+    Sub.subscribe('qiniuConfig');
+});
+
+Template.dishForm.onRendered(function() {
+    Tracker.autorun(() => {
+        Sub.dep.depend();
+        if(Sub.ready) {
+            var qiniuConfig = QiniuConfig.findOne({name: 'qiniuConfig'});
+            initQiniuUploader(qiniuConfig);
+        }
+    });
+});
+
+Template.dishForm.helpers({
+    dish() {
+        var shop = Shops.findOne(this.shopId);
+        if(shop) {
+            return _.find(shop.menu.dishes, (d) => {return d.dishId == this.dishId;});
+        }
+    }
 });
 
 Template.dishForm.helpers({

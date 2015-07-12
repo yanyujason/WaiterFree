@@ -72,7 +72,6 @@ Router.route('/my-shops/:shopId/dishes/add', function() {
     onBeforeAction: bossLoginFilter,
     waitOn() {
         return [
-            Sub.subscribe('qiniuConfig'),
             IRLibLoader.load("/javascripts/plupload.full.min.js"),
             IRLibLoader.load("/javascripts/qiniu-sdk.js")];
     }
@@ -87,7 +86,6 @@ Router.route('/my-shops/:shopId/dishes/:dishId', function () {
     onBeforeAction: bossLoginFilter,
     waitOn() {
         return [
-            Sub.subscribe('qiniuConfig'),
             IRLibLoader.load("/javascripts/plupload.full.min.js"),
             IRLibLoader.load("/javascripts/qiniu-sdk.js")];
     }
