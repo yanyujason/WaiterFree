@@ -1,3 +1,7 @@
+Template.newTable.onCreated(function() {
+  Sub.subscribe('myShop', this.data.shopId);
+});
+
 Template.newTable.events({
   'click .btn-cancel': function (e) {
     e.preventDefault();

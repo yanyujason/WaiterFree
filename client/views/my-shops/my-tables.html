@@ -1,7 +1,7 @@
 <template name="myTables">
     <div class="info-box clearfix">
-        <h2 class="info-box-title clearfix">桌台信息<a class="new-dish btn" href="{{pathFor route='newTable' shopId=shopId}}">添加桌台</a></h2>
-        <div class="all-dishes">
+        <h2 class="info-box-title clearfix">桌台信息<a class="new-table btn" href="{{pathFor route='newTable' shopId=shopId}}">添加桌台</a></h2>
+        <div class="all-tables">
             {{#each tables}}
             <li class="table-box">
                 <p class="table-name">{{name}}</p>
@@ -11,6 +11,4 @@
             {{/each}}
         </div>
     </div>
-
-    <input type="button" class="back_to_main" value="返回主页">
 </template>

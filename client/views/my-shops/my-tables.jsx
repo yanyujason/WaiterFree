@@ -1,9 +1,14 @@
-Template.myTables.events({
-  'click .back_to_main': function (e) {
-    e.preventDefault();
-    Router.go('myShop', {shopId: this.shopId});
-  },
+Template.myTables.onCreated(function() {
+  Sub.subscribe('myShop', this.data.shopId);
+});
 
+Template.myTables.helpers({
+  tables() {
+    return Shops.findOne(this.shopId).tables;
+  }
+});
+
+Template.myTables.events({
   'click .delete-table': function (e, template) {
     e.preventDefault();
     var tableId = this.tableId,
