@@ -100,8 +100,9 @@ Router.route('/my-shops/:shopId/tables/new', function () {
 });
 
 Router.route('/orders/:shopId/:tableId', function() {
-    this.layout('orderLayout');
-    this.render('newOrder');
+    var dataContext = {data: {shopId: this.params.shopId, tableId: this.params.tableId}};
+    this.layout('orderLayout', dataContext);
+    this.render('newOrder', dataContext);
 });
 
 function bossLoginFilter() {

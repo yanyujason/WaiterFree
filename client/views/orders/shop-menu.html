@@ -1,3 +1,28 @@
 <template name="shopMenu">
-    Menu!!!
+    <section>
+        <aside>
+            <ul>
+                <li>全部</li>
+                {{#each menu.tagPriority}}
+                <li>{{this}}</li>
+                {{/each}}
+            </ul>
+        </aside>
+        <section>
+            <ul>
+                {{#each menu.dishes}}
+                <div>
+                    <img src="{{imgPath img}}">
+                    <span>{{name}}</span>
+                    <span>{{desc}}</span>
+                    <span>{{money price}}</span>
+                    <span>
+                        <a>+</a>
+                        <a>-</a>
+                    </span>
+                </div>
+                {{/each}}
+            </ul>
+        </section>
+    </section>
 </template>
