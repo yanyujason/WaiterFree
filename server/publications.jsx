@@ -20,9 +20,9 @@ Meteor.publish('shop', function(shopId) {
 });
 
 Meteor.publish('activeOrders', function(userUniqId, shopId) {
-    return Orders.find({user: this.userId || userUniqId, shop: shopId, status: {$ne: 'close'}});
+    return Orders.find({user: this.userId || userUniqId, shop: shopId, status: 'open'});
 });
 
 Meteor.publish('latestActiveOrder', function(userUniqId, shopId, tableId) {
-    return Orders.find({user: this.userId || userUniqId, shop: shopId, table: tableId, status: {$ne: 'close'}}, {sort: {createdAt: -1}, limit: 1});
+    return Orders.find({user: this.userId || userUniqId, shop: shopId, table: tableId, status: 'open'}, {sort: {createdAt: -1}, limit: 1});
 });

@@ -11,6 +11,10 @@ Meteor.methods({
             createdAt: new Date(),
             status: 'open'
         };
-        Orders.insert(order);
+        return Orders.insert(order);
+    },
+
+    selectDish(order, dish) {
+        Orders.update(order, {$push: {dishes: dish}, $inc: {price: dish.price}});
     }
 });

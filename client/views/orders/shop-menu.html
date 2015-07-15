@@ -9,18 +9,17 @@
             </ul>
         </aside>
         <section>
-            <ul>
+            <ul class="menu">
                 {{#each menu.dishes}}
-                <div>
+                <li>
                     <img src="{{imgPath img}}">
                     <span>{{name}}</span>
                     <span>{{desc}}</span>
                     <span>{{money price}}</span>
                     <span>
-                        <a>+</a>
-                        <a>-</a>
+                        <a href="" class="select-dish">+</a>
                     </span>
-                </div>
+                </li>
                 {{/each}}
             </ul>
         </section>

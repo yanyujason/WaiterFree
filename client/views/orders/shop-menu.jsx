@@ -8,3 +8,10 @@ Template.shopMenu.helpers({
         return (Shops.findOne(this.shopId) || {}).menu;
     }
 });
+
+Template.shopMenu.events({
+    'click .select-dish': function() {
+        var orderId = Session.get('currentOrder');
+        Meteor.call('selectDish', orderId, this);
+    }
+});
