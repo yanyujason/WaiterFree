@@ -1,7 +1,7 @@
 Sub = new SubsManager();
 
 Sub.scriptDep = new Deps.Dependency();
-Sub.scriptReady = false;
+Sub.scriptReady = true;
 
 Sub.scripts = (srcs) => {
     Sub.scriptReady = false;

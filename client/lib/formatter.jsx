@@ -1,6 +1,9 @@
 Formatter = {
     money(price) {
-        return price ? `￥${price.toFixed(1)}` : '';
+        if(typeof price === 'number') {
+            return `￥${price.toFixed(1)}`;
+        }
+        return '';
     },
     imgPath(key) {
         if(!key) return '';

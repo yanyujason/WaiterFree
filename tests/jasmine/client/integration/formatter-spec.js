@@ -12,8 +12,12 @@ describe('Formatter', function () {
             expect(Formatter.money(14.59)).toBe('￥14.6');
         });
 
-        it('formats 0 to empty', function () {
-            expect(Formatter.money(0)).toBe('');
+        it('formats 0 to ￥0.0', function () {
+            expect(Formatter.money(0)).toBe('￥0.0');
+        });
+
+        it('formats false to empty', function () {
+            expect(Formatter.money(false)).toBe('');
         });
     });
 
