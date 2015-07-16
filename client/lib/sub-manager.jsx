@@ -2,6 +2,7 @@ Sub = new SubsManager();
 
 Sub.scriptDep = new Deps.Dependency();
 Sub.scriptReady = true;
+Sub.scriptList = [];
 
 Sub.scripts = (srcs) => {
     Sub.scriptReady = false;
@@ -16,12 +17,21 @@ Sub.scripts = (srcs) => {
     }
 
     srcs.forEach((src) => {
-        $.getScript(src).done(()=>{
+        if(!_.contains(Sub.scriptList, src)) {
+            $.ajax({
+                url: src,
+                cache: true,
+                dataType: 'script'
+            }).done(()=>{
+                Sub.scriptList.push(src);
+                checkFinish();
+            }).fail(()=> {
+                console.warn(`Script ${src} can not be loaded.`);
+                checkFinish();
+            });
+        } else {
             checkFinish();
-        }).fail(()=> {
-            console.warn(`Script ${src} can not be loaded.`);
-            checkFinish();
-        });
+        }
     });
 };
 

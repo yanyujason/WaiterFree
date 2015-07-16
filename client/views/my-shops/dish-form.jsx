@@ -46,7 +46,7 @@ Template.dishForm.onCreated(function() {
 Template.dishForm.onRendered(function() {
     Sub.scripts(['/javascripts/plupload.full.min.js', '/javascripts/qiniu-sdk.js']);
 
-    Tracker.autorun(() => {
+    this.autorun(() => {
         Sub.dep.depend();
         Sub.scriptDep.depend();
         if(Sub.ready && Sub.scriptReady) {
