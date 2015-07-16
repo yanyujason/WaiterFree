@@ -1,5 +1,6 @@
 describe('shopMenu', function () {
     beforeEach(function() {
+        Session.set('dishCategory', null);
         spyOn(Shops, 'findOne').and.returnValue({menu: {dishes: [{name: 'A'}, {name: 'B'}]}});
         renderTemplate(Template.shopMenu, {shopId: 'shop', tableId: 'table'});
     });

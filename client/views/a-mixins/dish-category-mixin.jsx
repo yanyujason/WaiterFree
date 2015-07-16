@@ -11,14 +11,13 @@ dishCategoryMixin.helpers({
     activeCategoryClass(tag) {
         return tag == Session.get('dishCategory') ? 'active' : '';
     },
-    getAllDishTags(dishes, originPriority) {
-        var all = originPriority;
-
+    getAllDishTags(dishes, originPriority=[]) {
+        var all = [];
+        all.push(...originPriority);
         _.each(dishes, (dish) => {
             all.push(...dish.tags);
         });
-
-        return _.uniq(all);
+        return _.uniq(_.compact(all));
     }
 });
 
