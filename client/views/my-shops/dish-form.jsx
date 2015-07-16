@@ -2,6 +2,28 @@ function isNewDish(dishId) {
     return !dishId;
 }
 
+function getAllDishTags(dishes) {
+    var all = [];
+
+    _.each(dishes, (dish) => {
+        all.push(dish.tags);
+    });
+
+    return _.uniq(_.flatten(all));
+}
+
+function allTags(shopID) {
+    var shop = Shops.findOne(shopID),
+      currentTags = getAllDishTags(shop.menu.dishes),
+      tags=[];
+    if(shop) {
+        for(var i = 0; i < currentTags.length; i++) {
+            tags.push({"id": i, "name": currentTags[i]});
+        }
+    }
+    return tags;
+}
+
 function initQiniuUploader(qiniuConfig) {
     Qiniu.uploader({
         runtimes: 'html5,flash,html4',
@@ -44,14 +66,20 @@ Template.dishForm.onCreated(function() {
 });
 
 Template.dishForm.onRendered(function() {
-    Sub.scripts(['/javascripts/plupload.full.min.js', '/javascripts/qiniu-sdk.js']);
+    Sub.scripts(['/javascripts/plupload.full.min.js', '/javascripts/qiniu-sdk.js', '/javascripts/jquery.tokeninput.js']);
 
     this.autorun(() => {
         Sub.dep.depend();
         Sub.scriptDep.depend();
+
         if(Sub.ready && Sub.scriptReady) {
             var qiniuConfig = QiniuConfig.findOne({name: 'qiniuConfig'});
             initQiniuUploader(qiniuConfig);
+            var tokenOptions = {
+                allowFreeTagging: true,
+                tokenValue: 'name'
+            };
+            $('.dish-form #tags').tokenInput(allTags(this.data.shopId), tokenOptions);
         }
     });
 });
