@@ -2,15 +2,15 @@
     <section>
         <aside>
             <ul>
-                <li>全部</li>
-                {{#each menu.tagPriority}}
-                <li>{{this}}</li>
+                <li><a href="" class="category {{activeCategoryClass}}">全部</a></li>
+                {{#each getAllDishTags menu.dishes menu.tagPriority}}
+                <li><a href="" class="category {{activeCategoryClass this}}" data-category="{{this}}">{{this}}</a></li>
                 {{/each}}
             </ul>
         </aside>
         <section>
             <ul class="menu">
-                {{#each menu.dishes}}
+                {{#each categoryDishes menu.dishes}}
                 <li>
                     <img src="{{imgPath img}}">
                     <span>{{name}}</span>

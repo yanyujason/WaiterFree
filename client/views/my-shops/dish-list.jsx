@@ -12,34 +12,11 @@ Template.dishList.helpers({
     }
 });
 
-Template.dishList.helpers({
-    categoryDishes(dishes) {
-        var tag = Session.get('dishCategory');
-        if (!tag) return dishes;
-        return _.filter(dishes, (dish) => {
-            return _.contains(dish.tags, tag);
-        });
-    },
-    activeCategoryClass(tag) {
-        return tag == Session.get('dishCategory') ? 'active' : '';
-    },
-    getAllDishTags(dishes, originPriority) {
-        var all = originPriority;
-
-        _.each(dishes, (dish) => {
-            all.push(dish.tags);
-        });
-
-        return _.uniq(_.flatten(all));
-    }
-});
-
 Template.dishList.events({
     'click .category': function (e) {
         var tag = $(e.target).data('category');
         Session.set('dishCategory', tag);
     },
-
     'click .delete-dish': function (e, template) {
         var dishId = this.dishId,
             shopId = template.data.shopId;
@@ -57,3 +34,5 @@ Template.dishList.events({
         });
     }
 });
+
+dishCategoryMixin.mixTo(Template.dishList);

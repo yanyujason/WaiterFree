@@ -10,8 +10,14 @@ Template.shopMenu.helpers({
 });
 
 Template.shopMenu.events({
+    'click .category': function (e) {
+        var tag = $(e.target).data('category');
+        Session.set('dishCategory', tag);
+    },
     'click .select-dish': function() {
         var orderId = Session.get('currentOrder');
         Meteor.call('selectDish', orderId, this);
     }
 });
+
+dishCategoryMixin.mixTo(Template.shopMenu);
