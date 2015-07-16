@@ -20,6 +20,11 @@ Meteor.methods({
     },
 
     removeDish(order, dish) {
+        if(!dish.serialId) {
+            dish = _.find(Orders.findOne(order).dishes, (d) => {
+                return d.dishId == dish.dishId;
+            });
+        }
         Orders.update(order, {$pull: {dishes: {serialId: dish.serialId}}, $inc: {price: -dish.price}});
     }
 });

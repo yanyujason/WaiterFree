@@ -13,7 +13,7 @@ describe('orders collection methods', function () {
             });
         });
 
-        it('creates new order for consumer who is login', function () {
+        it('creates new order for consumer who is login', function (done) {
             spyOn(Meteor, 'userId').and.returnValue('userId');
             Meteor.call('newOrder', 'uuid', 'shop', 'table', function(e, orderId) {
                 expect(orderId).toBeDefined();
@@ -59,15 +59,15 @@ describe('orders collection methods', function () {
         var orderId;
         beforeEach(function() {
             orderId = Orders.insert({user: 'uuid', shop: 'shop', table: 'table', price: 25, dishes: [
-                {name:'A', price: 10, serialId: 'id1'}, {name:'B', price: 15, serialId: 'id2'}
-            ], status: 'open'});
+                {dishId: 'idA', name:'A', price: 10, serialId: 'id1'}, {dishId: 'idB', name:'B', price: 15, serialId: 'id2'}
+            ]});
         });
 
         it('removes dish from order', function (done) {
             var dish = {name:'B', price: 15, serialId: 'id2'};
             Meteor.call('removeDish', orderId, dish, function() {
                 expect(Orders.findOne(orderId).dishes.length).toBe(1);
-                expect(Orders.findOne(orderId).dishes[0]).toEqual({name:'A', price: 10, serialId: 'id1'});
+                expect(Orders.findOne(orderId).dishes[0]).toEqual({dishId: 'idA', name:'A', price: 10, serialId: 'id1'});
                 done();
             });
         });
@@ -76,6 +76,15 @@ describe('orders collection methods', function () {
             var dish = {name:'B', price: 15, serialId: 'id2'};
             Meteor.call('removeDish', orderId, dish, function() {
                 expect(Orders.findOne(orderId).price).toBe(10);
+                done();
+            });
+        });
+
+        it('remove first dish from order if the dish dont have serialID', function (done) {
+            var dish = {dishId: 'idB'};
+            Meteor.call('removeDish', orderId, dish, function() {
+                expect(Orders.findOne(orderId).dishes.length).toBe(1);
+                expect(Orders.findOne(orderId).dishes[0]).toEqual({dishId: 'idA', name:'A', price: 10, serialId: 'id1'});
                 done();
             });
         });
