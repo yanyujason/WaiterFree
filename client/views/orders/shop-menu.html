@@ -1,24 +1,27 @@
 <template name="shopMenu">
     <section>
-        <aside>
-            <ul>
-                <li><a href="" class="category {{activeCategoryClass}}">全部</a></li>
+        <aside class="fixed-left">
+            <ul class="mobile-category">
+                <li class="{{activeCategoryClass}}"><a href="" class="category">全部</a></li>
                 {{#each getAllDishTags menu.dishes menu.tagPriority}}
-                <li><a href="" class="category {{activeCategoryClass this}}" data-category="{{this}}">{{this}}</a></li>
+                <li class="{{activeCategoryClass this}}"><a href="" class="category" data-category="{{this}}">{{this}}</a></li>
                 {{/each}}
             </ul>
         </aside>
-        <section>
+        <section class="scrollable-right">
             <ul class="menu">
                 {{#each categoryDishes menu.dishes}}
-                <li>
-                    <img src="{{imgPath img 's'}}">
-                    <span>{{name}}</span>
-                    <span>{{desc}}</span>
-                    <span>{{money price}}</span>
-                    <span>
-                        <a href="" class="select-dish">+</a>
-                    </span>
+                <li class="mobile-dish-box clearfix">
+                    <img class="dish-img" src="{{imgPath img 's'}}">
+                    <div class="dish-info">
+                        <p class="dish-name">{{name}}</p>
+                        <div>
+                            <span class="dish-price">
+                                {{money price}}
+                            </span>
+                            <a href="" class="select-dish pull-right">+</a>                        
+                        </div>
+                    </div>                    
                 </li>
                 {{/each}}
             </ul>
