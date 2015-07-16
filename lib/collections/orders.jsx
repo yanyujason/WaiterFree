@@ -15,6 +15,11 @@ Meteor.methods({
     },
 
     selectDish(order, dish) {
+        dish.serialId = Meteor.uuid();
         Orders.update(order, {$push: {dishes: dish}, $inc: {price: dish.price}});
+    },
+
+    removeDish(order, dish) {
+        Orders.update(order, {$pull: {dishes: {serialId: dish.serialId}}, $inc: {price: -dish.price}});
     }
 });
