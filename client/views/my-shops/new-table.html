@@ -1,18 +1,21 @@
 <template name="newTable">
-    <form class="new-table-form">
-        <div class="error-msg">{{generalError}}</div>
-        <div class="control-group {{errorClass 'name'}}">
-            <div class="error-msg">{{errorInfo 'name'}}</div>
-            <div class="flex-layout">
-                <label class="flex-1" for="name">桌台名称</label>
-                <input class="flex-4" id="name" name="name">
+    <div class="container">
+        <form class="new-table-form central-box info-box inline-form">
+            <h2 class="info-box-title">添加桌台</h2>
+            <div class="error-msg">{{generalError}}</div>
+            <div class="control-group {{errorClass 'name'}}">
+                <div class="error-msg">{{errorInfo 'name'}}</div>
+                <div class="flex-layout">
+                    <label class="flex-1" for="name">桌台名称</label>
+                    <input class="flex-4" id="name" name="name">
+                </div>
             </div>
-        </div>
 
-        <div class="control-group">
-            <input type="submit" class="submit btn" value="确定">
-            <input type="button" class="btn-cancel" value="取消">
-        </div>
-    </form>
+            <div class="control-group">
+                <input type="submit" class="submit btn" value="确定">
+                <input type="button" class="btn-cancel" value="取消">
+            </div>
+        </form>
+    </div>
 
 </template>

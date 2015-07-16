@@ -67,10 +67,12 @@
 		margin-left: @label-max-width + @label-margin-right;
 		margin-right: 10px;
 		border: none;
+		cursor: pointer;
 	}
 	.btn-cancel {
 		background-color: white;
 		padding: 8px 20px;
+		cursor: pointer;
 	}
 }
 .clearfix:after {
@@ -125,6 +127,7 @@
 	text-align: center;
 	width: 100px;
 	position: relative;
+	list-style: none;
 	img {
 		display: block;
 		width: 100%;
@@ -133,9 +136,12 @@
 	&:hover .delete-table{
 		display: block;
 	}
+	.table-name {
+		height: 24px;
+	}
 	.delete-table {
 		position: absolute;
-		top: 14px;
+		top: 12px;
 		right: -10px;
 		display: none;
 		background-color: #e84538;
