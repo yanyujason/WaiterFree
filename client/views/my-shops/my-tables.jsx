@@ -19,7 +19,7 @@ Template.myTables.events({
       shopId = template.data.shopId;
 
     Popups.confirm({
-      message: `确定要删除${this}吗？`,
+      message: `确定要删除${this.name}吗？`,
       buttonText: '删除',
       cancelButtonText: '取消'
     }, (isDelete) => {

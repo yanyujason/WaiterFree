@@ -4,7 +4,7 @@
         <div class="all-tables">
             {{#each tables}}
             <li class="table-box">
-                <p class="table-name">{{this}}</p>
+                <p class="table-name">{{name}}</p>
                 {{> qrCode shopId=../shopId tableId=tableId}}
                 <a href="#" class="delete-table">-</a>
             </li>
