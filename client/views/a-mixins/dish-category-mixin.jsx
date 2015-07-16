@@ -15,7 +15,8 @@ dishCategoryMixin.helpers({
         var all = [];
         all.push(...originPriority);
         _.each(dishes, (dish) => {
-            all.push(...dish.tags);
+            var tags = dish.tags || [];
+            all.push(...tags);
         });
         return _.uniq(_.compact(all));
     }
