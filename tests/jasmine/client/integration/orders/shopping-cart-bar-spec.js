@@ -2,6 +2,7 @@ describe('shoppingCartBar', function () {
     describe('onCreated', function () {
         beforeEach(function() {
             spyOn(localStorage, 'getItem').and.returnValue('userId');
+            Session.set('currentOrder', null);
         });
 
         it('creates new order when I dont have active order in this table', function () {
@@ -40,6 +41,9 @@ describe('shoppingCartBar', function () {
         });
 
         it('sets current order to Session for the existing order', function () {
+            spyOn(Sub, 'subscribe').and.callFake(function(sub, _uid, _sid, _tid, callback) {
+                if(sub === 'latestActiveOrder') {callback.onReady();}
+            });
             spyOn(Orders, 'findOne').and.returnValue({_id: 'order'});
 
             renderTemplate(Template.shoppingCartBar, {shopId: 'shop', tableId: 'table'});
