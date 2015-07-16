@@ -25,9 +25,9 @@
     processPrePopulate: false,
 
     // Display settings
-    hintText: "Type in a search term",
-    noResultsText: "No results",
-    searchingText: "Searching...",
+    hintText: "输入类别",
+    noResultsText: "没有结果",
+    searchingText: "搜索...",
     deleteText: "&#215;",
     animateDropdown: true,
     placeholder: null,
@@ -345,6 +345,7 @@
             break;
 
           case KEY.TAB:
+          case KEY.SPACE:
           case KEY.ENTER:
           case KEY.NUMPAD_ENTER:
           case KEY.COMMA:
