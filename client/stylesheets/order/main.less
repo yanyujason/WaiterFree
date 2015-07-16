@@ -1,6 +1,5 @@
 @order-header-height: 40px;
 @import '../modules';
-@theme-red: #bd2400;
 .new-order {
 	header {
 		background-color: @theme-red;
@@ -12,15 +11,33 @@
 		line-height: @order-header-height;
 		z-index: 1000;
 	}
+	footer {
+	  position: fixed;
+	  z-index: 1000;
+	  bottom: 0;
+	  background-color: #333;
+	  color: white;
+	  width: 100%;
+	  line-height: 40px;
+	  padding-left: 10px;
+	  .confirm-order {
+	  	display: inline-block;
+	  	color: white;
+	  	padding: 0 10px;
+	  	text-decoration: none;
+	  	background-color: @theme-second-red;
+	  }
+	}
 }
 
+@category-bg: #eee;
 .fixed-left {
 	min-width: 100px;
 	width: 30%;
 	position: fixed;
 	top: @order-header-height;
 	bottom: 0;
-	background-color: #eee;
+	background-color: @category-bg;
 }
 .scrollable-right {
 	min-width: 200px;
@@ -30,6 +47,8 @@
 	position: absolute;
 	top: @order-header-height;
 	margin-left: 30%;
+	bottom: 48px;
+	overflow: scroll;
 }
 .mobile-category {
 	li.active {
@@ -38,7 +57,8 @@
 	}
 	li {
 		padding: 10px 0 10px 5px;
-		border-left: 3px solid #ddd;
+		border-left: 3px solid @category-bg;
+		border-bottom: 1px solid #ddd;
 		a {
 			text-decoration: none;
 			color: #333;
