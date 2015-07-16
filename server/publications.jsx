@@ -16,7 +16,7 @@ Meteor.publish('myClerks', function (shopId) {
 });
 
 Meteor.publish('shop', function(shopId) {
-    return Shops.find({_id: shopId, boss: this.userId}, {fields: {clerks: 0, boss: 0}});
+    return Shops.find({_id: shopId}, {fields: {clerks: 0, boss: 0}});
 });
 
 Meteor.publish('activeOrders', function(userUniqId, shopId) {
