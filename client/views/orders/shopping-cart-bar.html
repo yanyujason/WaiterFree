@@ -1,7 +1,9 @@
 <template name="shoppingCartBar">
     <footer>
-        <span>{{money order.price}}</span>
-        <span>共{{order.dishes.length}}件</span>
+        <a class="total-price">
+            <span>{{money order.price}}</span>
+            <span>共{{order.dishes.length}}件</span>
+        </a>
         <a class="confirm-order pull-right" href="">确认下单</a>
     </footer>
 </template>
