@@ -1,16 +1,17 @@
 @order-header-height: 40px;
 @import '../modules';
+
+header.shop-info-header {
+  background-color: @theme-red;
+  color: white;
+  text-align: center;
+  position: fixed;
+  width: 100%;
+  height: @order-header-height;
+  line-height: @order-header-height;
+  z-index: 1000;
+}
 .new-order {
-  header {
-    background-color: @theme-red;
-    color: white;
-    text-align: center;
-    position: fixed;
-    width: 100%;
-    height: @order-header-height;
-    line-height: @order-header-height;
-    z-index: 1000;
-  }
   footer {
     position: fixed;
     z-index: 1000;
@@ -51,7 +52,7 @@
   top: @order-header-height;
   margin-left: 30%;
   bottom: 48px;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .mobile-category {
