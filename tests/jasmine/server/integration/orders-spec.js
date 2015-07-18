@@ -80,11 +80,19 @@ describe('orders collection methods', function () {
             });
         });
 
-        it('remove first dish from order if the dish dont have serialID', function (done) {
+        it('removes first dish from order if the dish dont have serialID', function (done) {
             var dish = {dishId: 'idB'};
             Meteor.call('removeDish', orderId, dish, function() {
                 expect(Orders.findOne(orderId).dishes.length).toBe(1);
                 expect(Orders.findOne(orderId).dishes[0]).toEqual({dishId: 'idA', name:'A', price: 10, serialId: 'id1'});
+                done();
+            });
+        });
+
+        it('removes nothing when no dish in order', function () {
+            var dish = {dishId: 'idC'};
+            Meteor.call('removeDish', orderId, dish, function() {
+                expect(Orders.findOne(orderId).dishes.length).toBe(2);
                 done();
             });
         });

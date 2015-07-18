@@ -21,5 +21,13 @@ describe('shopMenu', function () {
 
             expect(Meteor.call).toHaveBeenCalledWith('selectDish', 'order', {name: 'B'});
         });
+        it('removes dish from order when click .remove-dish', function () {
+            Session.set('currentOrder', 'order');
+            spyOn(Meteor, 'call');
+
+            $('ul.menu li').last().find('.remove-dish').click();
+
+            expect(Meteor.call).toHaveBeenCalledWith('removeDish', 'order', {name: 'B'});
+        });
     });
 });

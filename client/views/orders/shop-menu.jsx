@@ -17,6 +17,10 @@ Template.shopMenu.events({
     'click .select-dish': function() {
         var orderId = Session.get('currentOrder');
         Meteor.call('selectDish', orderId, this);
+    },
+    'click .remove-dish': function() {
+        var orderId = Session.get('currentOrder');
+        Meteor.call('removeDish', orderId, this);
     }
 });
 
