@@ -1,0 +1,24 @@
+<template name="shoppingCart">
+    <section>
+        <ul class="menu">
+            {{#each order.dishes}}
+            <li class="mobile-dish-box clearfix">
+                <img class="dish-img" src="{{imgPath img 's'}}"/>
+                <div class="dish-info">
+                    <p class="dish-name">{{name}}</p>
+                    <div>
+                        <span class="dish-price">
+                            {{money price}}
+                        </span>
+                        <a class="control-dish remove-dish pull-right" href="">-</a>
+                    </div>
+                </div>
+            </li>
+            {{/each}}
+        </ul>
+    </section>
+    <footer>
+        <a class="back-to-order" href="{{pathFor route='newOrder' shopId=shopId tableId=tableId}}">继续点单</a>
+        <a class="confirm-order pull-right" href="">确认下单</a>
+    </footer>
+</template>

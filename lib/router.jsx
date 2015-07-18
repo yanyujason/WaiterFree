@@ -103,6 +103,16 @@ Router.route('/orders/:shopId/:tableId', function() {
     var dataContext = {data: {shopId: this.params.shopId, tableId: this.params.tableId}};
     this.layout('orderLayout', dataContext);
     this.render('newOrder', dataContext);
+}, {
+    name: 'newOrder'
+});
+
+Router.route('/orders/:shopId/:tableId/cart', function() {
+    var dataContext = {data: {shopId: this.params.shopId, tableId: this.params.tableId}};
+    this.layout('orderLayout', dataContext);
+    this.render('shoppingCart', dataContext);
+}, {
+    name: 'shoppingCart'
 });
 
 function bossLoginFilter() {

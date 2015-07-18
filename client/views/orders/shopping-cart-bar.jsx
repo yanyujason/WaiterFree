@@ -1,12 +1,3 @@
-function userUniqId() {
-    var userUniqId = localStorage.getItem('userUniqId');
-    if(!userUniqId) {
-        userUniqId = Meteor.uuid();
-        localStorage.setItem('userUniqId', userUniqId);
-    }
-    return userUniqId;
-}
-
 Template.shoppingCartBar.onCreated(function() {
     var shopId = this.data.shopId,
         tableId = this.data.tableId;

@@ -1,6 +1,6 @@
 <template name="shoppingCartBar">
     <footer>
-        <a class="total-price">
+        <a class="total-price" href="{{pathFor route='shoppingCart' shopId=shopId tableId=tableId}}">
             <span>{{money order.price}}</span>
             <span>共{{order.dishes.length}}件</span>
         </a>
