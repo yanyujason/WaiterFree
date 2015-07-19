@@ -25,3 +25,7 @@ beforeEach(function() {
 afterEach(function() {
     $('.integration-fixture').remove();
 });
+
+afterEach(function() {
+    Sub.clear();
+});

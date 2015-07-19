@@ -15,9 +15,7 @@ Router.route('/my-shops', function() {
         Router.go('myShop', {shopId : Shops.findOne()._id});
     } else {
         this.layout('layout');
-        this.render('myShops', {
-            data: {shops: Shops.find()}
-        });
+        this.render('myShops');
     }
 }, {
     name: 'myShops',
