@@ -22,9 +22,14 @@ describe('Formatter', function () {
     });
 
     describe('imgPath', function () {
-        it('formats a.jpg m size to "http://domain.com/a.jpg?imageView2/1/w/330/h/220/format/jpg/interlace/1" if domain exist', function () {
+        it('formats a.jpg l size to "http://domain.com/a.jpg?imageView2/1/w/330/h/220/format/jpg/interlace/1" if domain exist', function () {
             spyOn(QiniuConfig, 'findOne').and.returnValue({domain: 'domain.com'});
-            expect(Formatter.imgPath('a.jpg')).toBe('http://domain.com/a.jpg?imageView2/1/w/330/h/220/format/jpg/interlace/1');
+            expect(Formatter.imgPath('a.jpg', 'l')).toBe('http://domain.com/a.jpg?imageView2/1/w/330/h/220/format/jpg/interlace/1');
+        });
+
+        it('formats a.jpg m size to "http://domain.com/a.jpg?imageView2/1/w/220/h/150/format/jpg/interlace/1" if domain exist', function () {
+            spyOn(QiniuConfig, 'findOne').and.returnValue({domain: 'domain.com'});
+            expect(Formatter.imgPath('a.jpg', 'm')).toBe('http://domain.com/a.jpg?imageView2/1/w/220/h/150/format/jpg/interlace/1');
         });
 
         it('formats a.jpg s size to "http://domain.com/a.jpg?imageView2/1/w/100/h/70/format/jpg/interlace/1" if domain exist', function () {
@@ -39,6 +44,12 @@ describe('Formatter', function () {
 
         it('formats empty string to "" if domain does not exist', function () {
             expect(Formatter.imgPath('')).toBe('');
+        });
+    });
+
+    describe('imgWithDefaultPath', function () {
+        it('formats empty to default img path', function () {
+            expect(Formatter.imgWithDefaultPath('')).toBe('/images/default-dish-img.png');
         });
     });
 });

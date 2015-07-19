@@ -8,7 +8,8 @@ Formatter = {
     imgPath(key, size='m') {
         if(!key) return '';
         var sizeMap = {
-            m: '/w/330/h/220',
+            l: '/w/330/h/220',
+            m: '/w/220/h/150',
             s: '/w/100/h/70'
         };
 
@@ -19,8 +20,14 @@ Formatter = {
         } else {
             return '/images/img-404.jpg';
         }
+    },
+    imgWithDefaultPath(key, size='m') {
+        if(!key) return '/images/default-dish-img.png';
+        return Formatter.imgPath(key, size);
     }
+
 };
 
 Template.registerHelper('money', Formatter.money);
 Template.registerHelper('imgPath', Formatter.imgPath);
+Template.registerHelper('imgWithDefaultPath', Formatter.imgWithDefaultPath);
