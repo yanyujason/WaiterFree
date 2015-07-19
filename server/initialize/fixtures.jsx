@@ -4,7 +4,6 @@ if((Meteor.settings.public || {}).appEnv !== 'production') {
             if(!reset) return;
             Meteor.users.remove({});
             Shops.remove({});
-            QiniuConfig.remove({});
             Orders.remove({});
 
             return 'All fixture removed!';
