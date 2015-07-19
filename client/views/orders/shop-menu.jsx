@@ -5,13 +5,19 @@ Template.shopMenu.onCreated(function() {
 
 Template.shopMenu.helpers({
     menu() {
-        return (Shops.findOne(this.shopId) || {}).menu;
+        return (Shops.findOne() || {}).menu;
     }
 });
 
 Template.shopMenu.helpers({
     dishSelected() {
-        return !!Orders.findOne({_id: Session.get('currentOrder'), 'dishes.dishId': this.dishId});
+        return !!Orders.findOne({'dishes.dishId': this.dishId});
+    },
+    selectedCount() {
+        var order = Orders.findOne() || {dishes: []};
+        return _.filter(order.dishes, (d) => {
+            return d.dishId == this.dishId;
+        }).length;
     }
 });
 

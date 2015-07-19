@@ -17,16 +17,21 @@ describe('shopMenu', function () {
     describe('helpers', function () {
         describe('dishSelected', function () {
             it('returns true when the dish is in the order', function () {
-                spyOn(Session, 'get').and.returnValue('orderId');
                 expect(callHelper(Template.shopMenu, 'dishSelected', {dishId: 'dish'})).toBe(true);
-                expect(Orders.findOne).toHaveBeenCalledWith({_id: 'orderId', 'dishes.dishId': 'dish'});
+                expect(Orders.findOne).toHaveBeenCalledWith({'dishes.dishId': 'dish'});
             });
 
             it('returns false when the dish is not in the order', function () {
-                spyOn(Session, 'get').and.returnValue('orderId');
                 Orders.findOne.and.returnValue(null);
                 expect(callHelper(Template.shopMenu, 'dishSelected', {dishId: 'dish'})).toBe(false);
-                expect(Orders.findOne).toHaveBeenCalledWith({_id: 'orderId', 'dishes.dishId': 'dish'});
+                expect(Orders.findOne).toHaveBeenCalledWith({'dishes.dishId': 'dish'});
+            });
+        });
+
+        describe('selectedCount', function () {
+            it('returns total selected count of this dish', function () {
+                Orders.findOne.and.returnValue({dishes: [{dishId: 'A'}, {dishId: 'B'}, {dishId: 'A'}]});
+                expect(callHelper(Template.shopMenu, 'selectedCount', {dishId: 'A'})).toBe(2);
             });
         });
     });

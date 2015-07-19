@@ -4,7 +4,7 @@ Template.newOrder.onCreated(function() {
     Sub.subscribe('latestActiveOrder', userUniqId(), shopId, tableId);
 
     Sub.onReady(() => {
-        var order = Orders.findOne({shop: shopId, table: tableId, status: 'open'});
+        var order = Orders.findOne();
         if(!order) {
             Meteor.call('newOrder', userUniqId(), shopId, tableId, (e, id) => {
                 Session.set('currentOrder', id);
