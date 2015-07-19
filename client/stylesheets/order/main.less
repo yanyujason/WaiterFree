@@ -22,6 +22,7 @@ header.shop-info-header {
     line-height: 40px;
     .total-price {
       padding: 0 10px;
+      text-decoration: none;
     }
     .confirm-order {
       display: inline-block;
@@ -29,6 +30,27 @@ header.shop-info-header {
       padding: 0 10px;
       text-decoration: none;
       background-color: @theme-second-red;
+    }
+    .shopping-cart {
+      display: inline-block;
+      margin-right: 20px;
+      position: relative;
+      .icon-cart {
+        font-size: 24px;
+      }
+      .total-count {
+        position: absolute;
+        width: 22px;
+        height: 22px;
+        border-radius: 100%;
+        background-color: #e84538;
+        color: white;
+        top: -5px;
+        right: -18px;
+        font-size: 0.8em;
+        text-align: center;
+        line-height: 22px;
+      }
     }
   }
 }
@@ -103,7 +125,7 @@ header.shop-info-header {
     font-size: 30px;
     text-align: center;
     line-height: 15px;
-    margin-right: 10px;
+    margin: 0 5px;
   }
 }
 

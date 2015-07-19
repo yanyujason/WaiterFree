@@ -16,13 +16,16 @@
                     <div class="dish-info">
                         <p class="dish-name">{{name}}</p>
                         <div>
-                            <span class="dish-price">
+                            <span class="dish-price pull-left">
                                 {{money price}}
                             </span>
-                            <a href="" class="control-dish select-dish pull-right">+</a>
-                            {{#if dishSelected}}
-                            <a href="" class="control-dish remove-dish pull-right">-</a>
-                            {{/if}}
+                            <div class="pull-right">
+                                {{#if dishSelected}}
+                                <a href="" class="control-dish remove-dish">-</a>
+                                {{/if}}
+                                <span class="dish-count">2</span>
+                                <a href="" class="control-dish select-dish">+</a>
+                            </div>
                         </div>
                     </div>                    
                 </li>
