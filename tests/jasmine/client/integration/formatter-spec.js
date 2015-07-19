@@ -27,9 +27,9 @@ describe('Formatter', function () {
             expect(Formatter.imgPath('a.jpg', 'l')).toBe('http://domain.com/a.jpg?imageView2/1/w/310/h/220/format/jpg/interlace/1');
         });
 
-        it('formats a.jpg m size to "http://domain.com/a.jpg?imageView2/1/w/200/h/140/format/jpg/interlace/1" if domain exist', function () {
+        it('formats a.jpg m size to "http://domain.com/a.jpg?imageView2/1/w/250/h/175/format/jpg/interlace/1" if domain exist', function () {
             spyOn(QiniuConfig, 'findOne').and.returnValue({domain: 'domain.com'});
-            expect(Formatter.imgPath('a.jpg', 'm')).toBe('http://domain.com/a.jpg?imageView2/1/w/200/h/140/format/jpg/interlace/1');
+            expect(Formatter.imgPath('a.jpg', 'm')).toBe('http://domain.com/a.jpg?imageView2/1/w/250/h/175/format/jpg/interlace/1');
         });
 
         it('formats a.jpg s size to "http://domain.com/a.jpg?imageView2/1/w/100/h/70/format/jpg/interlace/1" if domain exist', function () {

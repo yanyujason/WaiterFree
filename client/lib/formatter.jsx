@@ -9,7 +9,7 @@ Formatter = {
         if(!key) return '';
         var sizeMap = {
             l: '/w/310/h/220',
-            m: '/w/200/h/140',
+            m: '/w/250/h/175',
             s: '/w/100/h/70'
         };
 
