@@ -1,5 +1,6 @@
 <template name="shoppingCart">
     <section class="my-ordered-list">
+        {{#if order.dishes.length}}
         <ul class="menu">
             {{#each order.dishes}}
             <li class="mobile-dish-box clearfix">
@@ -15,12 +16,13 @@
             </li>
             {{/each}}
         </ul>
+        {{else}}
+        <p>您还没有点过单哦！</p>
+        {{/if}}
     </section>
     <footer class="mobile-order-footer">
         <span>{{money order.price}}</span>
         <a class="back-to-order" href="{{pathFor route='newOrder' shopId=shopId tableId=tableId}}">继续点单</a> 
         <a class="confirm-order pull-right" href="">确认下单</a>
-
-
     </footer>
 </template>
