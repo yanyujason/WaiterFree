@@ -15,9 +15,10 @@ Template.shopMenu.helpers({
     },
     selectedCount() {
         var order = Orders.findOne() || {dishes: []};
-        return _.filter(order.dishes, (d) => {
+        var count = _.filter(order.dishes, (d) => {
             return d.dishId == this.dishId;
         }).length;
+        return count || '';
     }
 });
 

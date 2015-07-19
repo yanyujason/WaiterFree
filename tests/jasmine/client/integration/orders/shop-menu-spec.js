@@ -29,9 +29,16 @@ describe('shopMenu', function () {
         });
 
         describe('selectedCount', function () {
-            it('returns total selected count of this dish', function () {
+            beforeEach(function() {
                 Orders.findOne.and.returnValue({dishes: [{dishId: 'A'}, {dishId: 'B'}, {dishId: 'A'}]});
+            });
+
+            it('returns total selected count of this dish', function () {
                 expect(callHelper(Template.shopMenu, 'selectedCount', {dishId: 'A'})).toBe(2);
+            });
+            
+            it('returns empty if this dish is not selected at all', function () {
+                expect(callHelper(Template.shopMenu, 'selectedCount', {dishId: 'C'})).toBe('');
             });
         });
     });
