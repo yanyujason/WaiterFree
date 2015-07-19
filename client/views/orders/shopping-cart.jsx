@@ -7,7 +7,7 @@ Template.shoppingCart.onCreated(function() {
 
 Template.shoppingCart.helpers({
     order() {
-        return Orders.findOne({shop: this.shopId, table: this.tableId, status: 'open'}, {sort: {createdAt: -1}});
+        return Orders.findOne() || {price: 0, dishes: []};
     }
 });
 
