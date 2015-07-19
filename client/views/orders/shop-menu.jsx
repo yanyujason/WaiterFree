@@ -9,6 +9,12 @@ Template.shopMenu.helpers({
     }
 });
 
+Template.shopMenu.helpers({
+    dishSelected() {
+        return !!Orders.findOne({_id: Session.get('currentOrder'), 'dishes.dishId': this.dishId});
+    }
+});
+
 Template.shopMenu.events({
     'click .category': function (e) {
         var tag = $(e.target).data('category');
