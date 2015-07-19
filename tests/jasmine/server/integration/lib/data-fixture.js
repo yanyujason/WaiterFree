@@ -1,3 +1,3 @@
-beforeEach(function () {
-    Meteor.call('clearDB');
+beforeEach(function (done) {
+    Meteor.call('clearDB', done);
 });
