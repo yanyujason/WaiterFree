@@ -8,8 +8,8 @@ Formatter = {
     imgPath(key, size='m') {
         if(!key) return '';
         var sizeMap = {
-            l: '/w/330/h/220',
-            m: '/w/220/h/150',
+            l: '/w/310/h/220',
+            m: '/w/200/h/140',
             s: '/w/100/h/70'
         };
 
