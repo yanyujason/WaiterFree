@@ -16,14 +16,14 @@ Router.route('/my-shops', function() {
     } else {
         this.layout('layout');
         this.render('myShops', {
-            data: {shops: Shops.find({})}
+            data: {shops: Shops.find()}
         });
     }
 }, {
     name: 'myShops',
     onBeforeAction: bossLoginFilter,
     waitOn() {
-        return Sub.subscribe('myShops');
+        return Meteor.subscribe('myShops');
     }
 });
 
@@ -101,7 +101,7 @@ Router.route('/my-shops/:shopId/tables/new', function () {
 
 Router.route('/orders/:shopId/:tableId', function() {
     var dataContext = {data: {shopId: this.params.shopId, tableId: this.params.tableId}};
-    this.layout('orderLayout', dataContext);
+    this.layout('newOrderLayout', dataContext);
     this.render('newOrder', dataContext);
 }, {
     name: 'newOrder'
@@ -109,7 +109,7 @@ Router.route('/orders/:shopId/:tableId', function() {
 
 Router.route('/orders/:shopId/:tableId/cart', function() {
     var dataContext = {data: {shopId: this.params.shopId, tableId: this.params.tableId}};
-    this.layout('orderLayout', dataContext);
+    this.layout('newOrderLayout', dataContext);
     this.render('shoppingCart', dataContext);
 }, {
     name: 'shoppingCart'

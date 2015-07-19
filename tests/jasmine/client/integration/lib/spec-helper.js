@@ -18,6 +18,10 @@ beforeEach(function() {
     $('body').append(fixture);
 });
 
+beforeEach(function() {
+    Sub = SubMgr('test');
+});
+
 afterEach(function() {
     $('.integration-fixture').remove();
 });
