@@ -1,24 +1,26 @@
 <template name="shoppingCart">
-    <section>
+    <section class="my-ordered-list">
         <ul class="menu">
             {{#each order.dishes}}
             <li class="mobile-dish-box clearfix">
-                <img class="dish-img" src="{{imgPath img 's'}}"/>
                 <div class="dish-info">
-                    <p class="dish-name">{{name}}</p>
-                    <div>
-                        <span class="dish-price">
-                            {{money price}}
-                        </span>
-                        <a class="control-dish remove-dish pull-right" href="">-</a>
+                    <span class="dish-name">{{name}}</span>
+                    <div class="pull-right">
+                        <span class="dish-price">{{money price}}</span>
+                        <a href="" class="control-dish remove-dish">-</a>
+                        <span class="dish-count">2</span>
+                        <a href="" class="control-dish select-dish">+</a>
                     </div>
                 </div>
             </li>
             {{/each}}
         </ul>
     </section>
-    <footer>
-        <a class="back-to-order" href="{{pathFor route='newOrder' shopId=shopId tableId=tableId}}">继续点单</a>
+    <footer class="mobile-order-footer">
+        <span>{{money order.price}}</span>
+        <a class="back-to-order" href="{{pathFor route='newOrder' shopId=shopId tableId=tableId}}">继续点单</a> 
         <a class="confirm-order pull-right" href="">确认下单</a>
+
+
     </footer>
 </template>

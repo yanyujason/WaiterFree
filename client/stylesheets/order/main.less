@@ -11,26 +11,33 @@ header.shop-info-header {
   line-height: @order-header-height;
   z-index: 1000;
 }
+.mobile-order-footer {
+  position: fixed;
+  z-index: 1000;
+  bottom: 0;
+  background-color: #333;
+  color: white;
+  width: 100%;
+  line-height: 40px;
+  .confirm-order {
+    display: inline-block;
+    color: white;
+    padding: 0 10px;
+    text-decoration: none;
+    background-color: @theme-second-red;
+  }
+  .back-to-order {
+    color: white;
+    margin-right: 10px;
+  }
+}
 .new-order {
   footer {
-    position: fixed;
-    z-index: 1000;
-    bottom: 0;
-    background-color: #333;
-    color: white;
-    width: 100%;
-    line-height: 40px;
     .total-price {
       padding: 0 10px;
       text-decoration: none;
     }
-    .confirm-order {
-      display: inline-block;
-      color: white;
-      padding: 0 10px;
-      text-decoration: none;
-      background-color: @theme-second-red;
-    }
+
     .shopping-cart {
       display: inline-block;
       margin-right: 20px;
@@ -131,4 +138,15 @@ header.shop-info-header {
 
 .total-price {
   color: #ffffff;
+}
+.my-ordered-list {
+  position: relative;
+  top: @order-header-height;
+  .dish-info {
+    width: 96%;
+    margin-right: 2%;
+  }
+  .dish-name {
+    line-height: 24px;
+  }
 }
