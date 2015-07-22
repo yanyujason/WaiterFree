@@ -198,8 +198,6 @@
     //
     // Initialization
     //
-    console.log(input);
-
     // Configure the data source
     if (typeof(url_or_data) === "string" || typeof(url_or_data) === "function") {
       // Set the url to query against

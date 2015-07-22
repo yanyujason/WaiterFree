@@ -17,6 +17,7 @@ Template.dishList.events({
         var tag = $(e.target).data('category');
         Session.set('dishCategory', tag);
     },
+
     'click .delete-dish': function (e, template) {
         var dishId = this.dishId,
             shopId = template.data.shopId;
