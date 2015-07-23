@@ -11,4 +11,10 @@ Template.shoppingCart.helpers({
     }
 });
 
+Template.shoppingCart.helpers({
+    totalPrice() {
+        return this.price * this.count;
+    }
+});
+
 orderDishControlMixin.mixTo(Template.shoppingCart);

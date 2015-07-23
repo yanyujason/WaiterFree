@@ -6,22 +6,20 @@ orderDishControlMixin.helpers({
     },
     selectedCount(zeroText = '') {
         var order = Orders.findOne() || {dishes: []};
-        var count = _.filter(order.dishes, (d) => {
+        var dish = _.find(order.dishes, (d) => {
             return d.dishId == this.dishId;
-        }).length;
-        return count || zeroText;
+        });
+        return dish ? dish.count : zeroText;
     }
 });
 
 orderDishControlMixin.events({
     'click .select-dish': function() {
-        var orderId = Orders.findOne()._id,
-            dish = _.find(Shops.findOne().menu.dishes, (d) => {return d.dishId == this.dishId;});
-        Meteor.call('selectDish', orderId, dish);
+        var orderId = Orders.findOne()._id;
+        Meteor.call('selectDish', orderId, this.dishId);
     },
     'click .remove-dish': function() {
-        var orderId = Orders.findOne()._id,
-            dish = _.find(Shops.findOne().menu.dishes, (d) => {return d.dishId == this.dishId;});
-        Meteor.call('removeDish', orderId, dish);
+        var orderId = Orders.findOne()._id;
+        Meteor.call('removeDish', orderId, this.dishId);
     }
 });

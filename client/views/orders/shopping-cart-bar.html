@@ -3,10 +3,13 @@
         <a class="total-price" href="{{pathFor route='shoppingCart' shopId=shopId tableId=tableId}}">
             <div class="shopping-cart">
 	            <span class="icon-cart"></span>
-	            <span class="total-count">{{order.dishes.length}}</span>
+	            <span class="total-count">{{order.dishCount}}</span>
             </div>
             <span>{{money order.price}}</span>
         </a>
+        {{#if showBack}}
+        <a class="back-to-order" href="{{pathFor route='newOrder' shopId=shopId tableId=tableId}}">继续点单</a>
+        {{/if}}
         <a class="confirm-order pull-right" href="">确认下单</a>
     </footer>
 </template>

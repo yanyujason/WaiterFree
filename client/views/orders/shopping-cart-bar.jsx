@@ -6,6 +6,6 @@ Template.shoppingCartBar.onCreated(function() {
 
 Template.shoppingCartBar.helpers({
     order() {
-        return Orders.findOne() || {price: 0, dishes: []};
+        return Orders.findOne() || {price: 0, dishCount: 0};
     }
 });

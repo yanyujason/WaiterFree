@@ -20,7 +20,7 @@ describe('orderDishControlMixin', function () {
 
         describe('selectedCount', function () {
             beforeEach(function() {
-                spyOn(Orders, 'findOne').and.returnValue({dishes: [{dishId: 'A'}, {dishId: 'B'}, {dishId: 'A'}]});
+                spyOn(Orders, 'findOne').and.returnValue({dishes: [{dishId: 'A', count: 2}, {dishId: 'B', count: 1}]});
             });
 
             it('returns total selected count of this dish', function () {
@@ -44,7 +44,7 @@ describe('orderDishControlMixin', function () {
                 beforeEach(function() {
                     Session.set('dishCategory', null);
                     spyOn(Shops, 'findOne').and.returnValue({menu: {dishes: [{dishId: 'idA', name: 'A'}, {dishId: 'idB', name: 'B'}]}});
-                    spyOn(Orders, 'findOne').and.returnValue({_id: 'order', dishes: [{dishId: 'idA', name: 'A'}]});
+                    spyOn(Orders, 'findOne').and.returnValue({_id: 'order', dishes: [{dishId: 'idA', name: 'A'}, {dishId: 'idB', name: 'B'}]});
                     renderTemplate(Template[t], {shopId: 'shop', tableId: 'table', dishId: 'idB'});
                 });
 
@@ -53,7 +53,7 @@ describe('orderDishControlMixin', function () {
 
                     $('.select-dish').last().click();
 
-                    expect(Meteor.call).toHaveBeenCalledWith('selectDish', 'order', jasmine.any(Object));
+                    expect(Meteor.call).toHaveBeenCalledWith('selectDish', 'order', 'idB');
                 });
 
                 it('removes dish from order when click .remove-dish', function () {
@@ -61,7 +61,7 @@ describe('orderDishControlMixin', function () {
 
                     $('.remove-dish').last().click();
 
-                    expect(Meteor.call).toHaveBeenCalledWith('removeDish', 'order', jasmine.any(Object));
+                    expect(Meteor.call).toHaveBeenCalledWith('removeDish', 'order', 'idB');
                 });
             });
         });

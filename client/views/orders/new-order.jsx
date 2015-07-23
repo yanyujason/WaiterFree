@@ -10,3 +10,9 @@ Template.newOrder.onCreated(function() {
         }
     });
 });
+
+Template.newOrder.helpers({
+    order() {
+        return Orders.findOne() || {price: 0, dishCount:0};
+    }
+});

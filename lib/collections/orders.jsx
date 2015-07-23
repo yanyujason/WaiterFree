@@ -8,25 +8,37 @@ Meteor.methods({
             table: tableId,
             price: 0,
             dishes: [],
+            dishCount: 0,
             createdAt: new Date(),
             status: 'open'
         };
         return Orders.insert(order);
     },
 
-    selectDish(order, dish) {
-        dish.serialId = Meteor.uuid();
-        Orders.update(order, {$push: {dishes: dish}, $inc: {price: dish.price}});
+    selectDish(order, dishId) {
+        var shop = Shops.findOne({'menu.dishes.dishId': dishId}) || {menu: {dishes: []}};
+        var dish = _.find(shop.menu.dishes, (d) => {return d.dishId == dishId});
+        if(dish) {
+            if(Orders.find({_id: order, 'dishes.dishId': dish.dishId}).count()) {
+                Orders.update({_id: order, 'dishes.dishId': dish.dishId},
+                    {$inc: {price: dish.price, dishCount: 1, 'dishes.$.count': 1}});
+            } else {
+                dish.count = 1;
+                Orders.update(order, {$push: {dishes: dish}, $inc: {price: dish.price, dishCount: 1}});
+            }
+        } else {
+            throw new Meteor.Error('菜品不存在');
+        }
     },
 
-    removeDish(order, dish) {
-        if(dish && !dish.serialId) {
-            dish = _.find(Orders.findOne(order).dishes, (d) => {
-                return d.dishId == dish.dishId;
-            });
-        }
-        if(dish) {
-            Orders.update(order, {$pull: {dishes: {serialId: dish.serialId}}, $inc: {price: -dish.price}});
+    removeDish(order, dishId) {
+        var orderWithDish = Orders.findOne({_id: order, 'dishes.dishId': dishId});
+        var dish = _.find(orderWithDish.dishes, (d) => {return d.dishId == dishId});
+        if(dish.count >= 2) {
+            Orders.update({_id: order, 'dishes.dishId': dish.dishId},
+                {$inc: {price: -dish.price, dishCount: -1, 'dishes.$.count': -1}});
+        } else if(dish.count == 1) {
+            Orders.update(order, {$pull: {dishes: {dishId: dish.dishId}}, $inc: {price: -dish.price, dishCount: -1}});
         }
     }
 });

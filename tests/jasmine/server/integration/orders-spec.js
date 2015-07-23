@@ -31,68 +31,74 @@ describe('orders collection methods', function () {
     describe('select dish', function () {
         var orderId;
         beforeEach(function() {
-            orderId = Orders.insert({user: 'uuid', shop: 'shop', table: 'table', price: 0, dishes: [], status: 'open'});
+            orderId = Orders.insert({user: 'uuid', shop: 'shop', table: 'table', price: 0, dishCount: 0, dishes: [], status: 'open'});
+            spyOn(Shops, 'findOne').and.returnValue({menu:{dishes: [{dishId: 'A', price: 10}, {dishId: 'B', price: 15}]}});
         });
 
-        it('pushes dish to order', function (done) {
-            spyOn(Meteor, 'uuid').and.returnValue('uuid');
-            var dish = {name: 'dish', price: 10};
-            Meteor.call('selectDish', orderId, dish, function() {
+        it('pushes dish to order and increase total price', function (done) {
+            Meteor.call('selectDish', orderId, 'A', function() {
+                expect(Orders.findOne(orderId).price).toBe(10);
+                expect(Orders.findOne(orderId).dishCount).toBe(1);
+
                 expect(Orders.findOne(orderId).dishes.length).toBe(1);
                 expect(Orders.findOne(orderId).dishes[0]).toEqual({
-                    name: 'dish', price: 10, serialId: 'uuid'
+                    dishId: 'A', price: 10, count: 1
                 });
                 done();
             });
         });
 
-        it('increases total price', function(done) {
-            var dish = {name: 'dish', price: 10};
-            Meteor.call('selectDish', orderId, dish, function() {
-                expect(Orders.findOne(orderId).price).toBe(10);
-                done();
+        it('increases dish count', function (done) {
+            Meteor.call('selectDish', orderId, 'A', function() {
+                Meteor.call('selectDish', orderId, 'A', function() {
+                    expect(Orders.findOne(orderId).price).toBe(20);
+                    expect(Orders.findOne(orderId).dishCount).toBe(2);
+
+                    expect(Orders.findOne(orderId).dishes.length).toBe(1);
+                    expect(Orders.findOne(orderId).dishes[0]).toEqual({
+                        dishId: 'A', price: 10, count: 2
+                    });
+                    done();
+                });
             });
-        })
+        });
     });
 
     describe('remove dish', function () {
         var orderId;
         beforeEach(function() {
-            orderId = Orders.insert({user: 'uuid', shop: 'shop', table: 'table', price: 25, dishes: [
-                {dishId: 'idA', name:'A', price: 10, serialId: 'id1'}, {dishId: 'idB', name:'B', price: 15, serialId: 'id2'}
+            orderId = Orders.insert({user: 'uuid', shop: 'shop', table: 'table', price: 40, dishCount: 3, dishes: [
+                {dishId: 'idA', name:'A', price: 10, count: 1}, {dishId: 'idB', name:'B', price: 15, count: 2}
             ]});
         });
 
-        it('removes dish from order', function (done) {
-            var dish = {name:'B', price: 15, serialId: 'id2'};
-            Meteor.call('removeDish', orderId, dish, function() {
+        it('removes dish from order and decrease total price', function (done) {
+            Meteor.call('removeDish', orderId, 'idA', function() {
+                expect(Orders.findOne(orderId).price).toBe(30);
+                expect(Orders.findOne(orderId).dishCount).toBe(2);
+
                 expect(Orders.findOne(orderId).dishes.length).toBe(1);
-                expect(Orders.findOne(orderId).dishes[0]).toEqual({dishId: 'idA', name:'A', price: 10, serialId: 'id1'});
+                expect(Orders.findOne(orderId).dishes[0]).toEqual({dishId: 'idB', name:'B', price: 15, count: 2});
                 done();
             });
         });
 
-        it('decreases price from order', function (done) {
-            var dish = {name:'B', price: 15, serialId: 'id2'};
-            Meteor.call('removeDish', orderId, dish, function() {
-                expect(Orders.findOne(orderId).price).toBe(10);
-                done();
-            });
-        });
+        it('decreases dish count', function () {
+            Meteor.call('removeDish', orderId, 'idB', function() {
+                expect(Orders.findOne(orderId).price).toBe(25);
+                expect(Orders.findOne(orderId).dishCount).toBe(2);
 
-        it('removes first dish from order if the dish dont have serialID', function (done) {
-            var dish = {dishId: 'idB'};
-            Meteor.call('removeDish', orderId, dish, function() {
-                expect(Orders.findOne(orderId).dishes.length).toBe(1);
-                expect(Orders.findOne(orderId).dishes[0]).toEqual({dishId: 'idA', name:'A', price: 10, serialId: 'id1'});
-                done();
-            });
-        });
-
-        it('removes nothing when no dish in order', function () {
-            var dish = {dishId: 'idC'};
-            Meteor.call('removeDish', orderId, dish, function() {
                 expect(Orders.findOne(orderId).dishes.length).toBe(2);
+                expect(Orders.findOne(orderId).dishes[0]).toEqual({dishId: 'idA', name:'A', price: 10, count: 1});
+                expect(Orders.findOne(orderId).dishes[1]).toEqual({dishId: 'idB', name:'B', price: 15, count: 1});
+                done();
+            });
+        });
+
+        it('does nothing when dish is not in order', function () {
+            Meteor.call('removeDish', orderId, 'idC', function() {
+                expect(Orders.findOne(orderId).price).toBe(40);
+                expect(Orders.findOne(orderId).dishCount).toBe(3);
                 done();
             });
         });
