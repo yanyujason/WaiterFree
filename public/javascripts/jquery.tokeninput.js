@@ -257,7 +257,7 @@
           return false;
         } else
         if ($(input).data("settings").tokenLimit === null || $(input).data("settings").tokenLimit !== token_count) {
-          show_dropdown_hint();
+          show_dropdown_hint(url_or_data);
         }
         token_list.addClass($(input).data("settings").classes.focused);
       })
@@ -272,6 +272,17 @@
         token_list.removeClass($(input).data("settings").classes.focused);
       })
       .bind("keyup keydown blur update", resize_input)
+      .keyup(function(event) {
+        switch(event.keyCode) {
+          case KEY.TAB:
+          case KEY.SPACE:
+          case KEY.ENTER:
+          case KEY.NUMPAD_ENTER:
+          case KEY.COMMA:
+            show_dropdown_hint(url_or_data);
+            return false;
+        }
+      })
       .keydown(function (event) {
         var previous_token;
         var next_token;
@@ -319,7 +330,6 @@
 
               select_dropdown_item(dropdown_item);
             }
-
             break;
 
           case KEY.BACKSPACE:
@@ -347,6 +357,7 @@
           case KEY.ENTER:
           case KEY.NUMPAD_ENTER:
           case KEY.COMMA:
+            show_dropdown_hint(url_or_data);
             if(selected_dropdown_item) {
               add_token($(selected_dropdown_item).data("tokeninput"));
               hiddenInput.change();
@@ -816,9 +827,14 @@
       }
     }
 
-    function show_dropdown_hint () {
-      if($(input).data("settings").hintText) {
-        dropdown.html("<p>" + escapeHTML($(input).data("settings").hintText) + "</p>");
+    function show_dropdown_hint (data) {
+      var allTags = "";
+      for (var i = 0; i < data.length; i++) {
+        allTags += escapeHTML(data[i].name) + " ";
+      }
+
+      if(allTags) {
+        dropdown.html("<p>" + allTags + "</p>");
         show_dropdown();
       }
     }
