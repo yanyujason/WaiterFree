@@ -14,7 +14,7 @@
                 <li class="mobile-dish-box clearfix">
                     <img class="dish-img" src="{{imgWithDefaultPath img 's'}}">
                     <div class="dish-info">
-                        <p class="dish-name">{{name}}</p>
+                        <a class="dish-name" href="{{pathFor route='orderDishDetails' shopId=../shopId tableId=../tableId dishId=dishId}}">{{name}}</a>
                         <div>
                             <span class="dish-price pull-left">
                                 {{money price}}

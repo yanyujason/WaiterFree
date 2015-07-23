@@ -11,9 +11,4 @@ Template.shoppingCart.helpers({
     }
 });
 
-Template.shoppingCart.events({
-    'click .remove-dish': function() {
-        var orderId = Session.get('currentOrder');
-        Meteor.call('removeDish', orderId, this);
-    }
-});
+orderDishControlMixin.mixTo(Template.shoppingCart);

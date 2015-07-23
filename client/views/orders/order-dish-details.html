@@ -1,0 +1,25 @@
+<template name="orderDishDetails">
+    <section>
+        <div>
+            <p class="dish-name">{{dish.name}}</p>
+            <img src="{{imgWithDefaultPath dish.img 'l'}}"/>
+            <ul class="dish-tags">
+                {{#each dish.tags}}
+                <li class="dish-tag">{{this}}</li>
+                {{/each}}
+            </ul>
+            <p class="dish-desc">{{dish.desc}}</p>
+            <p class="dish-price">{{money dish.price}}</p>
+            <div class="control">
+                {{#if dishSelected}}
+                <a href="" class="control-dish remove-dish">-</a>
+                {{/if}}
+                <span class="dish-count">{{selectedCount}}</span>
+                <a href="" class="control-dish select-dish">+</a>
+            </div>
+        </div>
+    </section>
+    <footer class="mobile-order-footer">
+        <a class="back-to-order" href="{{pathFor route='newOrder' shopId=shopId tableId=tableId}}">继续点单</a>
+    </footer>
+</template>

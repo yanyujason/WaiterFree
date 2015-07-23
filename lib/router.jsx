@@ -113,6 +113,14 @@ Router.route('/orders/:shopId/:tableId/cart', function() {
     name: 'shoppingCart'
 });
 
+Router.route('/orders/:shopId/:tableId/dish/:dishId', function() {
+    var dataContext = {data: {shopId: this.params.shopId, tableId: this.params.tableId, dishId: this.params.dishId}};
+    this.layout('newOrderLayout', dataContext);
+    this.render('orderDishDetails', dataContext);
+}, {
+    name: 'orderDishDetails'
+});
+
 function bossLoginFilter() {
     if(Meteor.userId()) {
         this.next();

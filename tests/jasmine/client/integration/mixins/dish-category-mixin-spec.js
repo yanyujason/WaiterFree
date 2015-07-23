@@ -9,19 +9,19 @@ describe('dishCategoryMixin', function () {
 
             it('returns all dishes when current tag is not set', function () {
                 Session.set('dishCategory', null);
-                expect(callHelper(Template.dishList, 'categoryDishes', {}, [dishes])).toEqual(dishes);
+                expect(callHelper(dishCategoryMixin, 'categoryDishes', {}, [dishes])).toEqual(dishes);
             });
 
             it('returns dishes ["A", "AB"] when current tag is "A"', function () {
                 Session.set('dishCategory', 'A');
-                expect(callHelper(Template.dishList, 'categoryDishes', {}, [dishes])).toEqual(
+                expect(callHelper(dishCategoryMixin, 'categoryDishes', {}, [dishes])).toEqual(
                     [{name:'A', tags:['A']}, {name:'AB', tags:['A','B']}]
                 );
             });
 
             it('returns dishes [] when current tag is out of scope', function () {
                 Session.set('dishCategory', 'OutOfScope');
-                expect(callHelper(Template.dishList, 'categoryDishes', {}, [dishes])).toEqual([]);
+                expect(callHelper(dishCategoryMixin, 'categoryDishes', {}, [dishes])).toEqual([]);
             });
         });
 
@@ -47,18 +47,22 @@ describe('dishCategoryMixin', function () {
     });
 
     describe('events', function () {
-        beforeEach(function() {
-            spyOn(Shops, 'findOne').and.returnValue({menu: {dishes: [], tagPriority: ['a', 'b']}});
-            renderTemplate(Template.dishList);
-        });
+        ['shopMenu', 'shoppingCart', 'orderDishDetails'].forEach(function(t) {
+            describe('at Template ' + t, function () {
+                beforeEach(function() {
+                    spyOn(Shops, 'findOne').and.returnValue({menu: {dishes: [], tagPriority: ['a', 'b']}});
+                    renderTemplate(Template.dishList);
+                });
 
-        it('changes active category when click on category', function (done) {
-            $('.category[data-category=b]').click();
+                it('changes active category when click on category', function (done) {
+                    $('.category[data-category=b]').click();
 
-            Tracker.afterFlush(function() {
-                expect(Session.get('dishCategory')).toBe('b');
-                expect($('.category[data-category=b]')).toHaveClass('active');
-                done();
+                    Tracker.afterFlush(function() {
+                        expect(Session.get('dishCategory')).toBe('b');
+                        expect($('.category[data-category=b]')).toHaveClass('active');
+                        done();
+                    });
+                });
             });
         });
     });

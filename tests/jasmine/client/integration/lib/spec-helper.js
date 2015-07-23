@@ -3,6 +3,8 @@ callHelper = function(template, helperName, context, args) {
     args = args || [];
     if(template === Template) {
         return Blaze._globalHelpers[helperName].apply(context, args);
+    } else if(template instanceof Mixin) {
+        return template.helperObj[helperName].apply(context, args);
     } else {
         return template.__helpers[' ' + helperName].apply(context, args);
     }

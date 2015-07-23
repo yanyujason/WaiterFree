@@ -23,10 +23,6 @@ class MixinLocal {
         _.extend(this.helperObj, helpers);
     }
 
-    /**
-     * Don't use this events mixin, how to test it has not be established
-     * @param events
-     */
     events(events) {
         _.extend(this.eventObj, events);
     }

@@ -1,0 +1,15 @@
+Template.orderDishDetails.onCreated(function() {
+    Sub.subscribe('shop', this.data.shopId);
+    Sub.subscribe('qiniuConfig');
+});
+
+Template.orderDishDetails.helpers({
+    dish() {
+        var shop = Shops.findOne();
+        if(shop) {
+            return _.find(shop.menu.dishes, (d) => {return d.dishId == this.dishId;});
+        }
+    }
+});
+
+orderDishControlMixin.mixTo(Template.orderDishDetails);
