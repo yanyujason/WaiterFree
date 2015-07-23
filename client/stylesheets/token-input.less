@@ -60,6 +60,11 @@ li.token-input-token p {
   float: left;
   padding: 0;
   margin: 0;
+  word-break: break-all;
+  width: 120px;
+  overflow: hidden;
+  height: 20px;
+  line-height: 20px;
 }
 
 li.token-input-token span {
@@ -131,13 +136,18 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {
 }
 
 .flex-layout li.token-input-token {
-  width: auto;
+  width: 140px;
   min-width: 70px;
   float: left;
+  height: 20px;
+  line-height: 20px;
+  max-height: 52px;
 }
 
 .flex-layout .token-input-list {
   height: 18px;
-  max-width: 300px;
+  max-width: 315px;
   min-width: 290px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
 }
