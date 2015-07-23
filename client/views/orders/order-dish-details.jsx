@@ -5,7 +5,7 @@ Template.orderDishDetails.onCreated(function() {
 
 Template.orderDishDetails.helpers({
     dish() {
-        var shop = Shops.findOne();
+        var shop = Shops.findOne(this.shopId);
         if(shop) {
             return _.find(shop.menu.dishes, (d) => {return d.dishId == this.dishId;});
         }
