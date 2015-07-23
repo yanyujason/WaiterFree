@@ -44,12 +44,11 @@ describe('orderDishControlMixin', function () {
                 beforeEach(function() {
                     Session.set('dishCategory', null);
                     spyOn(Shops, 'findOne').and.returnValue({menu: {dishes: [{dishId: 'idA', name: 'A'}, {dishId: 'idB', name: 'B'}]}});
-                    spyOn(Orders, 'findOne').and.returnValue({dishes: [{dishId: 'idA', name: 'A'}]});
+                    spyOn(Orders, 'findOne').and.returnValue({_id: 'order', dishes: [{dishId: 'idA', name: 'A'}]});
                     renderTemplate(Template[t], {shopId: 'shop', tableId: 'table', dishId: 'idB'});
                 });
 
                 it('selects dish to order when click .select-dish', function () {
-                    Session.set('currentOrder', 'order');
                     spyOn(Meteor, 'call');
 
                     $('.select-dish').last().click();
@@ -58,7 +57,6 @@ describe('orderDishControlMixin', function () {
                 });
 
                 it('removes dish from order when click .remove-dish', function () {
-                    Session.set('currentOrder', 'order');
                     spyOn(Meteor, 'call');
 
                     $('.remove-dish').last().click();

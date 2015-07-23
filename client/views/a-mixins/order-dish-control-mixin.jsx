@@ -15,13 +15,13 @@ orderDishControlMixin.helpers({
 
 orderDishControlMixin.events({
     'click .select-dish': function() {
-        var orderId = Session.get('currentOrder'),
-            dish = _.find(Shops.findOne(this.shopId).menu.dishes, (d) => {return d.dishId == this.dishId;});
+        var orderId = Orders.findOne()._id,
+            dish = _.find(Shops.findOne().menu.dishes, (d) => {return d.dishId == this.dishId;});
         Meteor.call('selectDish', orderId, dish);
     },
     'click .remove-dish': function() {
-        var orderId = Session.get('currentOrder'),
-            dish = _.find(Shops.findOne(this.shopId).menu.dishes, (d) => {return d.dishId == this.dishId;});
+        var orderId = Orders.findOne()._id,
+            dish = _.find(Shops.findOne().menu.dishes, (d) => {return d.dishId == this.dishId;});
         Meteor.call('removeDish', orderId, dish);
     }
 });

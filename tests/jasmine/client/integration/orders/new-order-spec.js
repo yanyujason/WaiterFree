@@ -12,18 +12,7 @@ describe('newOrder', function () {
 
             renderTemplate(Template.newOrder, {shopId: 'shop', tableId: 'table'});
 
-            expect(Meteor.call).toHaveBeenCalledWith('newOrder', 'userId', 'shop', 'table', jasmine.any(Function));
-        });
-
-        it('sets current order to Session for the new order', function () {
-            spyOn(Orders, 'findOne').and.returnValue(null);
-            spyOn(Meteor, 'call').and.callFake(function(m, uid, sid, tid, cb) {
-                cb(null, 'order');
-            });
-
-            renderTemplate(Template.newOrder, {shopId: 'shop', tableId: 'table'});
-
-            expect(Session.get('currentOrder')).toBe('order');
+            expect(Meteor.call).toHaveBeenCalledWith('newOrder', 'userId', 'shop', 'table');
         });
 
         it('does not create new order when I have the order on this table', function () {
@@ -33,14 +22,6 @@ describe('newOrder', function () {
             renderTemplate(Template.newOrder, {shopId: 'shop', tableId: 'table'});
 
             expect(Meteor.call).not.toHaveBeenCalled();
-        });
-
-        it('sets current order to Session for the existing order', function () {
-            spyOn(Orders, 'findOne').and.returnValue({_id: 'order'});
-
-            renderTemplate(Template.newOrder, {shopId: 'shop', tableId: 'table'});
-
-            expect(Session.get('currentOrder')).toBe('order');
         });
     });
 });

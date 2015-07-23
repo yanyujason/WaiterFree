@@ -6,11 +6,7 @@ Template.newOrder.onCreated(function() {
     Sub.onReady(() => {
         var order = Orders.findOne();
         if(!order) {
-            Meteor.call('newOrder', userUniqId(), shopId, tableId, (e, id) => {
-                Session.set('currentOrder', id);
-            });
-        } else {
-            Session.set('currentOrder', order._id);
+            Meteor.call('newOrder', userUniqId(), shopId, tableId)
         }
     });
 });

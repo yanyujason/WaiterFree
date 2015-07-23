@@ -1,5 +1,6 @@
 Template.orderDishDetails.onCreated(function() {
     Sub.subscribe('shop', this.data.shopId);
+    Sub.subscribe('latestActiveOrder', userUniqId(), this.data.shopId, this.data.tableId);
     Sub.subscribe('qiniuConfig');
 });
 
