@@ -19,3 +19,22 @@ Template.confirmOrder.helpers({
         return a > b;
     }
 });
+
+Template.confirmOrder.events({
+    'click .confirm-order': function() {
+        var orderId = Orders.findOne()._id;
+        var remark = $('textarea[name=remark]').val();
+
+        Popups.confirm({
+            message: '确认要提交订单吗？',
+            buttonText: '确认',
+            cancelButtonText: '取消'
+        }, (isConfirmed) => {
+            if(isConfirmed) {
+                Meteor.call('confirmOrder', orderId, remark, function(e) {
+                    if(e) return throwError(e);
+                })
+            }
+        })
+    }
+});
