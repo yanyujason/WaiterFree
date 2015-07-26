@@ -121,6 +121,14 @@ Router.route('/orders/:shopId/:tableId/dish/:dishId', function() {
     name: 'orderDishDetails'
 });
 
+Router.route('/orders/:shopId/:tableId/confirm', function() {
+    var dataContext = {data: {shopId: this.params.shopId, tableId: this.params.tableId}};
+    this.layout('newOrderLayout', dataContext);
+    this.render('confirmOrder', dataContext);
+}, {
+    name: 'confirmOrder'
+});
+
 function bossLoginFilter() {
     if(Meteor.userId()) {
         this.next();
