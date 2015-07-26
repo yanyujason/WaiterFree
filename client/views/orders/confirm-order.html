@@ -7,8 +7,12 @@
             <li>
                 <span>{{name}}</span>
                 <span>{{money price}}</span>
+                {{#if gt count 1}}
+                <span>*</span>
                 <span>{{count}}</span>
+                <span>=</span>
                 <span>{{money totalPrice}}</span>
+                {{/if}}
             </li>
             {{/each}}
         </ul>

@@ -11,8 +11,11 @@ Template.confirmOrder.helpers({
     }
 });
 
-Template.shoppingCart.helpers({
+Template.confirmOrder.helpers({
     totalPrice() {
         return this.price * this.count;
+    },
+    gt(a, b) {
+        return a > b;
     }
 });
