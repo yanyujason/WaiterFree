@@ -9,6 +9,7 @@ Meteor.methods({
             price: 0,
             dishes: [],
             dishCount: 0,
+            remark: '',
             createdAt: new Date(),
             status: 'open'
         };
@@ -40,5 +41,14 @@ Meteor.methods({
         } else if(dish.count == 1) {
             Orders.update(order, {$pull: {dishes: {dishId: dish.dishId}}, $inc: {price: -dish.price, dishCount: -1}});
         }
+    },
+
+    confirmOrder(order, remark) {
+        var updateOrder = {
+            remark: remark,
+            status: 'confirmed',
+            updatedAt: new Date()
+        };
+        Orders.update(order, {$set: updateOrder});
     }
 });

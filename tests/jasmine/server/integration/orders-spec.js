@@ -103,4 +103,34 @@ describe('orders collection methods', function () {
             });
         });
     });
+
+    describe('confirm order', function () {
+        var orderId;
+        beforeEach(function() {
+            orderId = Orders.insert({user: 'uuid', shop: 'shop', table: 'table', price: 40, dishCount: 3, dishes: [
+                {dishId: 'idA', name:'A', price: 10, count: 1}, {dishId: 'idB', name:'B', price: 15, count: 2}
+            ]});
+        });
+
+        it('changes order status', function (done) {
+            Meteor.call('confirmOrder', orderId, '', function() {
+                expect(Orders.findOne(orderId).status).toBe('confirmed');
+                done();
+            });
+        });
+
+        it('update order remark', function (done) {
+            Meteor.call('confirmOrder', orderId, 'this is remark', function() {
+                expect(Orders.findOne(orderId).remark).toBe('this is remark');
+                done();
+            });
+        });
+
+        it('sets updatedAt time stamp', function () {
+            Meteor.call('confirmOrder', orderId, '', function() {
+                expect(Orders.findOne(orderId).updatedAt).toBeDefined();
+                done();
+            });
+        });
+    });
 });
