@@ -9,3 +9,15 @@ Template.shoppingCartBar.helpers({
         return Orders.findOne() || {price: 0, dishCount: 0};
     }
 });
+
+Template.shoppingCartBar.events ({
+    'click .confirm-order': function(e) {
+        if(!Orders.findOne().price) {
+            e.preventDefault();
+            Popups.alert({
+                message: `您还未点单哦~`,
+                buttonText: '继续点单'
+            });
+        }
+    }
+});

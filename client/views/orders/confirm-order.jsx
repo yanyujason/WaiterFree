@@ -22,9 +22,9 @@ Template.confirmOrder.helpers({
 
 Template.confirmOrder.events({
     'click .confirm-order': function() {
-        var orderId = Orders.findOne()._id;
-        var remark = $('textarea[name=remark]').val();
-        var invoiceTitle = $('input[name=invoiceTitle]').val();
+        var orderId = Orders.findOne()._id,
+            remark = $('textarea[name=remark]').val(),
+            invoiceTitle = $('input[name=invoiceTitle]').val();
 
         Popups.confirm({
             message: '确认要提交订单吗？',
