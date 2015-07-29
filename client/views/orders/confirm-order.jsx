@@ -24,6 +24,7 @@ Template.confirmOrder.events({
     'click .confirm-order': function() {
         var orderId = Orders.findOne()._id;
         var remark = $('textarea[name=remark]').val();
+        var invoiceTitle = $('input[name=invoiceTitle]').val();
 
         Popups.confirm({
             message: '确认要提交订单吗？',
@@ -31,10 +32,15 @@ Template.confirmOrder.events({
             cancelButtonText: '取消'
         }, (isConfirmed) => {
             if(isConfirmed) {
-                Meteor.call('confirmOrder', orderId, remark, function(e) {
+                Meteor.call('confirmOrder', orderId, remark, invoiceTitle, function(e) {
                     if(e) return throwError(e);
                 })
             }
         })
+    },
+
+    'click .request-invoice': function() {
+        $('.request-invoice').hide();
+        $('.invoice-section').show();
     }
 });

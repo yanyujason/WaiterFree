@@ -43,9 +43,10 @@ Meteor.methods({
         }
     },
 
-    confirmOrder(order, remark) {
+    confirmOrder(order, remark, invoiceTitle) {
         var updateOrder = {
             remark: remark,
+            invoiceTitle: invoiceTitle,
             status: 'confirmed',
             updatedAt: new Date()
         };

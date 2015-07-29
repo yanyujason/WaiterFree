@@ -113,21 +113,28 @@ describe('orders collection methods', function () {
         });
 
         it('changes order status', function (done) {
-            Meteor.call('confirmOrder', orderId, '', function() {
+            Meteor.call('confirmOrder', orderId, '', '', function() {
                 expect(Orders.findOne(orderId).status).toBe('confirmed');
                 done();
             });
         });
 
         it('update order remark', function (done) {
-            Meteor.call('confirmOrder', orderId, 'this is remark', function() {
+            Meteor.call('confirmOrder', orderId, 'this is remark', '', function() {
                 expect(Orders.findOne(orderId).remark).toBe('this is remark');
                 done();
             });
         });
 
+        it('update order invoice title', function (done) {
+            Meteor.call('confirmOrder', orderId, 'this is remark', 'title', function() {
+                expect(Orders.findOne(orderId).invoiceTitle).toBe('title');
+                done();
+            });
+        });
+
         it('sets updatedAt time stamp', function () {
-            Meteor.call('confirmOrder', orderId, '', function() {
+            Meteor.call('confirmOrder', orderId, '', '', function() {
                 expect(Orders.findOne(orderId).updatedAt).toBeDefined();
                 done();
             });

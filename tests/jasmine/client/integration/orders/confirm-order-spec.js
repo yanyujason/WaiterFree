@@ -20,10 +20,11 @@ describe('confirm order', function () {
                     cb(true);
                 });
                 $('textarea[name=remark]').val('this is remark');
+                $('input[name=invoiceTitle]').val('invoice');
 
                 $('.confirm-order').click();
 
-                expect(Meteor.call).toHaveBeenCalledWith('confirmOrder', 'orderId', 'this is remark', jasmine.any(Function));
+                expect(Meteor.call).toHaveBeenCalledWith('confirmOrder', 'orderId', 'this is remark', 'invoice', jasmine.any(Function));
             });
 
             it('calls nothing when disagree the confirm popup', function () {
