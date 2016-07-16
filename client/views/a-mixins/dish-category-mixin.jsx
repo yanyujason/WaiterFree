@@ -11,6 +11,9 @@ dishCategoryMixin.helpers({
     activeCategoryClass(tag) {
         return tag == Session.get('dishCategory') ? 'active' : '';
     },
+    test(tag) {
+        return tag == Session.get('dishCategory') ? 'active' : '';
+    },
     getAllDishTags(dishes, originPriority=[]) {
         var all = [];
         all.push(...originPriority);
